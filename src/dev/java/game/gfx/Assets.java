@@ -11,20 +11,25 @@ public class Assets {
 
     public static Font font28, font20;
 
+    //tiles
     public static BufferedImage grass,grassStone,dirt,dirtStone;
     public static BufferedImage pathVertical, pathHorizontal, pathCornerUpRight, pathCornerUpLeft, pathCornerDownLeft, pathCornerDownRight;
     public static BufferedImage [] water;
 
+    //entities
     public static BufferedImage invisible, tree;
     public static BufferedImage wood;
 
+    //player
     public static BufferedImage player_neutral;
     public static BufferedImage [] player_down, player_up, player_left, player_right;
     public static BufferedImage [] attack_down, attack_up, attack_left, attack_right;
 
+    //UI
     public static BufferedImage [] button_start, button_settings, button_back;
     public static BufferedImage [] button_up, button_down;
     public static BufferedImage horizontalSlideTrack, horizontalSlider, horizontalTickMark, verticalSlideTrack, verticalSlider, verticalTickMark;
+    public static BufferedImage inventoryScreen;
 
     //SDK stuff
     public static BufferedImage [] button_SDK, button_new, button_save;
@@ -33,7 +38,6 @@ public class Assets {
     public static BufferedImage [] tree_SDK;
     //
 
-    public static BufferedImage inventoryScreen;
 
     public static void init(){
         font28 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 28);
