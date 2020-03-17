@@ -19,6 +19,7 @@ public class Assets {
     //entities
     public static BufferedImage invisible, tree;
     public static BufferedImage wood;
+    public static BufferedImage[] npcCrab;
 
     //player
     public static BufferedImage player_neutral;
@@ -46,6 +47,7 @@ public class Assets {
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
+        SpriteSheet crabSheet = new SpriteSheet(ImageLoader.loadImage("/texture/crab.png"));
 
 
         inventoryScreen = ImageLoader.loadImage("/texture/InventoryScreen.png");
@@ -104,6 +106,9 @@ public class Assets {
         attack_left[0] = sheet.crop(0,height*3,width,height);
         attack_left[1] = sheet.crop(0,height*3,width,height);
         attack_left[2] = sheet.crop(0,height*3,width,height);
+
+        //npc
+        npcCrab = loadSpriteAsArray(crabSheet, 6, 4, 64, 64);
 
         grass = townTiles.crop(0,height,width,height);
         grassStone = sheet1.crop(width*3,height,width,height);
@@ -174,6 +179,22 @@ public class Assets {
         tree_SDK = new BufferedImage[2];
         tree_SDK[0] = tree;
         tree_SDK[1] = sheet.crop(width,height*3,width,height);
+    }
+    /**
+     * @param xBlocks number of sub images in the width of the SpriteSheet
+     * @param yBlocks number of sub images in the height of the SpriteSheet
+     * @param height the height of a sub image, in pixels
+     * @param width the width of a sub image, in pixels
+     * @return the array of sub images in order
+     */
+    public static BufferedImage[] loadSpriteAsArray(SpriteSheet spriteSheet, int xBlocks, int yBlocks, int height, int width){
+        BufferedImage[] images = new BufferedImage[xBlocks*yBlocks];
+        for(int y = 0; y < yBlocks; y++){
+            for(int x = 1; x <= xBlocks; x++){
+                images[y * xBlocks + x - 1] = spriteSheet.crop((x-1)*width, y*height, width, height);
+            }
+        }
+        return images;
     }
 
 }

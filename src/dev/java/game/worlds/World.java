@@ -4,6 +4,7 @@ import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.EntityManager;
 import dev.java.game.entities.creatures.Player;
+import dev.java.game.entities.creatures.npc.NPC1;
 import dev.java.game.entities.statics.AirWall;
 import dev.java.game.entities.statics.Tree;
 import dev.java.game.items.ItemManager;
@@ -113,6 +114,8 @@ public class World {
             return new AirWall(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
         }else if(id == 2) {
             return new Tree(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
+        }else if(id == 3) {
+            return new NPC1(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
         }else{
             return null;
         }

@@ -26,4 +26,10 @@ public abstract class NPC extends Creature {
 
     protected abstract void assignMission(int missionID);
 
+    @Override
+    public void update() {
+        if(interactionCheck()){
+            interact();
+        }
+    }
 }

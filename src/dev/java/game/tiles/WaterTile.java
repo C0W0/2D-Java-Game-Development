@@ -6,7 +6,7 @@ import dev.java.game.gfx.Assets;
 public class WaterTile extends Tile {
 
     public WaterTile(int id) {
-        super(new Animation(300, Assets.water, false), id);
+        super(new Animation(100, Assets.water, false), id);
     }
 
     @Override
