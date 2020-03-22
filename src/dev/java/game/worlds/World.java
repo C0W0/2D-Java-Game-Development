@@ -84,7 +84,7 @@ public class World {
         //loading the entity file
         loadedEntities = Utils.loadFileAsArrayList(entityPath);
         for(int i = 0; i < loadedEntities.size(); i++){
-            String[] entities = loadedEntities.get(0).split("\\s+");
+            String[] entities = loadedEntities.get(i).split("\\s+");
             entityManager.addEntity(getEntityWithID(Utils.parseInt(entities[0]), // id
                     Utils.parseInt(entities[1]), Utils.parseInt(entities[2]), // initial x and y
                     Utils.parseInt(entities[3]), Utils.parseInt(entities[4]), // offset x and y
@@ -190,21 +190,22 @@ public class World {
      * @param status pass in 0 if not applicable
      */
     public void setLocationEntity(int entityX, int entityY, int status){
-        removeLocationEntity(entityX, entityY);
+        if(getEntity(entityX, entityY) != null && getEntity(entityX, entityY).getId() == sdkEntityID)
+            return;
+        removeLocationEntity(entityX, entityY, 0);
         String e = sdkEntityID +" "+entityX+" "+entityY+" 0 0 "+status;
         loadedEntities.add(e);
         entityManager.getEntities().add(getEntityWithID(sdkEntityID, entityX, entityY, 0, 0, status));
     }
 
-    public void removeLocationEntity(int entityX, int entityY){
+    public void removeLocationEntity(int entityX, int entityY, int precision){
         for(int i = 0; i < entityManager.getEntities().size(); i++){
-            if( ((int)(entityManager.getEntities().get(i).getX()) >= entityX - 32 ||
-                    (int)(entityManager.getEntities().get(i).getX()) <= entityX + 32 )
+            if( ((int)(entityManager.getEntities().get(i).getX()) >= entityX - precision &&
+                    (int)(entityManager.getEntities().get(i).getX()) <= entityX + precision )
                     &&
-                    ((int)(entityManager.getEntities().get(i).getY()) >= entityY - 32 ||
-                            (int)(entityManager.getEntities().get(i).getY()) <= entityY + 32 ))
+                    ((int)(entityManager.getEntities().get(i).getY()) >= entityY - precision &&
+                            (int)(entityManager.getEntities().get(i).getY()) <= entityY + precision ))
             {
-
                 if (entityManager.getEntities().get(i) != player) {
                     entityManager.getEntities().get(i).setActive(false);
                 }
@@ -212,11 +213,11 @@ public class World {
         }
         int k = 0;
         for(int i = 0; i < loadedEntities.size() - k; i++){
-            if( (Utils.parseInt(loadedEntities.get(i).split("\\s+")[1]) >= entityX - 32 ||
-                    (Utils.parseInt(loadedEntities.get(i).split("\\s+")[1])) <= entityX + 32 )
+            if( (Utils.parseInt(loadedEntities.get(i).split("\\s+")[1]) >= entityX - precision &&
+                    (Utils.parseInt(loadedEntities.get(i).split("\\s+")[1])) <= entityX + precision )
                     &&
-                    (Utils.parseInt(loadedEntities.get(i).split("\\s+")[2])) >= entityY - 32 ||
-                            (Utils.parseInt(loadedEntities.get(i).split("\\s+")[2])) <= entityY + 32 )
+                    (Utils.parseInt(loadedEntities.get(i).split("\\s+")[2])) >= entityY - precision &&
+                            (Utils.parseInt(loadedEntities.get(i).split("\\s+")[2])) <= entityY + precision )
             {
                 loadedEntities.remove(i);
                 i --;
@@ -245,8 +246,8 @@ public class World {
     }
 
     public void resetLocationEntity(int entityX, int entityY){
-        removeLocationEntity(entityX, entityY);
-        ArrayList<String> originalEntity = new ArrayList<>();
+        removeLocationEntity(entityX, entityY, 32);
+        ArrayList<String> originalEntity;
         originalEntity = Utils.loadFileAsArrayList(entityPath);
         for(int i = 0; i < originalEntity.size(); i++){
             if((Utils.parseInt(originalEntity.get(i).split("\\s+")[1]) == entityX) &&

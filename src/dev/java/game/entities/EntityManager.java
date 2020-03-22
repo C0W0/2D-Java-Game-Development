@@ -44,7 +44,7 @@ public class EntityManager {
             Entity e = it.next();
             e.update();
             if(!e.isActive()){
-                handler.getWorld().removeLocationEntity((int)(e.getX()/ Tile.TILEWIDTH),(int)(e.getY()/ Tile.TILEHEIGHT));
+                handler.getWorld().removeLocationEntity((int)(e.getX()),(int)(e.getY()), 0);
                 it.remove();
             }
         }

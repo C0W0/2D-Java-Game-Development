@@ -12,7 +12,6 @@ public class MapSizingClicker implements ClickListener {
     private Handler handler;
     private UIImageButton mapSave;
     private IntSupplier widthSupplier, heightSupplier, spawnXSupplier, spawnYSupplier;
-//    private Slider widthSlider, heightSlider, spawnXSlider, spawnYSlider;
 
     public MapSizingClicker(Handler handler, IntSupplier widthSupplier, IntSupplier heightSupplier, IntSupplier spawnXSupplier, IntSupplier spawnYSupplier){
         mapSave = new UIImageButton(80,128,64,32, Assets.button_save, new MapSaveClicker());
@@ -23,10 +22,6 @@ public class MapSizingClicker implements ClickListener {
         this.heightSupplier = heightSupplier;
         this.spawnXSupplier = spawnXSupplier;
         this.spawnYSupplier = spawnYSupplier;
-//        this.widthSlider = widthSlider;
-//        this.heightSlider = heightSlider;
-//        this.spawnXSlider = spawnXSlider;
-//        this.spawnYSlider = spawnYSlider;
 
     }
 

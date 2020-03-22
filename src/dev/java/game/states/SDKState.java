@@ -17,7 +17,7 @@ public class SDKState extends State {
     private World world;
     private UIManager uiManager;
     private boolean isHovering;
-    private Slider heightSlider, widthSlider;
+    private Slider heightSlider, widthSlider, entityOffsetXSlider, entityOffsetYSlider;
 
     public SDKState(Handler handler){
         super(handler);
@@ -25,21 +25,29 @@ public class SDKState extends State {
     }
 
     private void leftClick(int x, int y){
-//        x = (int)((x+handler.getGameCamera().getxOffset()) / Tile.TILEWIDTH);
-//        y = (int)((y+handler.getGameCamera().getyOffset()) / Tile.TILEHEIGHT);
+        x = (int)(x+handler.getGameCamera().getxOffset());
+        y = (int)(y+handler.getGameCamera().getyOffset());
         if(handler.getWorld().isEntityEditing()){
+            x = x + entityOffsetXSlider.getValue();
+            y = y + entityOffsetYSlider.getValue();
             handler.getWorld().setLocationEntity(x, y, 0);
         } else{
+            x = x / Tile.TILEWIDTH;
+            y = y / Tile.TILEHEIGHT;
             handler.getWorld().setTile(x, y);
         }
     }
 
     private void rightClick(int x, int y){
-        x = (int)((x+handler.getGameCamera().getxOffset()) / Tile.TILEWIDTH);
-        y = (int)((y+handler.getGameCamera().getyOffset()) / Tile.TILEHEIGHT);
+        x = (int)(x+handler.getGameCamera().getxOffset());
+        y = (int)(y+handler.getGameCamera().getyOffset());
         if(handler.getWorld().isEntityEditing()){
-            handler.getWorld().removeLocationEntity(x, y);
+            x = x + entityOffsetXSlider.getValue();
+            y = y + entityOffsetYSlider.getValue();
+            handler.getWorld().removeLocationEntity(x, y, 32);
         } else {
+            x = x / Tile.TILEWIDTH;
+            y = y / Tile.TILEHEIGHT;
             handler.getWorld().resetTile(x, y);
         }
     }
@@ -88,7 +96,7 @@ public class SDKState extends State {
     @Override
     public void init() {
         SliderAdjuster heightUp, heightDown, widthUp, widthDown, spawnXUp, spawnXDown, spawnYUp, spawnYDown;
-        Slider spawnXSlider, spawnYSlider, entityOffsetXSlider, entityOffsetYSlider;
+        Slider spawnXSlider, spawnYSlider;
         entityOffsetXSlider = new Slider(true, handler.getWidth()-256, 32, 128, 32, 32, -32, 8, "x-offset:");
         entityOffsetYSlider = new Slider(true, handler.getWidth()-256, 96, 128, 32, 32, -32, 8, "y-offset:");
         world = new World(handler,"res/worlds/worldSDK");
