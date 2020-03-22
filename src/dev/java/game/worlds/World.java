@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class World {
 
@@ -31,8 +32,7 @@ public class World {
     //entities
     private EntityManager entityManager;
     private Player player;
-    private Entity[][] worldEntities;
-    private int[] loadedEntities;
+    private ArrayList<String> loadedEntities = new ArrayList<>();
 
     //items
     private ItemManager itemManager;
@@ -67,15 +67,13 @@ public class World {
 
     private void loadWorld(String path){
         //loading the map file
-        String file = Utils.loadFileAsString(mapPath);
-        String[] tokens = file.split("\\s+");
+        String[] tokens = Utils.loadFileAsString(mapPath).split("\\s+");
         width = Utils.parseInt(tokens[0]);
         height = Utils.parseInt(tokens[1]);
         spawnX = Utils.parseInt(tokens[2]);
         spawnY = Utils.parseInt(tokens[3]);
 
         worldTiles = new int[width][height];
-        worldEntities = new Entity[width][height];
 
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
@@ -84,38 +82,35 @@ public class World {
         }
 
         //loading the entity file
-        file = Utils.loadFileAsString(entityPath);
-        String[] entities = file.split("\\s+");
-        loadedEntities = new int[entities.length];
-        for(int i = 0; i < entities.length; i++){
-            loadedEntities[i] = Utils.parseInt(entities[i]);
+        loadedEntities = Utils.loadFileAsArrayList(entityPath);
+        for(int i = 0; i < loadedEntities.size(); i++){
+            String[] entities = loadedEntities.get(0).split("\\s+");
+            entityManager.addEntity(getEntityWithID(Utils.parseInt(entities[0]), // id
+                    Utils.parseInt(entities[1]), Utils.parseInt(entities[2]), // initial x and y
+                    Utils.parseInt(entities[3]), Utils.parseInt(entities[4]), // offset x and y
+                    Utils.parseInt(entities[5]))); // status
         }
 
 
-        for(int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++){
-                worldEntities[x][y] = getEntityWithID(loadedEntities[x+y*width], x, y);
-            }
-        }
-
-        for(int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++){
-                if(worldEntities[x][y] != null){
-                    Entity tempEntity = worldEntities[x][y];
-                    entityManager.addEntity(tempEntity);
-                }
-            }
-        }
 
     }
 
-    public Entity getEntityWithID(int id, int x, int y){
+    /**
+     *
+     * @param id the id of the entity
+     * @param x the initial x position of the entity
+     * @param y the initial y position of the entity
+     * @param ox the current x position (offset x) of the entity, pass in 0 if not applicable
+     * @param oy the current y position (offset y) of the entity, pass in 0 if not applicable
+     * @param status the status of the entity, pass in 0 if not applicable
+     */
+    public Entity getEntityWithID(int id, int x, int y, int ox, int oy, int status){
         if(id == 1) {
-            return new AirWall(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
+            return new AirWall(handler, x, y);
         }else if(id == 2) {
-            return new Tree(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
+            return new Tree(handler, x, y);
         }else if(id == 3) {
-            return new NPC1(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
+            return new NPC1(handler, x, y);
         }else{
             return null;
         }
@@ -134,15 +129,17 @@ public class World {
     }
 
     public Entity getEntity(int x, int y){
-        if(x < 0 || y < 0 || x >= width || y >= height){
+        if(x < 0 || y < 0 || x >= width*64 || y >= height*64){
             return null;
         }
 
-        Entity e = worldEntities[x][y];//get the tile type located at (x,y)
-        if(e == null){
-            return null;
+        for(int i = 0; i < entityManager.getEntities().size(); i++){
+            if(entityManager.getEntities().get(i).getX() == x &&
+            entityManager.getEntities().get(i).getY() == y){
+                return entityManager.getEntities().get(i);
+            }
         }
-        return e;
+        return null;
     }
 
     public void update(){
@@ -167,7 +164,8 @@ public class World {
 
         for(int y = yStart; y < yEnd; y++){
             for(int x = xStart; x < xEnd; x++){
-                getTile(x,y).render(graphics,(int)(x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),(int)(y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
+                getTile(x,y).render(graphics,(int)(x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
+                        (int)(y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
             }
         }
 
@@ -187,29 +185,44 @@ public class World {
 
     }
 
-    public void setLocationEntity(int entityX, int entityY){
-        if(worldEntities[entityX][entityY] != null){
-            if(worldEntities[entityX][entityY].getId() == sdkEntityID){
-                return;
-            }
-        }
+    /**
+     *
+     * @param status pass in 0 if not applicable
+     */
+    public void setLocationEntity(int entityX, int entityY, int status){
         removeLocationEntity(entityX, entityY);
-        worldEntities[entityX][entityY] = getEntityWithID(sdkEntityID, entityX, entityY);
-        entityManager.getEntities().add(worldEntities[entityX][entityY]);
-
+        String e = sdkEntityID +" "+entityX+" "+entityY+" 0 0 "+status;
+        loadedEntities.add(e);
+        entityManager.getEntities().add(getEntityWithID(sdkEntityID, entityX, entityY, 0, 0, status));
     }
 
     public void removeLocationEntity(int entityX, int entityY){
         for(int i = 0; i < entityManager.getEntities().size(); i++){
-            if((int)(entityManager.getEntities().get(i).getX() / Tile.TILEWIDTH) == entityX &&
-                    (int)(entityManager.getEntities().get(i).getY() / Tile.TILEHEIGHT) == entityY)
+            if( ((int)(entityManager.getEntities().get(i).getX()) >= entityX - 32 ||
+                    (int)(entityManager.getEntities().get(i).getX()) <= entityX + 32 )
+                    &&
+                    ((int)(entityManager.getEntities().get(i).getY()) >= entityY - 32 ||
+                            (int)(entityManager.getEntities().get(i).getY()) <= entityY + 32 ))
             {
-                if(entityManager.getEntities().get(i) != player){
+
+                if (entityManager.getEntities().get(i) != player) {
                     entityManager.getEntities().get(i).setActive(false);
                 }
             }
         }
-        worldEntities[entityX][entityY] = null;
+        int k = 0;
+        for(int i = 0; i < loadedEntities.size() - k; i++){
+            if( (Utils.parseInt(loadedEntities.get(i).split("\\s+")[1]) >= entityX - 32 ||
+                    (Utils.parseInt(loadedEntities.get(i).split("\\s+")[1])) <= entityX + 32 )
+                    &&
+                    (Utils.parseInt(loadedEntities.get(i).split("\\s+")[2])) >= entityY - 32 ||
+                            (Utils.parseInt(loadedEntities.get(i).split("\\s+")[2])) <= entityY + 32 )
+            {
+                loadedEntities.remove(i);
+                i --;
+                k ++;
+            }
+        }
     }
 
     public void resetTile(int tileX, int tileY){
@@ -232,28 +245,25 @@ public class World {
     }
 
     public void resetLocationEntity(int entityX, int entityY){
-
-        String[] tokens = Utils.loadFileAsString(entityPath).split("\\s+");
-        for(int i = 0; i < tokens.length; i++){
-            loadedEntities[i] = Utils.parseInt(tokens[i]);
-        }
         removeLocationEntity(entityX, entityY);
-        worldEntities[entityX][entityY] = getEntityWithID(loadedEntities[entityX+entityY*width], entityX, entityY);
-        entityManager.getEntities().add(worldEntities[entityX][entityY]);
+        ArrayList<String> originalEntity = new ArrayList<>();
+        originalEntity = Utils.loadFileAsArrayList(entityPath);
+        for(int i = 0; i < originalEntity.size(); i++){
+            if((Utils.parseInt(originalEntity.get(i).split("\\s+")[1]) == entityX) &&
+                    (Utils.parseInt(originalEntity.get(i).split("\\s+")[2]) == entityY))
+            {
+                loadedEntities.add(originalEntity.get(i));
+                String[] temp = originalEntity.get(i).split("\\s+");
+                entityManager.getEntities().add(getEntityWithID(Utils.parseInt(temp[0]),
+                        Utils.parseInt(temp[1]), Utils.parseInt(temp[2]),
+                        Utils.parseInt(temp[3]), Utils.parseInt(temp[4]),
+                        Utils.parseInt(temp[5])));
+            }
+        }
 
     }
 
     public void saveMap(){
-
-        for(int y = 0; y < height; y++){
-            for(int x = 0; x < width; x++){
-                if(worldEntities[x][y] == null){
-                    loadedEntities[x+y*width] = 0;
-                } else{
-                    loadedEntities[x+y*width] = worldEntities[x][y].getId();
-                }
-            }
-        }
 
         if(mapFile.exists()){
             mapFile.delete();
@@ -281,11 +291,8 @@ public class World {
             entityFile.createNewFile();
 
             PrintWriter entityEditor = new PrintWriter(entityFile);
-            for(int y = 0; y < height; y++){
-                for(int x = 0; x < width; x++){
-                    entityEditor.print(loadedEntities[x+y*width]+" ");
-                }
-                entityEditor.println();
+            for(int i = 0; i < loadedEntities.size(); i++){
+                entityEditor.println(loadedEntities.get(i));
             }
             entityEditor.close();
 
@@ -314,13 +321,7 @@ public class World {
             entityFile.delete();
         }
 
-        for(int y = 0; y < this.height; y++){
-            for(int x = 0; x < this.width; x++){
-                if(worldEntities[x][y] != null){
-                    entityManager.getEntities().remove(worldEntities[x][y]);
-                }
-            }
-        }
+        entityManager.getEntities().clear();
 
         try {
             mapFile.createNewFile();
@@ -338,15 +339,6 @@ public class World {
 
             //entity
             entityFile.createNewFile();
-
-            PrintWriter entityEditor = new PrintWriter(entityFile);
-            for(int y = 0; y < height; y++){
-                for(int x = 0; x < width; x++){
-                    entityEditor.print(0+" ");
-                }
-                entityEditor.println();
-            }
-            entityEditor.close();
 
         } catch (IOException e){
             e.printStackTrace();

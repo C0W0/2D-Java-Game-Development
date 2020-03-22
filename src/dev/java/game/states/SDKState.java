@@ -17,8 +17,7 @@ public class SDKState extends State {
     private World world;
     private UIManager uiManager;
     private boolean isHovering;
-    private Slider heightSlider, widthSlider, spawnXSlider, spawnYSlider;
-    private SliderAdjuster heightUp, heightDown, widthUp, widthDown, spawnXUp, spawnXDown, spawnYUp, spawnYDown;
+    private Slider heightSlider, widthSlider;
 
     public SDKState(Handler handler){
         super(handler);
@@ -26,10 +25,10 @@ public class SDKState extends State {
     }
 
     private void leftClick(int x, int y){
-        x = (int)((x+handler.getGameCamera().getxOffset()) / Tile.TILEWIDTH);
-        y = (int)((y+handler.getGameCamera().getyOffset()) / Tile.TILEHEIGHT);
+//        x = (int)((x+handler.getGameCamera().getxOffset()) / Tile.TILEWIDTH);
+//        y = (int)((y+handler.getGameCamera().getyOffset()) / Tile.TILEHEIGHT);
         if(handler.getWorld().isEntityEditing()){
-            handler.getWorld().setLocationEntity(x, y);
+            handler.getWorld().setLocationEntity(x, y, 0);
         } else{
             handler.getWorld().setTile(x, y);
         }
@@ -83,15 +82,15 @@ public class SDKState extends State {
         if(world!= null){
             world.render(graphics);
         }
-        if(heightSlider != null && widthSlider != null){
-            heightSlider.render(graphics);
-            widthSlider.render(graphics);
-        }
         uiManager.render(graphics);
     }
 
     @Override
     public void init() {
+        SliderAdjuster heightUp, heightDown, widthUp, widthDown, spawnXUp, spawnXDown, spawnYUp, spawnYDown;
+        Slider spawnXSlider, spawnYSlider, entityOffsetXSlider, entityOffsetYSlider;
+        entityOffsetXSlider = new Slider(true, handler.getWidth()-256, 32, 128, 32, 32, -32, 8, "x-offset:");
+        entityOffsetYSlider = new Slider(true, handler.getWidth()-256, 96, 128, 32, 32, -32, 8, "y-offset:");
         world = new World(handler,"res/worlds/worldSDK");
         handler.setWorld(world);
         heightSlider = new Slider(true,80,32,256,32,100,0,10,"height:");
@@ -117,8 +116,15 @@ public class SDKState extends State {
         uiManager.addUIObject(new MapEditorButton(16,272,32,32,Assets.pathDownRight_SDK,new TileEditingClicker(handler, 8),false));
         uiManager.addUIObject(new MapEditorButton(16,304,32,32,Assets.pathDownLeft_SDK,new TileEditingClicker(handler, 9),false));
         uiManager.addUIObject(new MapEditorButton(handler.getWidth()-48, 16, 32, 32,Assets.tree_SDK,new EntityEditingClicker(handler, 2), false));
+        uiManager.addUIObject(entityOffsetXSlider);
+        uiManager.addUIObject(entityOffsetYSlider);
+        uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 32, 16, 16, 1, Assets.button_up, entityOffsetXSlider));
+        uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 48, 16, 16, -1, Assets.button_down, entityOffsetXSlider));
+        uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 96, 16, 16, 1, Assets.button_up, entityOffsetYSlider));
+        uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 112, 16, 16, -1, Assets.button_down, entityOffsetYSlider));
 
-        uiManager.addUIObject(new UIImageButton(80,8,64,32,Assets.button_new,new MapSizingClicker(handler,widthSlider,heightSlider,spawnXSlider,spawnYSlider)));
+        uiManager.addUIObject(new UIImageButton(80,8,64,32,Assets.button_new,new MapSizingClicker(handler,
+                () -> widthSlider.getValue(), () -> heightSlider.getValue(), () -> spawnXSlider.getValue(), () -> spawnYSlider.getValue())));
         uiManager.addUIObject(heightSlider);
         uiManager.addUIObject(widthSlider);
         uiManager.addUIObject(spawnXSlider);

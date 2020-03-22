@@ -5,26 +5,28 @@ import dev.java.game.gfx.Assets;
 import dev.java.game.ui.Slider;
 import dev.java.game.ui.UIImageButton;
 
+import java.util.function.IntSupplier;
+
 public class MapSizingClicker implements ClickListener {
 
     private Handler handler;
     private UIImageButton mapSave;
-    private int width, height, spawnX, spawnY;
-    private Slider widthSlider, heightSlider, spawnXSlider, spawnYSlider;
+    private IntSupplier widthSupplier, heightSupplier, spawnXSupplier, spawnYSupplier;
+//    private Slider widthSlider, heightSlider, spawnXSlider, spawnYSlider;
 
-    public MapSizingClicker(Handler handler, Slider widthSlider, Slider heightSlider, Slider spawnXSlider, Slider spawnYSlider){
+    public MapSizingClicker(Handler handler, IntSupplier widthSupplier, IntSupplier heightSupplier, IntSupplier spawnXSupplier, IntSupplier spawnYSupplier){
         mapSave = new UIImageButton(80,128,64,32, Assets.button_save, new MapSaveClicker());
         mapSave.setActive();
         handler.getMouseManager().getUiManager().addUIObject(mapSave);
         this.handler = handler;
-        this.widthSlider = widthSlider;
-        this.heightSlider = heightSlider;
-        this.spawnXSlider = spawnXSlider;
-        this.spawnYSlider = spawnYSlider;
-        width = 20;
-        height = 12;
-        spawnX = 2;
-        spawnY = 2;
+        this.widthSupplier = widthSupplier;
+        this.heightSupplier = heightSupplier;
+        this.spawnXSupplier = spawnXSupplier;
+        this.spawnYSupplier = spawnYSupplier;
+//        this.widthSlider = widthSlider;
+//        this.heightSlider = heightSlider;
+//        this.spawnXSlider = spawnXSlider;
+//        this.spawnYSlider = spawnYSlider;
 
     }
 
@@ -48,14 +50,11 @@ public class MapSizingClicker implements ClickListener {
     private class MapSaveClicker implements ClickListener{
         @Override
         public void onClick() {
-            if(spawnXSlider != null && spawnYSlider != null) {
-                spawnX = spawnXSlider.getValue();
-                spawnY = spawnYSlider.getValue();
-            }
-            if(widthSlider != null && heightSlider != null){
-                width = widthSlider.getValue();
-                height = heightSlider.getValue();
-            }
+            int width = 20, height = 12, spawnX = 2, spawnY = 2;
+            spawnX = spawnXSupplier.getAsInt();
+            spawnY = spawnYSupplier.getAsInt();
+            width = widthSupplier.getAsInt();
+            height = heightSupplier.getAsInt();
             handler.getWorld().generateNewMap(width,height,spawnX,spawnY);
         }
     }
