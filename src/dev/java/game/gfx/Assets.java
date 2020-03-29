@@ -180,7 +180,7 @@ public class Assets {
         tree_SDK[0] = tree;
         tree_SDK[1] = sheet.crop(width,height*3,width,height);
     }
-    /**
+    /** Loading an entire SpriteSheet as a BufferedImage array (for animations)
      * @param xBlocks number of sub images in the width of the SpriteSheet
      * @param yBlocks number of sub images in the height of the SpriteSheet
      * @param height the height of a sub image, in pixels
