@@ -49,6 +49,7 @@ public class Assets {
         font28 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 28);
         font20 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 20);
 
+        SpriteSheet appleSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Apple.png"));
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
@@ -137,6 +138,7 @@ public class Assets {
         water[3] = townTiles.crop(width*3,height*4,width,height);
 
         wood = sheet1.crop(width*7,height,width,height);
+        apple = appleSprite.crop(width*0,height*0,width,height);
 
         //SDK stuff
         button_SDK = new BufferedImage[2];
