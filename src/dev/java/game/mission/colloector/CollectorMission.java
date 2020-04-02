@@ -10,12 +10,12 @@ public abstract class CollectorMission extends Mission {
 
     protected int[] targetItemID, finalProgress, progress;
 
-    public CollectorMission(String title, String desc, int id, int numberItems) {
+    public CollectorMission(String title, String desc, int id, int subMissions) {
         super(title, desc, id);
-        targetItemID = new int[numberItems];
-        finalProgress = new int[numberItems];
-        progress = new int[numberItems];
-        for(int i = 0; i < numberItems; i++){
+        targetItemID = new int[subMissions];
+        finalProgress = new int[subMissions];
+        progress = new int[subMissions];
+        for(int i = 0; i < subMissions; i++){
             progress[i] = 0;
         }
     }
@@ -28,7 +28,7 @@ public abstract class CollectorMission extends Mission {
             for(int j = 0; j < targetItemID.length; j++){
                 if(tempItem.getId() == targetItemID[j]){
                     if(tempItem.getCount() < finalProgress[j]){
-                        finalProgress[j] = tempItem.getCount();
+                        progress[j] = tempItem.getCount();
                     }else{
                         progress[j] = finalProgress[j];
                     }
