@@ -19,6 +19,11 @@ public class Assets {
     //entities
     public static BufferedImage invisible, tree;
     public static BufferedImage wood;
+    public static BufferedImage apple;
+    public static BufferedImage stone;
+    public static BufferedImage potion;
+    public static BufferedImage shield;
+    public static BufferedImage sword;
     public static BufferedImage[] npcCrab;
 
     //player

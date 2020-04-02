@@ -13,6 +13,11 @@ public class Item {
 
     public static Item[] items = new Item[256];
     public static Item woodItem = new Item(Assets.wood, "wood", 0);
+    public static Item appleItem = new Item(Assets.apple, "apple", 1);
+    public static Item stoneItem = new Item(Assets.stone, "stone", 2);
+    public static Item potionItem = new Item(Assets.potion, "potion", 3);
+    public static Item shieldItem = new Item(Assets.shield, "shield", 4);
+    public static Item swordItem = new Item(Assets.sword, "sword", 5);
 
     //class
     public static final int ITEMWIDTH = 32;
