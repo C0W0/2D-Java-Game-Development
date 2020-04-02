@@ -7,6 +7,8 @@ import dev.java.game.gfx.Animation;
 import dev.java.game.gfx.Assets;
 import dev.java.game.gfx.AttackAnimation;
 import dev.java.game.inventory.Inventory;
+import dev.java.game.mission.Mission;
+import dev.java.game.mission.MissionManager;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -30,6 +32,7 @@ public class Player extends Creature{
     private long lastAttackTime, attackCooldown, attackTimer;
     //inventory
     private Inventory inventory;
+    private MissionManager missionManager;
 
 
 
@@ -61,6 +64,8 @@ public class Player extends Creature{
         deltaAttack = 0.0f;
 
         inventory = new Inventory(handler);
+        missionManager = new MissionManager(handler);
+        missionManager.addMission(Mission.collectWoods);
     }
 
     private void checkAttacks(){
@@ -206,6 +211,9 @@ public class Player extends Creature{
 
         //inventory
         inventory.update();
+
+        //missions
+        missionManager.update();
     }
 
     @Override
@@ -231,9 +239,14 @@ public class Player extends Creature{
 
     public void postRender(Graphics graphics){
         inventory.render(graphics);
+        missionManager.render(graphics);
     }
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public MissionManager getMissionManager(){
+        return missionManager;
     }
 }

@@ -119,4 +119,8 @@ public class Inventory {
     public boolean isActive() {
         return active;
     }
+
+    public ArrayList<Item> getInventoryItems() {
+        return inventoryItems;
+    }
 }
