@@ -23,6 +23,7 @@ public class GameState extends State {
     public void render(Graphics graphics) {
         if(world != null){
             world.render(graphics);
+            world.getPlayer().postRender(graphics);
         }
     }
 

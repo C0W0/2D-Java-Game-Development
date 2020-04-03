@@ -81,7 +81,7 @@ public class Inventory {
                 continue;
             }
             if(i == 0){
-                Text.drawString(graphics, ">  "+inventoryItems.get(selectedItem + i).getName()+"  <",
+                Text.drawString(graphics, ">  "+inventoryItems.get(selectedItem).getName()+"  <",
                         invListCentreX, invListCentreY + i*invListSpacing, true, Color.yellow, Assets.font28);
 
             } else{

@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public abstract class CollectorMission extends Mission {
 
-    protected int[] targetItemID, finalProgress, progress;
+    protected int[] targetItemID;
 
-    public CollectorMission(String title, String desc, int id, int subMissions) {
+    public CollectorMission(String title, String[] desc, int id, int subMissions) {
         super(title, desc, id);
         targetItemID = new int[subMissions];
         finalProgress = new int[subMissions];
@@ -36,5 +36,10 @@ public abstract class CollectorMission extends Mission {
             }
         }
         return Arrays.equals(progress,finalProgress);
+    }
+
+    @Override
+    public void complete() {
+
     }
 }

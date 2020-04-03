@@ -35,7 +35,7 @@ public class Assets {
     public static BufferedImage [] button_start, button_settings, button_back;
     public static BufferedImage [] button_up, button_down;
     public static BufferedImage horizontalSlideTrack, horizontalSlider, horizontalTickMark, verticalSlideTrack, verticalSlider, verticalTickMark;
-    public static BufferedImage inventoryScreen;
+    public static BufferedImage inventoryScreen, missionScreen;
 
     //SDK stuff
     public static BufferedImage [] button_SDK, button_new, button_save;
@@ -57,6 +57,7 @@ public class Assets {
 
 
         inventoryScreen = ImageLoader.loadImage("/texture/InventoryScreen.png");
+        missionScreen = ImageLoader.loadImage("/texture/MissionScreen.png");
 
         button_start = new BufferedImage[2];
         button_start[0] = sheet1.crop(0,0,width*2,height);

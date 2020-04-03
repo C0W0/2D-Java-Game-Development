@@ -1,6 +1,7 @@
 package dev.java.game.mission;
 
 import dev.java.game.Handler;
+import dev.java.game.mission.colloector.CollectApple;
 import dev.java.game.mission.colloector.CollectWood;
 
 import java.awt.*;
@@ -8,7 +9,12 @@ import java.awt.*;
 public abstract class Mission {
 
     public static Mission[] missions = new Mission[256];
-    public static Mission collectWoods = new CollectWood("", "", 0);
+    public static Mission collect10Woods = new CollectWood("Collect 10 woods",
+            new String[]{"Collect 10 woods for the", "construction of our town"}, 0, 10);
+    public static Mission collect5Woods = new CollectWood("Collect 5 woods",
+            new String[]{"Collect 5 woods for the", "construction of our town"}, 1, 5);
+    public static Mission collect10Apples = new CollectApple("Collect 10 apples",
+            new String[]{"Collect 10 apples for", "little Alice"},2, 3);
 
     protected int status;
     /** 0 - not active
@@ -19,12 +25,14 @@ public abstract class Mission {
      */
 
     protected int stage;
+    protected int[] finalProgress, progress;
 
     protected Handler handler;
     protected final int id;
-    protected final String title, desc;
+    protected final String title;
+    protected final String[]desc;
 
-    public Mission(String title, String desc, int id){
+    public Mission(String title, String[] desc, int id){
         status = 0;
         this.id = id;
         this.title = title;
@@ -34,18 +42,15 @@ public abstract class Mission {
 
     public void update(){
         if(isCompleted()){
-            status = 2;
+            complete();
         }
     }
 
-    public void assignMission(){
-        handler.getWorld().getPlayer().getMissionManager().addMission(this);
-    }
 
-    public abstract void render(Graphics graphics);
+    public abstract boolean isCompleted();
 
-    public boolean isCompleted(){
-        return status == 2;
+    public void complete(){
+        status = 2;
     }
 
     public int getStatus() {
@@ -62,5 +67,21 @@ public abstract class Mission {
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String[] getDesc() {
+        return desc;
+    }
+
+    public int[] getProgress() {
+        return progress;
+    }
+
+    public int[] getFinalProgress() {
+        return finalProgress;
     }
 }

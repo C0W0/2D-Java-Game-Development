@@ -87,10 +87,13 @@ public class SDKState extends State {
 
     @Override
     public void render(Graphics graphics) {
-        if(world!= null){
+        if(world != null){
             world.render(graphics);
         }
         uiManager.render(graphics);
+        if(world != null){
+            world.getPlayer().postRender(graphics);
+        }
     }
 
     @Override

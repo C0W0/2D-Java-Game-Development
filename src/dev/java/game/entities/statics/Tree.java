@@ -21,6 +21,13 @@ public class Tree extends StaticEntity {
     }
 
     @Override
+    public void receiveDamage(int num) {
+        super.receiveDamage(num);
+        handler.getWorld().getItemManager().addItem(Item.appleItem.createNew((int)(x + width/2 - Item.ITEMWIDTH/2 + Math.random()*32-16),
+                (int)(y + height - Item.ITEMHEIGHT + 32), (int)(Math.random()*2)+1));
+    }
+
+    @Override
     public void update() {
 
     }

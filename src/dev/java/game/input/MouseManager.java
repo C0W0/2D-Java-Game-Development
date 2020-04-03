@@ -71,6 +71,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
         if(uiManager != null){
             uiManager.onMouseMove(e);
         }
+//        System.out.println(cursorX+" "+cursorY);
 
     }
 

@@ -65,7 +65,13 @@ public class Player extends Creature{
 
         inventory = new Inventory(handler);
         missionManager = new MissionManager(handler);
-        missionManager.addMission(Mission.collectWoods);
+
+        //only for temp. use
+        //TODO: put them to somewhere appropriate for giving missions (e.g., NPC)
+        
+        missionManager.addMission(Mission.collect10Woods);
+        missionManager.addMission(Mission.collect5Woods);
+        missionManager.addMission(Mission.collect10Apples);
     }
 
     private void checkAttacks(){
@@ -129,7 +135,7 @@ public class Player extends Creature{
         xMove = 0;
         yMove = 0;
 
-        if(inventory.isActive()){
+        if(inventory.isActive() || missionManager.isActive()){
             return;
         }
         //SDK stuff
