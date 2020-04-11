@@ -4,6 +4,7 @@ import dev.java.game.Handler;
 import dev.java.game.entities.creatures.Creature;
 import dev.java.game.gfx.Animation;
 import dev.java.game.gfx.Assets;
+import dev.java.game.mission.Mission;
 import dev.java.game.tiles.Tile;
 
 import java.awt.Rectangle;
@@ -34,7 +35,7 @@ public class NPC1 extends NPC {
 
     @Override
     protected void assignMission(int missionID) {
-
+        handler.getWorld().getPlayer().getMissionManager().addMission(missionID);
     }
 
     @Override

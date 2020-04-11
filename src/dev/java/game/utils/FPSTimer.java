@@ -1,4 +1,4 @@
-package dev.java.game;
+package dev.java.game.utils;
 
 public class FPSTimer {
 

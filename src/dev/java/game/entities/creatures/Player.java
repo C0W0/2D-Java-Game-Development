@@ -68,10 +68,10 @@ public class Player extends Creature{
 
         //only for temp. use
         //TODO: put them to somewhere appropriate for giving missions (e.g., NPC)
-        
-        missionManager.addMission(Mission.collect10Woods);
-        missionManager.addMission(Mission.collect5Woods);
-        missionManager.addMission(Mission.collect10Apples);
+
+//        missionManager.addMission(Mission.collect10Woods);
+//        missionManager.addMission(Mission.collect5Woods);
+//        missionManager.addMission(Mission.collect10Apples);
     }
 
     private void checkAttacks(){
@@ -220,6 +220,8 @@ public class Player extends Creature{
 
         //missions
         missionManager.update();
+
+//        System.out.println(x+","+y);
     }
 
     @Override

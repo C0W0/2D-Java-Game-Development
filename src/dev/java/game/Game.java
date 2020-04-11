@@ -7,6 +7,7 @@ import dev.java.game.input.KeyManager;
 import dev.java.game.input.MouseManager;
 import dev.java.game.states.*;
 import dev.java.game.ui.UIManager;
+import dev.java.game.utils.FPSTimer;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;

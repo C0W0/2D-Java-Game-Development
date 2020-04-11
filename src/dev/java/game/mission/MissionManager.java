@@ -34,10 +34,16 @@ public class MissionManager {
         misTtlY = (int)(125.f/718*misHeight+25);
     }
 
-    public void addMission(Mission mission){
-        mission.setHandler(handler);
-        mission.setStatus(1);
-        missions.add(mission);
+    public void addMission(int missionID){
+        for(int i = 0; i < missions.size(); i++){
+            if(missions.get(i).getId() == missionID){
+                return;
+            }
+        }
+        Mission tempMission = Mission.missions[missionID];
+        tempMission.setHandler(handler);
+        tempMission.setStatus(1);
+        missions.add(tempMission);
     }
 
     public void update(){
@@ -63,6 +69,7 @@ public class MissionManager {
             Mission mission = it.next();
             mission.update();
             if(mission.getStatus() == 2){
+                mission.setHandler(null);
                 it.remove();
             }
         }
