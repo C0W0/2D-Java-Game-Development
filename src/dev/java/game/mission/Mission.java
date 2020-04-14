@@ -1,6 +1,7 @@
 package dev.java.game.mission;
 
 import dev.java.game.Handler;
+import dev.java.game.items.Item;
 import dev.java.game.mission.colloector.CollectApple;
 import dev.java.game.mission.colloector.CollectWood;
 
@@ -27,6 +28,9 @@ public abstract class Mission {
     protected int stage;
     protected int[] finalProgress, progress;
 
+    protected Item rewardItem;
+    protected int expReward;
+
     protected Handler handler;
     protected final int id;
     protected final String title;
@@ -51,6 +55,11 @@ public abstract class Mission {
 
     public void complete(){
         status = 2;
+        receiveReward();
+    }
+
+    protected void receiveReward(){
+        handler.getWorld().getPlayer().getInventory().addItem(rewardItem);
     }
 
     public int getStatus() {

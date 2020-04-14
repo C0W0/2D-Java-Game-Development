@@ -5,9 +5,7 @@ import dev.java.game.gfx.Assets;
 import dev.java.game.gfx.Text;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import static java.awt.event.KeyEvent.*;
 
@@ -64,13 +62,12 @@ public class MissionManager {
             }
         }
 
-        Iterator<Mission> it = missions.iterator();
-        while(it.hasNext()){
-            Mission mission = it.next();
-            mission.update();
-            if(mission.getStatus() == 2){
-                mission.setHandler(null);
-                it.remove();
+        for(int i = 0; i < missions.size(); i++){
+            missions.get(i).update();
+            if(missions.get(i).getStatus() == 2){
+                missions.get(i).setHandler(null);
+                missions.remove(i);
+                i --;
             }
         }
     }
