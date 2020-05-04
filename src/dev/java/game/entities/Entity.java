@@ -1,6 +1,7 @@
 package dev.java.game.entities;
 
 import dev.java.game.Handler;
+import dev.java.game.utils.Utils;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -62,6 +63,12 @@ public abstract class Entity {
             }
         }
         return false;
+    }
+
+    //utilities
+
+    protected boolean isInRange(Entity e, int distance){
+        return Utils.getDistance(this, e) <= distance;
     }
 
     //Getters and Setters

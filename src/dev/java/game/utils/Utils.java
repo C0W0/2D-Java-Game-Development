@@ -1,5 +1,7 @@
 package dev.java.game.utils;
 
+import dev.java.game.entities.Entity;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -52,6 +54,25 @@ public class Utils {
         }catch (NumberFormatException e){
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static float getDistance(Entity eA, Entity eB){
+        return (float)Math.sqrt(Math.pow(eA.getX() - eB.getX(), 2) + Math.pow(eA.getY() - eB.getY(), 2));
+    }
+
+    public static float getDistance(Entity e, float x2, float y2){
+        return (float)Math.sqrt(Math.pow(e.getX() - x2, 2) + Math.pow(e.getY() - y2, 2));
+    }
+
+    public static class Py{
+
+        public static float getC(float a, float b){
+            return (float) Math.sqrt(a*a+b*b);
+        }
+
+        public static float getB(float a, float c){
+            return (float) Math.sqrt(c*c-a*a);
         }
     }
 
