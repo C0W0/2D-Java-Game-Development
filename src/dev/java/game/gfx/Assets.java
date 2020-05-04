@@ -25,6 +25,7 @@ public class Assets {
     public static BufferedImage shield;
     public static BufferedImage sword;
     public static BufferedImage[] npcCrab;
+    public static BufferedImage[] npcSlime;
 
     //player
     public static BufferedImage player_neutral;
@@ -49,6 +50,7 @@ public class Assets {
         font28 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 28);
         font20 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 20);
 
+        SpriteSheet idleSlime = new SpriteSheet(ImageLoader.loadImage("/texture/idleSlime.png"));
         SpriteSheet appleSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Apple.png"));
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
@@ -116,6 +118,7 @@ public class Assets {
 
         //npc
         npcCrab = loadSpriteAsArray(crabSheet, 6, 4, 64, 64);
+        npcSlime = loadSpriteAsArray(idleSlime, 2, 1, 64, 64);
 
         grass = townTiles.crop(0,height,width,height);
         grassStone = sheet1.crop(width*3,height,width,height);
