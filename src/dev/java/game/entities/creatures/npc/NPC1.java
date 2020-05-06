@@ -15,7 +15,7 @@ public class NPC1 extends NPC {
     private Animation dynamicTexture;
 
     public NPC1(Handler handler, float x, float y) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_WIDTH);
+        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
         interRange = 1;
         bounds.x = 0;
         bounds.y = 0;

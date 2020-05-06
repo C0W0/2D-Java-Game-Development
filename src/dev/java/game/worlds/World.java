@@ -4,6 +4,7 @@ import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.EntityManager;
 import dev.java.game.entities.creatures.Player;
+import dev.java.game.entities.creatures.active.Slime;
 import dev.java.game.entities.creatures.npc.NPC1;
 import dev.java.game.entities.statics.AirWall;
 import dev.java.game.entities.statics.Tree;
@@ -111,7 +112,9 @@ public class World {
             return new Tree(handler, x, y);
         }else if(id == 3) {
             return new NPC1(handler, x, y);
-        }else{
+        }else if(id == 4) {
+            return new Slime(handler, x, y, x+ox, y+oy);
+        }else {
             return null;
         }
     }

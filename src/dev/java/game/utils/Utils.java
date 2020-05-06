@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utils {
 
@@ -63,6 +65,10 @@ public class Utils {
 
     public static float getDistance(Entity e, float x2, float y2){
         return (float)Math.sqrt(Math.pow(e.getX() - x2, 2) + Math.pow(e.getY() - y2, 2));
+    }
+
+    public static float pickNumber(float...nums){
+        return nums[(int)(Math.random()*nums.length)];
     }
 
     public static class Py{

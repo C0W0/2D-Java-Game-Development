@@ -67,7 +67,6 @@ public class Player extends Creature{
         missionManager = new MissionManager(handler);
 
         //only for temp. use
-        //TODO: put them to somewhere appropriate for giving missions (e.g., NPC)
 
 //        missionManager.addMission(Mission.collect10Woods);
 //        missionManager.addMission(Mission.collect5Woods);

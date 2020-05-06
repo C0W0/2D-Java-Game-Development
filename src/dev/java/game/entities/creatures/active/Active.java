@@ -8,9 +8,11 @@ import java.awt.*;
 
 public abstract class Active extends Creature {
 
-    protected int spottingRange, attackingRange, giveUpRange, maxIdealRange, minIdealRange, patrolRange;
+    //assign values in the children class
+    protected int spottingRange, giveUpRange, maxIdealRange, minIdealRange, patrolRange;
     protected int damage, defence;
     protected int faction; // for now, 1 is hostile
+    //TODO: complete rework for factions. Adding a variable for target will be ideal
 
     protected final int oX, oY; // o stands for original
 
@@ -39,16 +41,18 @@ public abstract class Active extends Creature {
         }
 
         while (x+xMove < oX-patrolRange || x+xMove > oX+patrolRange ||
-        y+yMove < oY-patrolRange || y+yMove > oY+patrolRange)
+        y+yMove < oY-patrolRange || y+yMove > oY+patrolRange) {
             randomizePath();
+        }
     }
 
     @Override
     public void update() {
+        System.out.println(Utils.getDistance(this, oX, oY) );
         if(faction == 1){
             if(isInRange(handler.getWorld().getPlayer(), spottingRange) &&
+                    Utils.getDistance(handler.getWorld().getPlayer(), oX, oY) < giveUpRange &&
                     Utils.getDistance(this, oX, oY) < giveUpRange){
-
                 // movement calculations
                 float rX = (handler.getWorld().getPlayer().getX() - x)/
                         (Utils.getDistance(this, handler.getWorld().getPlayer()));
@@ -76,13 +80,8 @@ public abstract class Active extends Creature {
     }
 
     private void randomizePath(){
-
-    }
-
-    @Override
-    public void render(Graphics graphics) {
-        xMove = (float)(speed*Math.random());
-        yMove = Utils.Py.getB(xMove, speed);
+        xMove = (float)(speed*Math.random())*Utils.pickNumber(-1, 1);
+        yMove = Utils.Py.getB(xMove, speed)*Utils.pickNumber(-1, 1);
     }
 
     @Override
