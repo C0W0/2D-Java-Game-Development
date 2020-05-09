@@ -8,6 +8,8 @@ public class AttackAnimation extends Animation{
     private String direction;
     private boolean isHit;
 
+    //TODO: Completely rework this
+
     public AttackAnimation(int speed, BufferedImage[] frames, boolean initAction, float distance, String direction) {
         super(speed, frames, initAction);
         this.distance = distance;

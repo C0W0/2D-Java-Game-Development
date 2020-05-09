@@ -1,7 +1,9 @@
 package dev.java.game.entities.creatures.active;
 
 import dev.java.game.Handler;
+import dev.java.game.entities.Entity;
 import dev.java.game.entities.creatures.Creature;
+import dev.java.game.entities.properties.attack.Attacks;
 import dev.java.game.utils.Utils;
 
 import java.awt.*;
@@ -10,18 +12,25 @@ public abstract class Active extends Creature {
 
     //assign values in the children class
     protected int spottingRange, giveUpRange, maxIdealRange, minIdealRange, patrolRange;
-    protected int damage, defence;
+    protected int defence;
     protected int faction; // for now, 1 is hostile
+    protected Entity target;
     //TODO: complete rework for factions. Adding a variable for target will be ideal
 
     protected final int oX, oY; // o stands for original
 
-    public Active(Handler handler, float x, float y, int width, int height, int oX, int oY) {
+    //attack system
+    protected Attacks attack;
+    protected long lastAttackTime, attackCooldown, attackTimer;
+
+    public Active(Handler handler, float x, float y, int width, int height, int oX, int oY, long attackCooldown) {
         super(handler, x, y, width, height);
         this.oX = oX;
         this.oY = oY;
         xMove = 0;
         yMove = 0;
+        this.attackCooldown = attackCooldown;
+        attackTimer = attackCooldown;
     }
 
     protected abstract void attack();
@@ -48,27 +57,34 @@ public abstract class Active extends Creature {
 
     @Override
     public void update() {
-        System.out.println(Utils.getDistance(this, oX, oY) );
-        if(faction == 1){
-            if(isInRange(handler.getWorld().getPlayer(), spottingRange) &&
-                    Utils.getDistance(handler.getWorld().getPlayer(), oX, oY) < giveUpRange &&
+        attack.update();
+        if(target == null)
+            target = handler.getWorld().getPlayer();
+        if(faction == 1 && target != null){
+            if(isInRange(target, spottingRange) &&
+                    Utils.getDistance(target, oX, oY) < giveUpRange &&
                     Utils.getDistance(this, oX, oY) < giveUpRange){
                 // movement calculations
-                float rX = (handler.getWorld().getPlayer().getX() - x)/
-                        (Utils.getDistance(this, handler.getWorld().getPlayer()));
-                float rY = (handler.getWorld().getPlayer().getY() - y)/
-                        (Utils.getDistance(this, handler.getWorld().getPlayer()));
+                float rX = (target.getX() - x)/
+                        (Utils.getDistance(this, target));
+                float rY = (target.getY() - y)/
+                        (Utils.getDistance(this, target));
 
-                if(!isInRange(handler.getWorld().getPlayer(), maxIdealRange)){
+                if(!isInRange(target, maxIdealRange)){
                     xMove = speed*rX;
                     yMove = speed*rY;
-                }else if(isInRange(handler.getWorld().getPlayer(), minIdealRange)){
+                }else if(isInRange(target, minIdealRange)){
                     xMove = -speed*rX;
                     yMove = -speed*rY;
                 }else{
                     xMove = 0;
                     yMove = 0;
-                    attack();
+                    attackTimer += System.currentTimeMillis() - lastAttackTime;
+                    lastAttackTime = System.currentTimeMillis();
+                    if(attackTimer > attackCooldown){
+                        attack();
+                        attackTimer = 0;
+                    }
                 }
             }else{
                 patrol();
@@ -87,5 +103,9 @@ public abstract class Active extends Creature {
     @Override
     public void die() {
 
+    }
+
+    public Entity getTarget() {
+        return target;
     }
 }

@@ -3,6 +3,7 @@ package dev.java.game.entities.creatures.active;
 import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.creatures.Creature;
+import dev.java.game.entities.properties.attack.SlimeBash;
 import dev.java.game.gfx.Animation;
 import dev.java.game.gfx.Assets;
 import dev.java.game.tiles.Tile;
@@ -14,7 +15,7 @@ public class Slime extends Active {
     private Animation dynamicTexture;
 
     public Slime(Handler handler, float x, float y, int oX, int oY) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, oX, oY);
+        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, oX, oY, 1000);
         spottingRange = 256;
         maxIdealRange = 64;
         minIdealRange = 0; // melee
@@ -25,12 +26,14 @@ public class Slime extends Active {
         bounds.width = Tile.TILEWIDTH;
         bounds.height = Tile.TILEHEIGHT;
         faction = 1;
-        dynamicTexture = new Animation(5, Assets.npcSlime, false);
+        dynamicTexture = new Animation(100, Assets.npcSlime, false);
+        health = 1;
+        attack = new SlimeBash(handler, this);
     }
 
     @Override
     protected void attack() {
-        System.out.println("attacking");
+        attack.dealDamage();
     }
 
     @Override
