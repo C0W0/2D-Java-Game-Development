@@ -50,6 +50,7 @@ public class Assets {
         font28 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 28);
         font20 = FontLoader.loadFont("res/fonts/BLKCHCRY.ttf", 20);
 
+        SpriteSheet slimeAttack = new SpriteSheet(ImageLoader.loadImage("/texture/slimeAttack.png"));
         SpriteSheet idleSlime = new SpriteSheet(ImageLoader.loadImage("/texture/idleSlime.png"));
         SpriteSheet appleSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Apple.png"));
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
