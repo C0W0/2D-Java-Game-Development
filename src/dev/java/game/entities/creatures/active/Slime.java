@@ -1,10 +1,9 @@
 package dev.java.game.entities.creatures.active;
 
 import dev.java.game.Handler;
-import dev.java.game.entities.Entity;
 import dev.java.game.entities.creatures.Creature;
-import dev.java.game.entities.properties.attack.SlimeBash;
-import dev.java.game.gfx.Animation;
+import dev.java.game.entities.properties.attack.meleeAttacks.SlimeBash;
+import dev.java.game.gfx.animations.Animation;
 import dev.java.game.gfx.Assets;
 import dev.java.game.tiles.Tile;
 

@@ -2,12 +2,10 @@ package dev.java.game.entities.creatures.npc;
 
 import dev.java.game.Handler;
 import dev.java.game.entities.creatures.Creature;
-import dev.java.game.gfx.Animation;
+import dev.java.game.gfx.animations.Animation;
 import dev.java.game.gfx.Assets;
-import dev.java.game.mission.Mission;
 import dev.java.game.tiles.Tile;
 
-import java.awt.Rectangle;
 import java.awt.Graphics;
 
 public class NPC1 extends NPC {

@@ -13,6 +13,7 @@ public abstract class Entity {
     public static final int DEFAULT_HEALTH = 10;
     protected int health;
     protected boolean active;
+    protected int faction;
 
     protected float x,y;
     protected Handler handler;
@@ -123,5 +124,9 @@ public abstract class Entity {
 
     public int getId() {
         return id;
+    }
+
+    public int getFaction() {
+        return faction;
     }
 }

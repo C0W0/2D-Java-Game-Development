@@ -1,6 +1,6 @@
 package dev.java.game.tiles;
 
-import dev.java.game.gfx.Animation;
+import dev.java.game.gfx.animations.Animation;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

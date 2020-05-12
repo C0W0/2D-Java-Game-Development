@@ -13,7 +13,6 @@ public abstract class Active extends Creature {
     //assign values in the children class
     protected int spottingRange, giveUpRange, maxIdealRange, minIdealRange, patrolRange;
     protected int defence;
-    protected int faction; // for now, 1 is hostile
     protected Entity target;
     //TODO: complete rework for factions. Adding a variable for target will be ideal
 
@@ -60,7 +59,7 @@ public abstract class Active extends Creature {
         attack.update();
         if(target == null)
             target = handler.getWorld().getPlayer();
-        if(faction == 1 && target != null){
+        if(faction == 1 && target != null){ // for now, 1 is hostile
             if(isInRange(target, spottingRange) &&
                     Utils.getDistance(target, oX, oY) < giveUpRange &&
                     Utils.getDistance(this, oX, oY) < giveUpRange){

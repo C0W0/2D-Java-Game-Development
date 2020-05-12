@@ -1,4 +1,4 @@
-package dev.java.game.gfx;
+package dev.java.game.gfx.animations;
 
 import java.awt.image.BufferedImage;
 

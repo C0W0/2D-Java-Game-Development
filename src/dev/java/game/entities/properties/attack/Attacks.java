@@ -9,12 +9,12 @@ import java.awt.*;
 
 public abstract class Attacks {
 
+    protected float x, y;
     protected Handler handler;
     protected int type;
     protected int baseDamage;
     protected final Active carrier;
     protected Entity target;
-    protected Utils.LinearFunction directionFunction;
     //TODO: implement the reworked attack animation
 
     public Attacks(Handler handler, int baseDamage, int type, Active carrier){
@@ -22,12 +22,24 @@ public abstract class Attacks {
         this.baseDamage = baseDamage;
         this.type = type;
         this.carrier = carrier;
+    }
 
+    public Attacks(Handler handler, int baseDamage, int type){
+        this.handler = handler;
+        this.baseDamage = baseDamage;
+        this.type = type;
+        this.carrier = null;
     }
 
     public void update(){
-        target = carrier.getTarget();
-//        System.out.println(target);
+        if(carrier != null) {
+            target = carrier.getTarget();
+            x = carrier.getX();
+            y = carrier.getY();
+        }else {
+            x = handler.getWorld().getPlayer().getX();
+            y = handler.getWorld().getPlayer().getY();
+        }
     }
 
     //leave empty until the attack animation is fixed
@@ -37,8 +49,5 @@ public abstract class Attacks {
 
     public abstract void dealDamage();
 
-    public Utils.LinearFunction generateFunction(){
-        return new Utils.LinearFunction(carrier.getX(), carrier.getY(), target.getX(), target.getY());
-    }
 
 }

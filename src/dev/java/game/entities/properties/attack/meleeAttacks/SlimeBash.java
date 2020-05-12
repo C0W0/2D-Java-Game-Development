@@ -1,7 +1,6 @@
-package dev.java.game.entities.properties.attack;
+package dev.java.game.entities.properties.attack.meleeAttacks;
 
 import dev.java.game.Handler;
-import dev.java.game.entities.Entity;
 import dev.java.game.entities.creatures.active.Active;
 
 public class SlimeBash extends MeleeAttacks {

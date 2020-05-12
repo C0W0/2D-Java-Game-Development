@@ -132,6 +132,14 @@ public class Utils {
         public float getB() {
             return b;
         }
+
+        public float getY(float x) {
+            return m*x+b;
+        }
+
+        public float getX(float y){
+            return (y-b)/m;
+        }
     }
 
 }

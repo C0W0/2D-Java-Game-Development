@@ -3,11 +3,11 @@ package dev.java.game.entities.creatures;
 
 import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
-import dev.java.game.gfx.Animation;
+import dev.java.game.entities.properties.attack.rangedAttacks.PlayerDefaultAttack;
+import dev.java.game.entities.properties.attack.rangedAttacks.RangedAttacks;
+import dev.java.game.gfx.animations.Animation;
 import dev.java.game.gfx.Assets;
-import dev.java.game.gfx.AttackAnimation;
 import dev.java.game.inventory.Inventory;
-import dev.java.game.mission.Mission;
 import dev.java.game.mission.MissionManager;
 
 import java.awt.Graphics;
@@ -21,13 +21,7 @@ public class Player extends Creature{
     private Animation upAnim;
     private Animation rightAnim;
     private Animation leftAnim;
-    private AttackAnimation downAttack;
-    private AttackAnimation upAttack;
-    private AttackAnimation rightAttack;
-    private AttackAnimation leftAttack;
-    private String attackDirection;
-    private boolean attackInAction;
-    private float deltaAttack;
+    private RangedAttacks attack;
     //attack speed
     private long lastAttackTime, attackCooldown, attackTimer;
     //inventory
@@ -55,13 +49,8 @@ public class Player extends Creature{
         leftAnim = new Animation(150, Assets.player_left, false);
 
 
-        downAttack = new AttackAnimation(800, Assets.attack_down, true,1,"down");
-        upAttack = new AttackAnimation(800, Assets.attack_up, true,1,"up");
-        rightAttack = new AttackAnimation(800, Assets.attack_right, true,1,"right");
-        leftAttack = new AttackAnimation(800, Assets.attack_left, true,1,"left");
+        attack = new PlayerDefaultAttack(handler);
 
-        attackInAction = false;
-        deltaAttack = 0.0f;
 
         inventory = new Inventory(handler);
         missionManager = new MissionManager(handler);
@@ -83,51 +72,19 @@ public class Player extends Creature{
         if(inventory.isActive()){
             return;
         }
-        attackInAction = false;
-
-        Rectangle collisionBox = getCollisionBounds(0,0);
-        Rectangle attackRectangle = new Rectangle();
-        int arSize = 20;
-        attackRectangle.width = arSize;
-        attackRectangle.height = arSize;
 
         if(handler.getKeyManager().aUp){
-            attackRectangle.x = collisionBox.x + collisionBox.width/2 - arSize/2;
-            attackRectangle.y = collisionBox.y - arSize;
-            attackDirection = "up";
-            attackInAction = true;
+            attack.generateCollisionBox(0, -256);
         } else if(handler.getKeyManager().aDown){
-            attackRectangle.x = collisionBox.x + collisionBox.width/2 - arSize/2;
-            attackRectangle.y = collisionBox.y + collisionBox.height;
-            attackDirection = "down";
-            attackInAction = true;
+            attack.generateCollisionBox(0, 256);
         } else if(handler.getKeyManager().aLeft){
-            attackRectangle.x = collisionBox.x - arSize;
-            attackRectangle.y = collisionBox.y + collisionBox.height/2 - arSize/2;
-            attackDirection = "left";
-            attackInAction = true;
+            attack.generateCollisionBox(-256,0);
         } else if(handler.getKeyManager().aRight){
-            attackRectangle.x = collisionBox.x + collisionBox.width;
-            attackRectangle.y = collisionBox.y + collisionBox.height/2 - arSize/2;
-            attackDirection = "right";
-            attackInAction = true;
-        }else{
-            attackInAction = false;
-            return;
+            attack.generateCollisionBox(256,0);
         }
 
         attackTimer = 0;
 
-        for(int i = 0; i < handler.getWorld().getEntityManager().getEntities().size(); i++) { // this needs to be changed to a more efficient method
-            Entity e = handler.getWorld().getEntityManager().getEntities().get(i);
-            if (e.equals(this)) {
-                continue;
-            }
-            if (e.getCollisionBounds(0, 0).intersects(attackRectangle)) {
-                e.receiveDamage(1);
-                return;
-            }
-        }
     }
 
     private void getInput(){
@@ -170,25 +127,6 @@ public class Player extends Creature{
         }
     }
 
-    private BufferedImage getCurrentAttackFrame(){
-        return getCurrentAttackDirection().getCurrentFrame();
-    }
-
-    private AttackAnimation getCurrentAttackDirection(){
-        if(attackDirection.equals("up")){
-            return upAttack;
-        }else if(attackDirection.equals("down")){
-            return downAttack;
-        }else if(attackDirection.equals("left")){
-            return leftAttack;
-        }else if(attackDirection.equals("right")){
-            return rightAttack;
-        }else{
-            return downAttack;
-        }
-
-    }
-
 
     @Override
     public void update() {
@@ -206,13 +144,7 @@ public class Player extends Creature{
 
         //attack
         checkAttacks();
-        if(attackInAction){
-            deltaAttack = deltaAttack + 50/((float)attackCooldown/1000*60);
-        }
-        if(deltaAttack >= 10 || !attackInAction){
-            attackInAction = false;
-            deltaAttack = 0;
-        }
+        attack.update();
 
         //inventory
         inventory.update();
@@ -225,10 +157,6 @@ public class Player extends Creature{
 
     @Override
     public void render(Graphics graphics) {
-        if(attackInAction){
-            graphics.drawImage(getCurrentAttackFrame(),(int)(getCurrentAttackDirection().getDeltaX((int)deltaAttack)+x - handler.getGameCamera().getxOffset()),
-                    (int)(getCurrentAttackDirection().getDeltaY((int)deltaAttack)+y - handler.getGameCamera().getyOffset()), width, height,null);
-        }
         if(handler.getKeyManager().aUp){
             graphics.drawImage(upAnim.getCurrentFrame(),(int)(x - handler.getGameCamera().getxOffset()),(int)(y - handler.getGameCamera().getyOffset()), width, height, null);
         } else if(handler.getKeyManager().aLeft){
@@ -236,6 +164,7 @@ public class Player extends Creature{
         } else{
             graphics.drawImage(getCurrentActionFrame(),(int)(x - handler.getGameCamera().getxOffset()),(int)(y - handler.getGameCamera().getyOffset()), width, height, null);
         }
+        attack.render(graphics);
 
     }
 

@@ -102,7 +102,7 @@ public class Assets {
         attack_down = new BufferedImage[3];
         attack_down[0] = sheet.crop(width,height*2,width,height);
         attack_down[1] = sheet.crop(width,height*2,width,height);
-        attack_down[1] = sheet.crop(width,height*2,width,height);
+        attack_down[2] = sheet.crop(width,height*2,width,height);
         attack_up = new BufferedImage[3];
         attack_up[0] = sheet.crop(width*2,height*2,width,height);
         attack_up[1] = sheet.crop(width*2,height*2,width,height);
