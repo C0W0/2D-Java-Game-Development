@@ -1,4 +1,4 @@
 package dev.java.game.gfx.animations.attackAnimations;
 
-public class MeleeAttackAnimation {
+public abstract class MeleeAttackAnimation {
 }

@@ -14,7 +14,7 @@ public abstract class Active extends Creature {
     protected int spottingRange, giveUpRange, maxIdealRange, minIdealRange, patrolRange;
     protected int defence;
     protected Entity target;
-    //TODO: complete rework for factions. Adding a variable for target will be ideal
+    //TODO: complete rework for factions.
 
     protected final int oX, oY; // o stands for original
 

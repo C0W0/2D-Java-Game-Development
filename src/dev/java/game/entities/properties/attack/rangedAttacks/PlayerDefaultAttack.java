@@ -11,7 +11,7 @@ public class PlayerDefaultAttack extends RangedAttacks {
     }
 
     @Override
-    public void generateCollisionBox(int dX, int dY) {
+    public void generateAttack(int dX, int dY) {
         RangedAttackCollision rc = new RangedAttackCollision((int)x, (int)y, 64, 64, dX, dY, (int) travelSpeed);
         collisionQueue.add(rc);
         animations.add(new PlayerDefaultAttackAnimation((int)x, (int)y, dX, dY, (int)travelSpeed));

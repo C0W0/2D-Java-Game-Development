@@ -4,6 +4,7 @@ import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.creatures.active.Active;
 import dev.java.game.entities.properties.attack.Attacks;
+import dev.java.game.gfx.animations.Animation;
 import dev.java.game.gfx.animations.attackAnimations.RangedAttackAnimations.RangedAttackAnimation;
 import dev.java.game.utils.Utils;
 
@@ -60,7 +61,6 @@ public abstract class RangedAttacks extends Attacks {
                     }
                     if (carrier == null) {
                         e.receiveDamage(baseDamage);
-                        System.out.println("called");
                         r.setHit(true);
                     }
                 }
@@ -84,5 +84,5 @@ public abstract class RangedAttacks extends Attacks {
 //        return dY;
 //    }
 
-    public abstract void generateCollisionBox(int dX, int dY);
+    public abstract void generateAttack(int dX, int dY);
 }

@@ -2,7 +2,6 @@ package dev.java.game.entities.creatures;
 
 
 import dev.java.game.Handler;
-import dev.java.game.entities.Entity;
 import dev.java.game.entities.properties.attack.rangedAttacks.PlayerDefaultAttack;
 import dev.java.game.entities.properties.attack.rangedAttacks.RangedAttacks;
 import dev.java.game.gfx.animations.Animation;
@@ -11,7 +10,6 @@ import dev.java.game.inventory.Inventory;
 import dev.java.game.mission.MissionManager;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Player extends Creature{
@@ -74,13 +72,13 @@ public class Player extends Creature{
         }
 
         if(handler.getKeyManager().aUp){
-            attack.generateCollisionBox(0, -256);
+            attack.generateAttack(0, -256);
         } else if(handler.getKeyManager().aDown){
-            attack.generateCollisionBox(0, 256);
+            attack.generateAttack(0, 256);
         } else if(handler.getKeyManager().aLeft){
-            attack.generateCollisionBox(-256,0);
+            attack.generateAttack(-256,0);
         } else if(handler.getKeyManager().aRight){
-            attack.generateCollisionBox(256,0);
+            attack.generateAttack(256,0);
         }
 
         attackTimer = 0;

@@ -3,6 +3,7 @@ package dev.java.game.entities.properties.attack;
 import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.creatures.active.Active;
+import dev.java.game.gfx.animations.Animation;
 import dev.java.game.utils.Utils;
 
 import java.awt.*;
@@ -14,8 +15,8 @@ public abstract class Attacks {
     protected int type;
     protected int baseDamage;
     protected final Active carrier;
-    protected Entity target;
-    //TODO: implement the reworked attack animation
+    protected Animation carrierAnimationA, carrierAnimationB, carrierAnimationC,
+            carrierAnimationD, carrierAnimationE, carrierAnimationF;
 
     public Attacks(Handler handler, int baseDamage, int type, Active carrier){
         this.handler = handler;
@@ -33,7 +34,6 @@ public abstract class Attacks {
 
     public void update(){
         if(carrier != null) {
-            target = carrier.getTarget();
             x = carrier.getX();
             y = carrier.getY();
         }else {
@@ -49,5 +49,28 @@ public abstract class Attacks {
 
     public abstract void dealDamage();
 
+    public Animation getOverridingAnimationA(){
+        return carrierAnimationA;
+    }
+
+    public Animation getOverridingAnimationB(){
+        return carrierAnimationB;
+    }
+
+    public Animation getOverridingAnimationC(){
+        return carrierAnimationC;
+    }
+
+    public Animation getOverridingAnimationD(){
+        return carrierAnimationD;
+    }
+
+    public Animation getOverridingAnimationE(){
+        return carrierAnimationE;
+    }
+
+    public Animation getOverridingAnimationF(){
+        return carrierAnimationF;
+    }
 
 }

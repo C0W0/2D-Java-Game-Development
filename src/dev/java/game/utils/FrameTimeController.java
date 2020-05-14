@@ -15,6 +15,7 @@ public class FrameTimeController {
      * @param target the target frame number since calling the start method
      */
     public void start(int target){
+        reset();
         this.target = target;
         timeControllerOn = true;
     }
@@ -23,6 +24,7 @@ public class FrameTimeController {
      * if only counting frames is needed
      */
     public void start(){
+        reset();
         timeControllerOn = true;
     }
 
@@ -31,12 +33,12 @@ public class FrameTimeController {
             return;
         frames ++;
         if(atTarget()){
-            reset();
+            timeControllerOn = false;
         }
     }
 
     public boolean atTarget(){
-        return frames >= target;
+        return (frames >= target) && (target != 0);
     }
 
     public int getStatus(){
@@ -47,5 +49,9 @@ public class FrameTimeController {
         timeControllerOn = false;
         frames = 0;
         target = 0;
+    }
+
+    public boolean isTimeControllerOn() {
+        return timeControllerOn;
     }
 }

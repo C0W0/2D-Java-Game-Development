@@ -26,6 +26,10 @@ public class Assets {
     public static BufferedImage sword;
     public static BufferedImage[] npcCrab;
     public static BufferedImage[] npcSlime;
+    public static BufferedImage[] slimeMovementLeft;
+    public static BufferedImage[] slimeMovementRight;
+    public static BufferedImage[] slimeAttackLeft;
+    public static BufferedImage[] slimeAttackRight;
 
     //player
     public static BufferedImage player_neutral;
@@ -60,9 +64,11 @@ public class Assets {
         SpriteSheet crabSheet = new SpriteSheet(ImageLoader.loadImage("/texture/crab.png"));
 
 
+        //UI
         inventoryScreen = ImageLoader.loadImage("/texture/InventoryScreen.png");
         missionScreen = ImageLoader.loadImage("/texture/MissionScreen.png");
 
+        //player
         button_start = new BufferedImage[2];
         button_start[0] = sheet1.crop(0,0,width*2,height);
         button_start[1] = sheet1.crop(width*2,0,width*2,height);
@@ -122,13 +128,33 @@ public class Assets {
         npcCrab = loadSpriteAsArray(crabSheet, 6, 4, 64, 64);
         npcSlime = loadSpriteAsArray(idleSlime, 2, 1, 64, 64);
 
+        //entity
+        tree = townTiles.crop(width*5,height*3,width,height*2);
+        slimeMovementLeft = new BufferedImage[3];
+        slimeMovementLeft[0] = slimeMovement.crop(0,0,width,height);
+        slimeMovementLeft[1] = slimeMovement.crop(width,0,width,height);
+        slimeMovementLeft[2] = slimeMovement.crop(width*2,0,width,height);
+        slimeMovementRight = new BufferedImage[3];
+        slimeMovementRight[0] = slimeMovement.crop(0,height,width,height);
+        slimeMovementRight[1] = slimeMovement.crop(width,height,width,height);
+        slimeMovementRight[2] = slimeMovement.crop(width*2,height,width,height);
+
+
+        slimeAttackLeft = new BufferedImage[3];
+        slimeAttackLeft[0] = slimeAttack.crop(0,0,width,height);
+        slimeAttackLeft[1] = slimeAttack.crop(width,0,width,height);
+        slimeAttackLeft[2] = slimeAttack.crop(width*2,0,width,height);
+        slimeAttackRight = new BufferedImage[3];
+        slimeAttackRight[0] = slimeAttack.crop(0,height,width,height);
+        slimeAttackRight[1] = slimeAttack.crop(width,height,width,height);
+        slimeAttackRight[2] = slimeAttack.crop(width*2,height,width,height);
+
+        //tiles
         grass = townTiles.crop(0,height,width,height);
         grassStone = sheet1.crop(width*3,height,width,height);
         dirt = townTiles.crop(width,height,width,height);
         dirtStone = sheet1.crop(width*6,height,width,height);
 
-        tree = townTiles.crop(width*5,height*3,width,height*2);
-//        invisible = s
 
         pathVertical = townTiles.crop(width*2,height,width,height);
         pathHorizontal = townTiles.crop(width*2,height*2,width,height);
