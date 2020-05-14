@@ -5,7 +5,7 @@ If you wish to join us or contact us, visit https://discord.gg/RaWwSFP
 the following are important informations for programming team members:
 
 1.   NOTE: the frames it took to cycle through an animation once can be calculated with the following formula:
-     tms/1000*FPS*fra
+     tms/1000* FPS* fra
      tms: animation delay time between frames in millisecond 
      FPS: the frame per second constant of the game
      fra: the number of frames in one cycle of animation
