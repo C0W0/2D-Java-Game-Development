@@ -2,8 +2,7 @@ package dev.java.game.ui.clicker;
 
 import dev.java.game.Handler;
 import dev.java.game.gfx.Assets;
-import dev.java.game.ui.Slider;
-import dev.java.game.ui.UIImageButton;
+import dev.java.game.ui.functionUI.UIImageButton;
 
 import java.util.function.IntSupplier;
 

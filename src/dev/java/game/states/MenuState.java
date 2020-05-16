@@ -3,7 +3,7 @@ package dev.java.game.states;
 import dev.java.game.Handler;
 import dev.java.game.gfx.Assets;
 import dev.java.game.ui.clicker.StateSwitchingClicker;
-import dev.java.game.ui.UIImageButton;
+import dev.java.game.ui.functionUI.UIImageButton;
 import dev.java.game.ui.UIManager;
 
 import java.awt.Graphics;

@@ -7,6 +7,10 @@ import dev.java.game.tiles.Tile;
 import dev.java.game.ui.clicker.EntityEditingClicker;
 import dev.java.game.ui.clicker.MapSizingClicker;
 import dev.java.game.ui.clicker.TileEditingClicker;
+import dev.java.game.ui.functionUI.MapEditorButton;
+import dev.java.game.ui.functionUI.Slider;
+import dev.java.game.ui.functionUI.SliderAdjuster;
+import dev.java.game.ui.functionUI.UIImageButton;
 import dev.java.game.worlds.World;
 
 import java.awt.Graphics;

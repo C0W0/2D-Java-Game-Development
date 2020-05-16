@@ -1,7 +1,8 @@
-package dev.java.game.ui;
+package dev.java.game.ui.functionUI;
 
 import dev.java.game.gfx.Assets;
 import dev.java.game.gfx.Text;
+import dev.java.game.ui.UIObject;
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -9,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 
-public class Slider extends UIObject{
+public class Slider extends UIObject {
 
     private int max, min, tickSpacing;
     protected int value;
