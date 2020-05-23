@@ -106,7 +106,19 @@ public class Inventory {
         inventoryItems.add(item);
     }
 
+    public int getItemCount(int id){
+        for(Item i : inventoryItems)
+            if(i.getId() == id)
+                return i.getCount();
 
+        return 0;
+    }
+
+    public void removeItem(int id, int count){
+        for(Item i : inventoryItems)
+            if(i.getId() == id)
+                i.setCount(i.getCount()-count);
+    }
     //getters and setters
     public Handler getHandler() {
         return handler;

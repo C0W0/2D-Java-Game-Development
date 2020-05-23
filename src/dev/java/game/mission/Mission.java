@@ -15,7 +15,7 @@ public abstract class Mission {
     public static Mission collect5Woods = new CollectWood("Collect 5 woods",
             new String[]{"Collect 5 woods for the", "construction of our town"}, 1, 5);
     public static Mission collect10Apples = new CollectApple("Collect 10 apples",
-            new String[]{"Collect 10 apples for", "little Alice"},2, 3);
+            new String[]{"Collect 10 apples for", "little Alice"},2, 10);
 
     protected int status;
     /** 0 - not active
