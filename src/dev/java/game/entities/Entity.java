@@ -12,6 +12,7 @@ public abstract class Entity {
     //Entities
     public static final int DEFAULT_HEALTH = 10;
     protected int health;
+    protected int maxHP;
     protected boolean active;
     protected int faction;
 
@@ -29,7 +30,8 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
         active = true;
-        health = DEFAULT_HEALTH;
+        health = DEFAULT_HEALTH; //TODO: CHANGE THIS!!!
+        maxHP = health;
 
         bounds = new Rectangle(0, 0, width, height);//default
     }

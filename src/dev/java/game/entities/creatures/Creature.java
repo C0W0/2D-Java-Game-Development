@@ -90,6 +90,10 @@ public abstract class Creature extends Entity {
         return handler.getWorld().getTile(x,y).isBarrier();
     }
 
+    public void changeHealth(int deltaHealth){
+        health = Math.min(health + deltaHealth, maxHP);
+    }
+
     //getters and setters
     public int getHealth() {
         return health;

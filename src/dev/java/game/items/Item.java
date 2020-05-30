@@ -2,22 +2,24 @@ package dev.java.game.items;
 
 import dev.java.game.Handler;
 import dev.java.game.gfx.Assets;
+import dev.java.game.items.functionless.NeutralItems;
+import dev.java.game.items.usable.HealItem;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Item {
+public abstract class Item {
 
     //handler
 
     public static Item[] items = new Item[256];
-    public static Item woodItem = new Item(Assets.wood, "wood", 0);
-    public static Item appleItem = new Item(Assets.apple, "apple", 1);
-    public static Item stoneItem = new Item(Assets.stone, "stone", 2);
-    public static Item potionItem = new Item(Assets.potion, "potion", 3);
-    public static Item shieldItem = new Item(Assets.shield, "shield", 4);
-    public static Item swordItem = new Item(Assets.sword, "sword", 5);
+    public static NeutralItems woodItem = new NeutralItems(Assets.wood, "wood", 0);
+    public static HealItem appleItem = new HealItem(Assets.apple, "apple", 1, 1);
+    public static NeutralItems stoneItem = new NeutralItems(Assets.stone, "stone", 2);
+    public static NeutralItems potionItem = new NeutralItems(Assets.potion, "potion", 3);
+    public static NeutralItems shieldItem = new NeutralItems(Assets.shield, "shield", 4);
+    public static NeutralItems swordItem = new NeutralItems(Assets.sword, "sword", 5);
 
     //class
     public static final int ITEMWIDTH = 32;
@@ -72,19 +74,15 @@ public class Item {
         bounds.y = y;
     }
 
-    public Item createNew(int count){
-        Item i = new Item(texture, name, id);
-        i.setPickedUP(true);
-        i.count = count;
-        return i;
-    }
+    //this is for testing
+//    public Item createNew(int count){
+//        Item i = new Item(texture, name, id);
+//        i.setPickedUP(true);
+//        i.count = count;
+//        return i;
+//    }
 
-    public Item createNew(int x, int y, int count){
-        Item i = new Item(texture, name, id);
-        i.count = count;
-        i.setPosition(x, y);
-        return i;
-    }
+    public abstract void itemActivity();
 
 
     //getters and setters

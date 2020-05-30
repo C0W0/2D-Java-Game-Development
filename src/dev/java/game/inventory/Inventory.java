@@ -52,11 +52,21 @@ public class Inventory {
             return;
         }
 
+        for(int i = 0; i < inventoryItems.size(); i++)
+            if(inventoryItems.get(i).getCount() == 0) {
+                inventoryItems.remove(i);
+                i --;
+            }
+
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
             selectedItem --;
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
             selectedItem ++;
+        }
+
+        if(handler.getKeyManager().keyJustPressed(VK_ENTER)){
+            inventoryItems.get(selectedItem).itemActivity();
         }
 
         if(selectedItem < 0){
@@ -114,7 +124,7 @@ public class Inventory {
         return 0;
     }
 
-    public void removeItem(int id, int count){
+    public void deductItem(int id, int count){
         for(Item i : inventoryItems)
             if(i.getId() == id)
                 i.setCount(i.getCount()-count);
