@@ -15,3 +15,5 @@ the following are important information for programming team members:
      fra: the number of frames in one cycle of animation
      
      the information above can be used to set up a correct FrameTimeController object to control animation overriding
+     
+2.   NOTE: the size of deployable screens is 512* 384, the whitespace is 1 pxl on each side.
