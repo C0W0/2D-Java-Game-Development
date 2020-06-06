@@ -2,7 +2,6 @@ package dev.java.game.inventory;
 
 import dev.java.game.Handler;
 import dev.java.game.gfx.Assets;
-import dev.java.game.gfx.ImageLoader;
 import dev.java.game.gfx.Text;
 import dev.java.game.items.Item;
 
@@ -18,7 +17,7 @@ public class Inventory {
     private Handler handler;
     private boolean active = false;
     private ArrayList<Item> inventoryItems;
-    private int invHeight, invWidth;
+    int invHeight, invWidth;
     private int invListCentreX, invListCentreY, invListSpacing;
     private int invImageX, invImageY;
     private int invImageWidth, invImageHeight;
@@ -28,7 +27,7 @@ public class Inventory {
 
     public Inventory(Handler handler){
         this.handler = handler;
-        inventoryItems = new ArrayList<Item>();
+        inventoryItems = new ArrayList<>();
 
         invHeight = handler.getHeight()-50;
         invWidth = handler.getWidth()-100;
@@ -66,7 +65,7 @@ public class Inventory {
         }
 
         if(handler.getKeyManager().keyJustPressed(VK_ENTER)){
-            inventoryItems.get(selectedItem).itemActivity();
+            inventoryItems.get(selectedItem).onActive();
         }
 
         if(selectedItem < 0){
@@ -106,6 +105,8 @@ public class Inventory {
 
     //inventory methods
     public void addItem(Item item){
+        if(item.getHandler() == null)
+            item.setHandler(handler);
         for(int i = 0; i < inventoryItems.size(); i++){
             Item tempItem = inventoryItems.get(i);
             if(tempItem.getId() == item.getId()){

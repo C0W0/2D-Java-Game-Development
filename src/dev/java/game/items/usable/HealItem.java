@@ -25,4 +25,12 @@ public class HealItem extends UsableItems {
         i.setPosition(x, y);
         return i;
     }
+
+    @Override
+    public Item addToInv(int count) {
+        HealItem i = new HealItem(texture, name, id, hpRegen);
+        i.setPickedUP(true);
+        i.count = count;
+        return i;
+    }
 }

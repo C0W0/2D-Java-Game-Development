@@ -10,7 +10,15 @@ public class NeutralItems extends Item {
     }
 
     @Override
-    public void itemActivity() {}
+    public void onActive() {}
+
+    @Override
+    public Item addToInv(int count) {
+        NeutralItems i = new NeutralItems(texture, name, id);
+        i.setPickedUP(true);
+        i.count = count;
+        return i;
+    }
 
     public NeutralItems createNew(int x, int y, int count){
         NeutralItems i = new NeutralItems(texture, name, id);

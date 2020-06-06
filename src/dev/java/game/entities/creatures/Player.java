@@ -6,6 +6,7 @@ import dev.java.game.entities.properties.attack.rangedAttacks.PlayerDefaultAttac
 import dev.java.game.entities.properties.attack.rangedAttacks.RangedAttacks;
 import dev.java.game.gfx.animations.Animation;
 import dev.java.game.gfx.Assets;
+import dev.java.game.inventory.Fabricator;
 import dev.java.game.inventory.Inventory;
 import dev.java.game.mission.MissionManager;
 
@@ -24,6 +25,7 @@ public class Player extends Creature{
     private long lastAttackTime, attackCooldown, attackTimer;
     //inventory
     private Inventory inventory;
+    private Fabricator fabricator;
     private MissionManager missionManager;
 
 
@@ -51,6 +53,7 @@ public class Player extends Creature{
 
 
         inventory = new Inventory(handler);
+        fabricator = new Fabricator(handler, inventory, "res/worlds/worldSDK");
         missionManager = new MissionManager(handler);
 
         //only for temp. use
@@ -89,7 +92,7 @@ public class Player extends Creature{
         xMove = 0;
         yMove = 0;
 
-        if(inventory.isActive() || missionManager.isActive()){
+        if(inventory.isActive() || missionManager.isActive() || fabricator.isActive()){
             return;
         }
         //SDK stuff
@@ -146,6 +149,7 @@ public class Player extends Creature{
 
         //inventory
         inventory.update();
+        fabricator.update();
 
         //missions
         missionManager.update();
@@ -174,6 +178,7 @@ public class Player extends Creature{
     public void postRender(Graphics graphics){
         inventory.render(graphics);
         missionManager.render(graphics);
+        fabricator.render(graphics);
     }
 
     public Inventory getInventory() {

@@ -10,7 +10,7 @@ public abstract class Equipments extends Item {
     }
 
     @Override
-    public void itemActivity() {
+    public void onActive() {
         onEquip();
         for(Item i: handler.getWorld().getPlayer().getInventory().getInventoryItems())
             if(i.getId() == id)

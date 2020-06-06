@@ -18,8 +18,8 @@ public abstract class Item {
     public static HealItem appleItem = new HealItem(Assets.apple, "apple", 1, 1);
     public static NeutralItems stoneItem = new NeutralItems(Assets.stone, "stone", 2);
     public static NeutralItems potionItem = new NeutralItems(Assets.potion, "potion", 3);
-    public static NeutralItems shieldItem = new NeutralItems(Assets.shield, "shield", 4);
-    public static NeutralItems swordItem = new NeutralItems(Assets.sword, "sword", 5);
+    public static NeutralItems shieldItem = new NeutralItems(Assets.wood, "shield", 4);
+    public static NeutralItems swordItem = new NeutralItems(Assets.apple, "sword", 5);//TODO: GIVE ME AN ACTUAL SWORD
 
     //class
     public static final int ITEMWIDTH = 32;
@@ -82,8 +82,9 @@ public abstract class Item {
 //        return i;
 //    }
 
-    public abstract void itemActivity();
+    public abstract void onActive();
 
+    public abstract Item addToInv(int count);
 
     //getters and setters
     public Handler getHandler() {
