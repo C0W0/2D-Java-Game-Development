@@ -110,11 +110,11 @@ public class Fabricator {
             }
         }
         Recipe r = recipes.get(recipeLocations[selectedY][selectedX]);
+        if(r == null)
+            return;
         for(int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
                 if(r.requiredItems[y][x] != -1){
-//                    System.out.println(y+" "+x);
-//                    System.out.println(r.requiredItems[y][x]);
                     graphics.drawImage(Item.items[r.requiredItems[y][x]].getTexture(),
                             x*recipeDConstant+craftingWindowBaseX, y*recipeDConstant+craftingWindowBaseY,
                             iconSize, iconSize, null);
