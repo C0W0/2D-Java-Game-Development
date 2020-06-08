@@ -28,7 +28,7 @@ public abstract class Mission {
     protected int stage;
     protected int[] finalProgress, progress;
 
-    protected Item rewardItem;
+    protected int rewardItemID;
     protected int expReward;
 
     protected Handler handler;
@@ -59,7 +59,8 @@ public abstract class Mission {
     }
 
     protected void receiveReward(){
-        handler.getWorld().getPlayer().getInventory().addItem(rewardItem);
+        handler.getWorld().getPlayer().getInventory().addItem(
+                Item.items[rewardItemID].addToInv(1)); // TODO: Variable number
     }
 
     public int getStatus() {

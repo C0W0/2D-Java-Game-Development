@@ -185,6 +185,10 @@ public class Player extends Creature{
         return inventory;
     }
 
+    public Fabricator getFabricator() {
+        return fabricator;
+    }
+
     public MissionManager getMissionManager(){
         return missionManager;
     }

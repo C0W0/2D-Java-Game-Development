@@ -55,6 +55,7 @@ public class Inventory {
             if(inventoryItems.get(i).getCount() == 0) {
                 inventoryItems.remove(i);
                 i --;
+                System.out.println("called");
             }
 
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){

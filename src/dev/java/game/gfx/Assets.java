@@ -39,6 +39,7 @@ public class Assets {
     //UI
     public static BufferedImage [] button_start, button_settings, button_back;
     public static BufferedImage [] button_up, button_down;
+    public static BufferedImage [] craftButton;
     public static BufferedImage horizontalSlideTrack, horizontalSlider, horizontalTickMark, verticalSlideTrack, verticalSlider, verticalTickMark;
     public static BufferedImage inventoryScreen, missionScreen, craftingScreen;
     public static BufferedImage redSqr, bluesqr;
@@ -71,6 +72,8 @@ public class Assets {
         craftingScreen = ImageLoader.loadImage("/texture/CraftScreen.png");
         redSqr = ImageLoader.loadImage("/texture/NoEnoughMaterial.png");
         bluesqr = ImageLoader.loadImage("/texture/Selected.png");
+        craftButton = new BufferedImage[]{sheet1.crop(320, 384, 128, 128),
+                sheet1.crop(320, 384, 128, 128)};
 
         //player
         button_start = new BufferedImage[2];

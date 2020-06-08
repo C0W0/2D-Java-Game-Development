@@ -3,12 +3,14 @@ package dev.java.game.inventory;
 import dev.java.game.Handler;
 import dev.java.game.gfx.Assets;
 import dev.java.game.items.Item;
+import dev.java.game.ui.functionUI.UIImageButton;
 import dev.java.game.utils.Utils;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import static java.awt.event.KeyEvent.VK_C;
 
@@ -23,6 +25,7 @@ public class Fabricator {
     private int craftingWindowBaseX, craftingWindowBaseY;
     private int[][] recipeLocations;
     private int lastSelection; // efficiency mechanic
+    private CraftButton craftButton;
 
     public Fabricator(Handler handler, Inventory inventory, String recipeFilePath){
         this.handler = handler;
@@ -40,6 +43,10 @@ public class Fabricator {
         scroll = 0; // WIP
         lastSelection = -1;
         recipeLocations = new int[35][5];
+        craftButton = new CraftButton(this, () -> active,
+                366.f/512*inventory.invWidth+50, 306.f/384*inventory.invHeight+20,
+                (int)(32.f/512*inventory.invWidth), (int)(32.f/384*inventory.invHeight));
+        handler.getUIManager().addUIObject(craftButton);
         loadRecipes(recipeFilePath);
     }
 
@@ -69,18 +76,23 @@ public class Fabricator {
     public void craft(){
         if(!isCraftable())
             return;
-        for(Map.Entry e: recipes.get(recipeLocations[selectedY][selectedX]).requitedItemsCount.entrySet())
-            for(int i = 0; i < inventory.getInventoryItems().size(); i++)
-                if(inventory.getInventoryItems().get(i).getId() == (int)e.getKey()){
+        for(Map.Entry e: recipes.get(recipeLocations[selectedY][selectedX]).requitedItemsCount.entrySet()) {
+            for (int i = 0; i < inventory.getInventoryItems().size(); i++) {
+                if (inventory.getInventoryItems().get(i).getId() == (int) e.getKey()) {
                     inventory.getInventoryItems().get(i).setCount(
-                            inventory.getInventoryItems().get(i).getCount() - (int)e.getValue());
+                            inventory.getInventoryItems().get(i).getCount() - (int) e.getValue());
                     i = inventory.getInventoryItems().size();
                 }
-        inventory.addItem(Item.items[recipeLocations[selectedY][selectedX]]);
+            }
+        }
+        inventory.addItem(Item.items[recipeLocations[selectedY][selectedX]].addToInv(1)); // TODO: Variable number
+        lastSelection = -1;
     }
 
 
     public void update(){
+//        for(Item i: inventory.getInventoryItems())
+//            System.out.println(i.getName());
         if(handler.getKeyManager().keyJustPressed(VK_C)){
             active = !active;
             lastSelection = -1;
@@ -117,6 +129,10 @@ public class Fabricator {
             for(int x = 0; x < 5; x++){
                 if(recipeLocations[y][x] == 0)
                     break;
+                if(!recipes.get(recipeLocations[selectedY][selectedX]).isActive)
+                    graphics.drawImage(Assets.redSqr,
+                            x*recipeDXConstant + recipeBaseX - 2, (y-scroll)*recipeDYConstant + recipeBaseY - 2,
+                            iconSize + 4, iconSize + 4, null);
                 if(x == selectedX && y == selectedY)
                     graphics.drawImage(Assets.bluesqr,
                             x*recipeDXConstant + recipeBaseX - 2, (y-scroll)*recipeDYConstant + recipeBaseY - 2,
@@ -146,30 +162,7 @@ public class Fabricator {
                 }
             }
         }
-    }
-
-    public static class Recipe{
-        public int craftingLevel;
-        public boolean isActive = true;
-        public int[][] requiredItems = new int[3][3];
-        public HashMap<Integer,Integer> requitedItemsCount = new HashMap<>();
-
-        public Recipe(String[] data){
-            //the format of data: id, recipe*9, level
-            for(int y = 0; y < 3; y++){
-                for(int x = 0; x < 3; x++){
-                    requiredItems[y][x] = Integer.parseInt(data[y*3+x+1]);
-                    if(requiredItems[y][x] == -1) //omits -1, as it represents nothing
-                        continue;
-                    if(requitedItemsCount.get(requiredItems[y][x]) != null){
-                        requitedItemsCount.put(requiredItems[y][x], requitedItemsCount.get(requiredItems[y][x])+1);
-                    }else{
-                        requitedItemsCount.put(requiredItems[y][x], 1);
-                    }
-                }
-            }
-            craftingLevel = Utils.parseInt(data[10]);
-        }
+        craftButton.postRender(graphics);
     }
 
     public boolean isActive() {
@@ -197,5 +190,57 @@ public class Fabricator {
             }
         }
         return missingItemCount;
+    }
+
+    private static class CraftButton extends UIImageButton {
+        private BooleanSupplier isFabricatorActive;
+        public CraftButton(Fabricator fabricator, BooleanSupplier isFabricatorActive, float x, float y, int width, int height) {
+            super(x, y, width, height, Assets.craftButton, () -> fabricator.craft());
+            this.isFabricatorActive = isFabricatorActive;
+        }
+
+        @Override
+        public void update() {
+            if(!isFabricatorActive.getAsBoolean())
+                return;
+            super.update();
+        }
+
+        @Override
+        public void render(Graphics graphics) {}
+
+        public void postRender(Graphics graphics){
+            if(hovering){
+                graphics.drawImage(images[1], (int)x, (int)y, width, height, null);
+            } else{
+                graphics.drawImage(images[0], (int)x, (int)y, width, height, null);
+            }
+        }
+    }
+
+
+
+    public static class Recipe{
+        public int craftingLevel;
+        public boolean isActive = true;
+        public int[][] requiredItems = new int[3][3];
+        public HashMap<Integer,Integer> requitedItemsCount = new HashMap<>();
+
+        public Recipe(String[] data){
+            //the format of data: id, recipe*9, level
+            for(int y = 0; y < 3; y++){
+                for(int x = 0; x < 3; x++){
+                    requiredItems[y][x] = Integer.parseInt(data[y*3+x+1]);
+                    if(requiredItems[y][x] == -1) //omits -1, as it represents nothing
+                        continue;
+                    if(requitedItemsCount.get(requiredItems[y][x]) != null){
+                        requitedItemsCount.put(requiredItems[y][x], requitedItemsCount.get(requiredItems[y][x])+1);
+                    }else{
+                        requitedItemsCount.put(requiredItems[y][x], 1);
+                    }
+                }
+            }
+            craftingLevel = Utils.parseInt(data[10]);
+        }
     }
 }
