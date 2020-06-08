@@ -41,7 +41,7 @@ public class Assets {
     public static BufferedImage [] button_up, button_down;
     public static BufferedImage horizontalSlideTrack, horizontalSlider, horizontalTickMark, verticalSlideTrack, verticalSlider, verticalTickMark;
     public static BufferedImage inventoryScreen, missionScreen, craftingScreen;
-    public static BufferedImage redSqr;
+    public static BufferedImage redSqr, bluesqr;
 
     //SDK stuff
     public static BufferedImage [] button_SDK, button_new, button_save;
@@ -70,6 +70,7 @@ public class Assets {
         missionScreen = ImageLoader.loadImage("/texture/MissionScreen.png");
         craftingScreen = ImageLoader.loadImage("/texture/CraftScreen.png");
         redSqr = ImageLoader.loadImage("/texture/NoEnoughMaterial.png");
+        bluesqr = ImageLoader.loadImage("/texture/Selected.png");
 
         //player
         button_start = new BufferedImage[2];
