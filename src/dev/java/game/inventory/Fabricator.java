@@ -129,7 +129,8 @@ public class Fabricator {
             for(int x = 0; x < 5; x++){
                 if(recipeLocations[y][x] == 0)
                     break;
-                if(!recipes.get(recipeLocations[selectedY][selectedX]).isActive)
+                if(recipes.get(recipeLocations[selectedY][selectedX]) != null &&
+                        !recipes.get(recipeLocations[selectedY][selectedX]).isActive)
                     graphics.drawImage(Assets.redSqr,
                             x*recipeDXConstant + recipeBaseX - 2, (y-scroll)*recipeDYConstant + recipeBaseY - 2,
                             iconSize + 4, iconSize + 4, null);
