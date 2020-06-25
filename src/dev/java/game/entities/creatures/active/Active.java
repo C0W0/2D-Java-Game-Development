@@ -16,16 +16,15 @@ public abstract class Active extends Creature {
     protected Entity target;
     //TODO: complete rework for factions.
 
-    protected final int oX, oY; // o stands for original
 
     //attack system
     protected Attacks attack;
     protected long lastAttackTime, attackCooldown, attackTimer;
 
-    public Active(Handler handler, float x, float y, int width, int height, int oX, int oY, long attackCooldown) {
-        super(handler, x, y, width, height);
-        this.oX = oX;
-        this.oY = oY;
+    public Active(int width, int height, long attackCooldown, int id) {
+        super(width, height, id);
+        oX = 0;
+        oY = 0;
         xMove = 0;
         yMove = 0;
         this.attackCooldown = attackCooldown;

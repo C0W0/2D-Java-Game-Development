@@ -12,15 +12,14 @@ public class NPC1 extends NPC {
 
     private Animation dynamicTexture;
 
-    public NPC1(Handler handler, float x, float y) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+    public NPC1() {
+        super(Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, 3);
         interRange = 1;
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = Tile.TILEWIDTH;
         bounds.height = Tile.TILEHEIGHT;
         dynamicTexture = new Animation(5, Assets.npcCrab, false);
-        id = 3;
     }
 
     @Override

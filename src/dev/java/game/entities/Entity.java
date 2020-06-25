@@ -1,13 +1,23 @@
 package dev.java.game.entities;
 
 import dev.java.game.Handler;
+import dev.java.game.entities.creatures.active.Slime;
+import dev.java.game.entities.creatures.npc.NPC1;
+import dev.java.game.entities.statics.AirWall;
+import dev.java.game.entities.statics.Tree;
 import dev.java.game.utils.Utils;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
-public abstract class Entity {
+public abstract class Entity implements Cloneable{
+
+    public static Entity[] entityList = new Entity[5];
+    public static AirWall airWall = new AirWall();
+    public static Tree tree = new Tree();
+    public static NPC1 npc1 = new NPC1();
+    public static Slime slime = new Slime();
 
     //Entities
     public static final int DEFAULT_HEALTH = 10;
@@ -17,21 +27,23 @@ public abstract class Entity {
     protected int faction;
 
     protected float x,y;
+    protected int oX, oY; // o stands for original
     protected Handler handler;
     protected int width, height; //the size of the entity
     protected Rectangle bounds; //collision detection
 
     protected int id;
 
-    public Entity (Handler handler, float x, float y, int width, int height){
-        this.handler = handler;
-        this.x = x;
-        this.y = y;
+    public Entity (int width, int height, int id){
+        x = 0;
+        y = 0;
         this.width = width;
         this.height = height;
         active = true;
         health = DEFAULT_HEALTH; //TODO: CHANGE THIS!!!
         maxHP = health;
+        this.id = id;
+        entityList[id] = this;
 
         bounds = new Rectangle(0, 0, width, height);//default
     }
@@ -72,6 +84,25 @@ public abstract class Entity {
 
     protected boolean isInRange(Entity e, int distance){
         return Utils.getDistance(this, e) <= distance;
+    }
+
+    @Override
+    public Entity clone() {
+        Entity result = null;
+        try {
+            result = (Entity)super.clone();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void initialize(Handler handler, float x, float y, int oX, int oY){
+        this.handler = handler;
+        this.x = x;
+        this.y = y;
+        this.oX = oX;
+        this.oY = oY;
     }
 
     //Getters and Setters
@@ -130,5 +161,13 @@ public abstract class Entity {
 
     public int getFaction() {
         return faction;
+    }
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 }

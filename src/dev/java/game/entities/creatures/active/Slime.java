@@ -15,8 +15,8 @@ public class Slime extends Active {
     private Animation leftMove, rightMove, idle, currentAnimation;
     private FrameTimeController animationCtrlTimer = new FrameTimeController();
 
-    public Slime(Handler handler, float x, float y, int oX, int oY) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, oX, oY, 1000);
+    public Slime() {
+        super(Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, 1000, 4);
         spottingRange = 256;
         maxIdealRange = 64;
         minIdealRange = 0; // melee

@@ -18,12 +18,7 @@ public class Assets {
 
     //entities
     public static BufferedImage invisible, tree;
-    public static BufferedImage wood;
-    public static BufferedImage apple;
-    public static BufferedImage stone;
-    public static BufferedImage potion;
-    public static BufferedImage shield;
-    public static BufferedImage sword;
+    public static BufferedImage wood, apple, stone, potion, shield, sword;
     public static BufferedImage[] npcCrab;
     public static BufferedImage[] npcSlime;
     public static BufferedImage[] slimeMovementLeft;
@@ -42,7 +37,7 @@ public class Assets {
     public static BufferedImage [] craftButton;
     public static BufferedImage horizontalSlideTrack, horizontalSlider, horizontalTickMark, verticalSlideTrack, verticalSlider, verticalTickMark;
     public static BufferedImage inventoryScreen, missionScreen, craftingScreen;
-    public static BufferedImage redSqr, bluesqr;
+    public static BufferedImage redSqr, blueSqr;
 
     //SDK stuff
     public static BufferedImage [] button_SDK, button_new, button_save;
@@ -71,7 +66,7 @@ public class Assets {
         missionScreen = ImageLoader.loadImage("/texture/MissionScreen.png");
         craftingScreen = ImageLoader.loadImage("/texture/CraftScreen.png");
         redSqr = ImageLoader.loadImage("/texture/NoEnoughMaterial.png");
-        bluesqr = ImageLoader.loadImage("/texture/Selected.png");
+        blueSqr = ImageLoader.loadImage("/texture/Selected.png");
         craftButton = new BufferedImage[]{sheet1.crop(320, 384, 128, 128),
                 sheet1.crop(320, 384, 128, 128)};
 

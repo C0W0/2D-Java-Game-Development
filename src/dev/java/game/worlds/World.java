@@ -4,10 +4,6 @@ import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.EntityManager;
 import dev.java.game.entities.creatures.Player;
-import dev.java.game.entities.creatures.active.Slime;
-import dev.java.game.entities.creatures.npc.NPC1;
-import dev.java.game.entities.statics.AirWall;
-import dev.java.game.entities.statics.Tree;
 import dev.java.game.items.ItemManager;
 import dev.java.game.tiles.Tile;
 import dev.java.game.utils.Utils;
@@ -105,18 +101,10 @@ public class World {
      * @param oy the current y position (offset y) of the entity, pass in 0 if not applicable
      * @param status the status of the entity, pass in 0 if not applicable
      */
-    public Entity getEntityWithID(int id, int x, int y, int ox, int oy, int status){
-        if(id == 1) {
-            return new AirWall(handler, x, y);
-        }else if(id == 2) {
-            return new Tree(handler, x, y);
-        }else if(id == 3) {
-            return new NPC1(handler, x, y);
-        }else if(id == 4) {
-            return new Slime(handler, x, y, x+ox, y+oy);
-        }else {
-            return null;
-        }
+    private Entity getEntityWithID(int id, int x, int y, int ox, int oy, int status){
+        Entity e = Entity.entityList[id].clone();
+        e.initialize(handler, x, y, ox, oy);
+        return e;
     }
 
     public Tile getTile(int x, int y){

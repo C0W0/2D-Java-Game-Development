@@ -135,7 +135,7 @@ public class Fabricator {
                             x*recipeDXConstant + recipeBaseX - 2, (y-scroll)*recipeDYConstant + recipeBaseY - 2,
                             iconSize + 4, iconSize + 4, null);
                 if(x == selectedX && y == selectedY)
-                    graphics.drawImage(Assets.bluesqr,
+                    graphics.drawImage(Assets.blueSqr,
                             x*recipeDXConstant + recipeBaseX - 2, (y-scroll)*recipeDYConstant + recipeBaseY - 2,
                             iconSize + 4, iconSize + 4, null);
                 graphics.drawImage(Item.items[recipeLocations[y][x]].getTexture(),

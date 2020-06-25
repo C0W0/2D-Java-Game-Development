@@ -31,7 +31,11 @@ public class Player extends Creature{
 
 
     public Player(Handler handler, float x, float y) {
-        super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+        super(Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, 0);
+
+        this.x = x;
+        this.y = y;
+        this.handler = handler;
 
         bounds.x = 21;
         bounds.y = 30;

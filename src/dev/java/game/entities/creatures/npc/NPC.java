@@ -12,8 +12,8 @@ public abstract class NPC extends Creature {
     protected String[] messages;
 
 
-    public NPC(Handler handler, float x, float y, int width, int height) {
-        super(handler, x, y, width, height);
+    public NPC(int width, int height, int id) {
+        super(width, height, id);
     }
 
     public boolean interactionCheck(){
