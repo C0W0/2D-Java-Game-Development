@@ -16,8 +16,8 @@ public abstract class Item {
     public static Item[] items = new Item[256];
     public static NeutralItems woodItem = new NeutralItems(Assets.wood, "wood", 0);
     public static HealItem appleItem = new HealItem(Assets.apple, "apple", 1, 1);
-    public static NeutralItems stoneItem = new NeutralItems(Assets.stone, "stone", 2);
-    public static NeutralItems potionItem = new NeutralItems(Assets.potion, "potion", 3);
+    public static HealItem potionItem = new HealItem(Assets.potion, "potion", 2, 10);
+    public static NeutralItems stoneItem = new NeutralItems(Assets.stone, "stone", 3);
     public static NeutralItems shieldItem = new NeutralItems(Assets.wood, "shield", 4);
     public static NeutralItems swordItem = new NeutralItems(Assets.apple, "sword", 5);//TODO: GIVE ME AN ACTUAL SWORD
 

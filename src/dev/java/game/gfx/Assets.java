@@ -55,6 +55,7 @@ public class Assets {
         SpriteSheet slimeAttack = new SpriteSheet(ImageLoader.loadImage("/texture/slimeAttack.png"));
         SpriteSheet idleSlime = new SpriteSheet(ImageLoader.loadImage("/texture/idleSlime.png"));
         SpriteSheet appleSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Apple.png"));
+        SpriteSheet potionSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Potion.png"));
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
@@ -171,8 +172,11 @@ public class Assets {
         water[2] = townTiles.crop(width*2,height*4,width,height);
         water[3] = townTiles.crop(width*3,height*4,width,height);
 
+
+        //items
         wood = sheet1.crop(width*7,height,width,height);
         apple = appleSprite.crop(width*0,height*0,width,height);
+        potion = potionSprite.crop(width*0,height*0,width,height);
 
         //SDK stuff
         button_SDK = new BufferedImage[2];
