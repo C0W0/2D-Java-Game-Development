@@ -7,7 +7,6 @@ import dev.java.game.items.Item;
 
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import static java.awt.event.KeyEvent.*;
@@ -18,12 +17,10 @@ public class Inventory {
     private boolean active = false;
     private ArrayList<Item> inventoryItems;
     int invHeight, invWidth;
-    private int invListCentreX, invListCentreY, invListSpacing;
+    private int selectedX = 0, selectedY = 0, scroll;
+    private int itemBaseX, itemBaseY, iconSize, itemDXConstant, itemDYConstant;
     private int invImageX, invImageY;
     private int invImageWidth, invImageHeight;
-    private int invCountX, invCountY;
-
-    private int selectedItem;
 
     public Inventory(Handler handler){
         this.handler = handler;
@@ -31,16 +28,16 @@ public class Inventory {
 
         invHeight = handler.getHeight()-50;
         invWidth = handler.getWidth()-100;
-        invListCentreX = (int)(324.f/980*invWidth+50);
-        invListCentreY = (int)(346.f/670*invHeight+25);
-        invListSpacing = (int)(52.f/670*invHeight);
+        itemDXConstant = (int)(41.f/512*invWidth);
+        itemDYConstant = (int)(41.f/384*invHeight);
+        scroll = 0; // WIP
+        iconSize = (int)(32.f/512*invWidth);
+        itemBaseX = (int)(54.f/512*invWidth+50);
+        itemBaseY = (int)(54.f/384*invHeight+25);
         invImageX = (int)(748.f/980*invWidth+50);
         invImageY = (int)(58.f/670*invHeight+25);
         invImageWidth = (int)(112.f/980*invWidth);
         invImageHeight = (int)(112.f/670*invHeight);
-        invCountX = (int)(802.5f/980*invWidth+50);
-        invCountY = (int)(220.f/670*invHeight+25);
-        selectedItem = 0;
     }
 
     public void update(){
@@ -51,27 +48,20 @@ public class Inventory {
             return;
         }
 
-        for(int i = 0; i < inventoryItems.size(); i++)
-            if(inventoryItems.get(i).getCount() == 0) {
+        for(int i = 0; i < inventoryItems.size(); i++) {
+            if (inventoryItems.get(i).getCount() == 0) {
                 inventoryItems.remove(i);
-                i --;
+                i--;
             }
-
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)){
-            selectedItem --;
         }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
-            selectedItem ++;
-        }
-
-        if(handler.getKeyManager().keyJustPressed(VK_ENTER)){
-            inventoryItems.get(selectedItem).onActive();
-        }
-
-        if(selectedItem < 0){
-            selectedItem = inventoryItems.size() - 1;
-        } else if(selectedItem >= inventoryItems.size()){
-            selectedItem = 0;
+        if(handler.getMouseManager().isLeftPressed()) {
+            int mouseX = handler.getMouseManager().getMouseX();
+            int mouseY = handler.getMouseManager().getMouseY();
+            if(mouseX > itemBaseX && mouseX < itemBaseX+5*itemDXConstant &&
+                    mouseY > itemBaseY && mouseY < itemBaseY +7*itemDYConstant){
+                selectedX = computeSelectedLocationX(mouseX);
+                selectedY = computeSelectedLocationY(mouseY);
+            }
         }
     }
 
@@ -81,26 +71,32 @@ public class Inventory {
         }
         graphics.drawImage(Assets.inventoryScreen,handler.getWidth()/2 - invWidth/2,handler.getHeight()/2 - invHeight/2, invWidth, invHeight,null);
 
-        int len = inventoryItems.size();
-        if(len == 0){
-            return;
-        }
-        for(int i = -5; i < 6; i++){
-            if(selectedItem + i < 0 || selectedItem + i >= len){
-                continue;
+        for(int y = scroll; y < scroll+7; y++){
+            for(int x = 0; x < 5; x++){
+                if(inventoryItems.size() <= y*5+x)
+                    break;
+                if(x == selectedX && y == selectedY)
+                    graphics.drawImage(Assets.blueSqr,
+                            x*itemDXConstant + itemBaseX - 2, (y-scroll)*itemDYConstant + itemBaseY - 2,
+                            iconSize + 4, iconSize + 4, null);
+                graphics.drawImage(inventoryItems.get(y*5+x).getTexture(),
+                        x*itemDXConstant + itemBaseX, (y-scroll)*itemDYConstant + itemBaseY,
+                        iconSize, iconSize, null);
             }
-            if(i == 0){
-                Text.drawString(graphics, ">  "+inventoryItems.get(selectedItem).getName()+"  <",
-                        invListCentreX, invListCentreY + i*invListSpacing, true, Color.yellow, Assets.font28);
+        }
+//        Item item = inventoryItems.get(selectedY*5+selectedX);
+//        graphics.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
+//        Text.drawString(graphics, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.white, Assets.font28);
+    }
 
-            } else{
-                Text.drawString(graphics, inventoryItems.get(selectedItem + i).getName(),
-                        invListCentreX, invListCentreY + i*invListSpacing, true, Color.white, Assets.font28);
-            }
-        }
-        Item item = inventoryItems.get(selectedItem);
-        graphics.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
-        Text.drawString(graphics, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.white, Assets.font28);
+    private int computeSelectedLocationX(float x){
+        x -= itemBaseX;
+        return Math.floorDiv((int)x, itemDXConstant);
+    }
+
+    private int computeSelectedLocationY(float y){
+        y -= itemBaseY;
+        return Math.floorDiv((int)y, itemDYConstant)+scroll;
     }
 
     //inventory methods

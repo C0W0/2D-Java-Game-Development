@@ -21,7 +21,7 @@ public class Fabricator {
     private HashMap<Integer,Recipe> recipes;
     private HashMap<Integer,Integer> missingItems;
     private int selectedX = 0, selectedY = 0, scroll;
-    private int recipeBaseX, recipeBaseY, gridSize, iconSize, recipeDXConstant, recipeDYConstant;
+    private int recipeBaseX, recipeBaseY, iconSize, recipeDXConstant, recipeDYConstant;
     private int craftingWindowBaseX, craftingWindowBaseY;
     private int[][] recipeLocations;
     private int lastSelection; // efficiency mechanic
@@ -34,7 +34,6 @@ public class Fabricator {
         missingItems = new HashMap<>();
         recipeBaseX = (int)(54.f/512*inventory.invWidth+50);
         recipeBaseY = (int)(54.f/384*inventory.invHeight+25);
-        gridSize = (int)(40.f/512*inventory.invWidth);
         iconSize = (int)(32.f/512*inventory.invWidth);
         recipeDXConstant = (int)(41.f/512*inventory.invWidth);
         recipeDYConstant = (int)(41.f/384*inventory.invHeight);
@@ -57,7 +56,7 @@ public class Fabricator {
             String[] data = str.split("\\s+");
             recipes.put(Utils.parseInt(data[0]), new Recipe(data));
             recipeLocations[y][x] = Utils.parseInt(data[0]);
-            x = x < 1?x+1:0;
+            x = x < 4?x+1:0;
             y = x == 0?y+1:y;
         }
     }

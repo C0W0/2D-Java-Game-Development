@@ -54,8 +54,6 @@ public class Assets {
         SpriteSheet slimeMovement = new SpriteSheet(ImageLoader.loadImage("/texture/slimeMovement.png"));
         SpriteSheet slimeAttack = new SpriteSheet(ImageLoader.loadImage("/texture/slimeAttack.png"));
         SpriteSheet idleSlime = new SpriteSheet(ImageLoader.loadImage("/texture/idleSlime.png"));
-        SpriteSheet appleSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Apple.png"));
-        SpriteSheet potionSprite = new SpriteSheet(ImageLoader.loadImage("/texture/Potion.png"));
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
@@ -63,7 +61,7 @@ public class Assets {
 
 
         //UI
-        inventoryScreen = ImageLoader.loadImage("/texture/InventoryScreen.png");
+        inventoryScreen = ImageLoader.loadImage("/texture/inventory_screen.png");
         missionScreen = ImageLoader.loadImage("/texture/MissionScreen.png");
         craftingScreen = ImageLoader.loadImage("/texture/CraftScreen.png");
         redSqr = ImageLoader.loadImage("/texture/NoEnoughMaterial.png");
@@ -175,8 +173,8 @@ public class Assets {
 
         //items
         wood = sheet1.crop(width*7,height,width,height);
-        apple = appleSprite.crop(width*0,height*0,width,height);
-        potion = potionSprite.crop(width*0,height*0,width,height);
+        apple = ImageLoader.loadImage("/texture/Apple.png");
+        potion = ImageLoader.loadImage("/texture/Potion.png");
 
         //SDK stuff
         button_SDK = new BufferedImage[2];
