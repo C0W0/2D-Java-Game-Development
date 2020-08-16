@@ -61,7 +61,7 @@ public class Assets {
 
 
         //UI
-        inventoryScreen = ImageLoader.loadImage("/texture/inventory_screen.png");
+        inventoryScreen = ImageLoader.loadImage("/texture/inventory_screen_new.png");
         missionScreen = ImageLoader.loadImage("/texture/MissionScreen.png");
         craftingScreen = ImageLoader.loadImage("/texture/CraftScreen.png");
         redSqr = ImageLoader.loadImage("/texture/NoEnoughMaterial.png");

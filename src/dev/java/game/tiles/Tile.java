@@ -1,26 +1,27 @@
 package dev.java.game.tiles;
 
+import dev.java.game.gfx.Assets;
 import dev.java.game.gfx.animations.Animation;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public abstract class Tile {
+public class Tile {
 
     //static variables
 
     public static Tile[] tiles = new Tile[512];
-    public static Tile grassTile = new GrassTile(0);
-    public static Tile grassRockTile = new GrassRockTile(1);
-    public static Tile dirtTile = new DirtTile(2);
-    public static Tile dirtRockTile = new DirtRockTile(3);
-    public static Tile horizontalPath = new HorizontalPath(4);
-    public static Tile verticalPath = new VerticalPath(5);
-    public static Tile pathUpRight = new PathUpRight(6);
-    public static Tile pathUpLeft = new PathUpLeft(7);
-    public static Tile pathDownRight = new PathDownRight(8);
-    public static Tile pathDownLeft = new PathDownLeft(9);
-    public static Tile waterTile = new WaterTile(10);
+    public static Tile grassTile = new Tile(Assets.grass, 0, false);
+    public static Tile grassRockTile = new Tile(Assets.grassStone, 1, true);
+    public static Tile dirtTile = new Tile(Assets.dirt, 2, false);
+    public static Tile dirtRockTile = new Tile(Assets.dirtStone, 3, true);
+    public static Tile horizontalPath = new Tile(Assets.pathHorizontal, 4, false);
+    public static Tile verticalPath = new Tile(Assets.pathVertical, 5, false);
+    public static Tile pathUpRight = new Tile(Assets.pathCornerUpRight, 6, false);
+    public static Tile pathUpLeft = new Tile(Assets.pathCornerUpLeft, 7, false);
+    public static Tile pathDownRight = new Tile(Assets.pathCornerDownRight, 8, false);
+    public static Tile pathDownLeft = new Tile(Assets.pathCornerDownLeft, 9, false);
+    public static Tile waterTile = new Tile(new Animation(100, Assets.water, false), 10, true);
 
 
 
@@ -33,17 +34,20 @@ public abstract class Tile {
     protected BufferedImage texture;
     protected Animation dynamicTexture;
     protected final int id;
+    protected boolean isBarrier;
 
-    public Tile(BufferedImage texture, int id){
+    public Tile(BufferedImage texture, int id, boolean isBarrier){
         this.texture = texture;
         this.id = id;
+        this.isBarrier = isBarrier;
 
         tiles[id] = this;
     }
 
-    public Tile(Animation dynamicTexture, int id){
+    public Tile(Animation dynamicTexture, int id, boolean isBarrier){
         this.dynamicTexture = dynamicTexture;
         this.id = id;
+        this.isBarrier = isBarrier;
 
         tiles[id] = this;
     }
@@ -64,13 +68,19 @@ public abstract class Tile {
 
     //property methods
     public boolean isBarrier(){
-        return false;
+        return isBarrier;
     }
-
 
     //getters and setters
     public int getId() {
         return id;
+    }
+
+    public BufferedImage getTexture(){
+        if (dynamicTexture != null)
+            return dynamicTexture.getCurrentFrame();
+        else
+            return texture;
     }
 
 }

@@ -184,7 +184,7 @@ public class World {
         if(getEntity(entityX, entityY) != null && getEntity(entityX, entityY).getId() == sdkEntityID)
             return;
         removeLocationEntity(entityX, entityY, 0);
-        String e = sdkEntityID +" "+entityX+" "+entityY+" 0 0 "+status;
+        String e = sdkEntityID +" "+entityX+" "+entityY+" "+entityX+" "+entityY+" "+status;
         loadedEntities.add(e);
         entityManager.getEntities().add(getEntityWithID(sdkEntityID, entityX, entityY, 0, 0, status));
     }
@@ -294,6 +294,39 @@ public class World {
             e.printStackTrace();
         }
 
+    }
+
+    public void exportWorldToAndroid(String path){
+        File androidMap = new File(path+"/export/tiles.wld");
+        File androidEntity = new File(path+"/export/entity.wld");
+        androidMap.delete();
+        androidEntity.delete();
+        try {
+            androidMap.createNewFile();
+            PrintWriter fileEditor = new PrintWriter(androidMap);
+            for(int y = 0; y < height; y++){
+                for(int x = 0; x < width; x++){
+                    fileEditor.print(worldTiles[x][y]+" ");
+                }
+                fileEditor.println();
+            }
+            fileEditor.close();
+
+            androidEntity.createNewFile();
+            fileEditor = new PrintWriter(androidEntity);
+            for(String line: loadedEntities){
+                String[] tokens = line.split("\\s+");
+                fileEditor.print(tokens[0]+" ");
+                for(int i = 1; i < tokens.length-1; i++){
+                    int value = Utils.parseInt(tokens[i])*2;
+                    fileEditor.print(value+" ");
+                }
+                fileEditor.println(tokens[tokens.length-1]);
+            }
+            fileEditor.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void setSDKTile(int id){

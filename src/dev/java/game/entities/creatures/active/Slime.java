@@ -7,13 +7,14 @@ import dev.java.game.gfx.animations.Animation;
 import dev.java.game.gfx.Assets;
 import dev.java.game.tiles.Tile;
 import dev.java.game.utils.FrameTimeController;
+import dev.java.game.utils.MSTimeController;
 
 import java.awt.*;
 
 public class Slime extends Active {
 
     private Animation leftMove, rightMove, idle, currentAnimation;
-    private FrameTimeController animationCtrlTimer = new FrameTimeController();
+    private MSTimeController animationCtrlTimer = new MSTimeController();
 
     public Slime() {
         super(Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, 1000, 4);
@@ -32,21 +33,19 @@ public class Slime extends Active {
         idle = new Animation(100, Assets.npcSlime, false);
         currentAnimation = idle;
         health = 1;
-        attack = new SlimeBash(handler, this);
     }
 
     @Override
     protected void attack() {
         attack.dealDamage();
-        animationCtrlTimer.start(18);
+        animationCtrlTimer.start(300);
         currentAnimation = target.getX()-x < 0?attack.getOverridingAnimationA():attack.getOverridingAnimationB();
     }
 
     @Override
     public void update(){
         super.update();
-        animationCtrlTimer.update();
-        if(!animationCtrlTimer.isTimeControllerOn()){
+        if(animationCtrlTimer.atTarget()){
             currentAnimation = xMove < 0?leftMove:rightMove;
         }
         currentAnimation.update();
@@ -56,5 +55,11 @@ public class Slime extends Active {
     public void render(Graphics graphics) {
         graphics.drawImage(currentAnimation.getCurrentFrame(), (int)(x - handler.getGameCamera().getxOffset()),
                 (int)(y - handler.getGameCamera().getyOffset()), width, height, null);
+    }
+
+    @Override
+    public void initialize(Handler handler, float x, float y, int oX, int oY) {
+        super.initialize(handler, x, y, oX, oY);
+        attack = new SlimeBash(handler, this);
     }
 }

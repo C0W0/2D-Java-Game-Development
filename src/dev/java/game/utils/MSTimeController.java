@@ -6,6 +6,7 @@ public class MSTimeController {
 
     public MSTimeController(){
         target = 0;
+        beginning = 0;
     }
 
     /**
@@ -35,4 +36,7 @@ public class MSTimeController {
         target = 0;
     }
 
+    public long getTarget() {
+        return target;
+    }
 }

@@ -22,6 +22,7 @@ public abstract class MeleeAttacks extends Attacks {
 
     @Override
     public void dealDamage() {
+//        System.out.println(target);
         if(target != null)
             target.receiveDamage(baseDamage);
     }

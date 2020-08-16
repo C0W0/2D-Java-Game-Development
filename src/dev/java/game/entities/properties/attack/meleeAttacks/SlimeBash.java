@@ -11,4 +11,9 @@ public class SlimeBash extends MeleeAttacks {
         carrierAnimationA = new Animation(100, Assets.slimeAttackLeft, false);
         carrierAnimationB = new Animation(100, Assets.slimeAttackRight, false);
     }
+
+    @Override
+    public void update() {
+        super.update();
+    }
 }

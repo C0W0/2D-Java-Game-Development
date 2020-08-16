@@ -19,8 +19,8 @@ public class Inventory {
     int invHeight, invWidth;
     private int selectedX = 0, selectedY = 0, scroll;
     private int itemBaseX, itemBaseY, iconSize, itemDXConstant, itemDYConstant;
-    private int invImageX, invImageY;
-    private int invImageWidth, invImageHeight;
+    private int invImageX, invImageY, invNameX, invNameY, numOffsetX, numOffsetY;
+    private int invUseX, invUseY;
 
     public Inventory(Handler handler){
         this.handler = handler;
@@ -34,10 +34,12 @@ public class Inventory {
         iconSize = (int)(32.f/512*invWidth);
         itemBaseX = (int)(54.f/512*invWidth+50);
         itemBaseY = (int)(54.f/384*invHeight+25);
-        invImageX = (int)(748.f/980*invWidth+50);
-        invImageY = (int)(58.f/670*invHeight+25);
-        invImageWidth = (int)(112.f/980*invWidth);
-        invImageHeight = (int)(112.f/670*invHeight);
+        invImageX = (int)(363.f/512*invWidth+50);
+        invImageY = (int)(67.f/384*invHeight+25);
+        invNameX = (int)(378.f/512*invWidth+50);
+        invNameY = (int)(130.f/384*invHeight+25);
+        numOffsetX = (int)(12.f/512*invWidth);
+        numOffsetY = (int)(9.f/384*invHeight);
     }
 
     public void update(){
@@ -53,6 +55,10 @@ public class Inventory {
                 inventoryItems.remove(i);
                 i--;
             }
+        }
+        if(handler.getKeyManager().keyJustPressed(VK_ENTER) &&
+                inventoryItems.size() > selectedY*5+selectedX){
+            inventoryItems.get(selectedY*5+selectedX).onActive();
         }
         if(handler.getMouseManager().isLeftPressed()) {
             int mouseX = handler.getMouseManager().getMouseX();
@@ -82,11 +88,17 @@ public class Inventory {
                 graphics.drawImage(inventoryItems.get(y*5+x).getTexture(),
                         x*itemDXConstant + itemBaseX, (y-scroll)*itemDYConstant + itemBaseY,
                         iconSize, iconSize, null);
+                Text.drawString(graphics, Integer.toString(inventoryItems.get(y*5+x).getCount()),
+                        (x+1)*itemDXConstant + itemBaseX - numOffsetX, (y-scroll+1)*itemDYConstant + itemBaseY - numOffsetY,
+                        false, Color.black, Assets.font20);
             }
         }
-//        Item item = inventoryItems.get(selectedY*5+selectedX);
-//        graphics.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
-//        Text.drawString(graphics, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.white, Assets.font28);
+        if(inventoryItems.size() <= selectedY*5+selectedX)
+            return;
+        Item item = inventoryItems.get(selectedY*5+selectedX);
+        graphics.drawImage(item.getTexture(),
+                invImageX, invImageY, iconSize, iconSize, null);
+        Text.drawString(graphics, item.getName(), invNameX, invNameY, true, Color.BLACK, Assets.font28);
     }
 
     private int computeSelectedLocationX(float x){

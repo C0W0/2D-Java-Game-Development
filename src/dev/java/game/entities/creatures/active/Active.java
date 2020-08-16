@@ -55,7 +55,6 @@ public abstract class Active extends Creature {
 
     @Override
     public void update() {
-        attack.update();
         if(target == null)
             target = handler.getWorld().getPlayer();
         if(faction == 1 && target != null){ // for now, 1 is hostile
@@ -91,6 +90,7 @@ public abstract class Active extends Creature {
             patrol();
         }
         move();
+        attack.update();
     }
 
     private void randomizePath(){

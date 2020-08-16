@@ -1,5 +1,8 @@
 package dev.java.game.ui.functionUI;
 
+import dev.java.game.Handler;
+import dev.java.game.gfx.Assets;
+import dev.java.game.tiles.Tile;
 import dev.java.game.ui.UIObject;
 import dev.java.game.ui.clicker.ClickListener;
 
@@ -8,14 +11,16 @@ import java.awt.image.BufferedImage;
 
 public class MapEditorButton extends UIObject {
 
-    private BufferedImage[] images;
-    private ClickListener clicker;
+    private BufferedImage image;
+    private int tileID;
+    private Handler handler;
 
-    public MapEditorButton(float x, float y, int width, int height, BufferedImage[] images, ClickListener clicker, boolean init) {
+    public MapEditorButton(Handler handler, float x, float y, int width, int height, int tileID, boolean init) {
         super(x, y, width, height);
-        this.images = images;
-        this.clicker = clicker;
+        this.handler = handler;
+        this.tileID = tileID;
         selected = init;
+        image = Tile.tiles[tileID].getTexture();
     }
 
     @Override
@@ -27,16 +32,21 @@ public class MapEditorButton extends UIObject {
     public void render(Graphics graphics) {
 
         if(selected){
-            graphics.drawImage(images[1], (int)x, (int)y, width, height, null);
+            graphics.drawImage(Assets.blueSqr, (int)x-2, (int)y-2, width+4, height+4, null);
+            graphics.drawImage(image, (int)x, (int)y, width, height, null);
         } else{
-            graphics.drawImage(images[0], (int)x, (int)y, width, height, null);
+            graphics.drawImage(image, (int)x, (int)y, width, height, null);
         }
 
     }
 
     @Override
     public void onClick() {
-        clicker.onClick();
+        for(int i = 0; i < handler.getMouseManager().getUiManager().getUiObjects().size(); i++){
+            handler.getMouseManager().getUiManager().getUiObjects().get(i).setSelected(false);
+        }
+        handler.getWorld().setSDKTile(tileID);
+        handler.getWorld().setEntityEditing(false);
         selected = true;
     }
 }

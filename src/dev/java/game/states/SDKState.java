@@ -83,6 +83,8 @@ public class SDKState extends State {
 
             if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
                 world.saveMap();
+            }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
+                world.exportWorldToAndroid("res/worlds");
             }
 
         }
@@ -120,17 +122,17 @@ public class SDKState extends State {
         spawnXDown = new SliderAdjuster(368,48,16,16,-1,Assets.button_down,spawnXSlider);
         spawnYUp = new SliderAdjuster(368,96,16,16,1,Assets.button_up,spawnYSlider);
         spawnYDown = new SliderAdjuster(368,112,16,16,-1,Assets.button_down,spawnYSlider);
-        uiManager.addUIObject(new MapEditorButton(16,16,32,32,Assets.grass_SDK,new TileEditingClicker(handler, 0),true));
-        uiManager.addUIObject(new MapEditorButton(16,48,32,32,Assets.grassStone_SDK,new TileEditingClicker(handler, 1),false));
-        uiManager.addUIObject(new MapEditorButton(16,80,32,32,Assets.dirt_SDK,new TileEditingClicker(handler, 2),false));
-        uiManager.addUIObject(new MapEditorButton(16,112,32,32,Assets.dirtStone_SDK,new TileEditingClicker(handler, 3),false));
-        uiManager.addUIObject(new MapEditorButton(16,144,32,32,Assets.pathH_SDK,new TileEditingClicker(handler, 4),false));
-        uiManager.addUIObject(new MapEditorButton(16,176,32,32,Assets.pathV_SDK,new TileEditingClicker(handler, 5),false));
-        uiManager.addUIObject(new MapEditorButton(16,208,32,32,Assets.pathUpRight_SDK,new TileEditingClicker(handler, 6),false));
-        uiManager.addUIObject(new MapEditorButton(16,240,32,32,Assets.pathUpLeft_SDK,new TileEditingClicker(handler, 7),false));
-        uiManager.addUIObject(new MapEditorButton(16,272,32,32,Assets.pathDownRight_SDK,new TileEditingClicker(handler, 8),false));
-        uiManager.addUIObject(new MapEditorButton(16,304,32,32,Assets.pathDownLeft_SDK,new TileEditingClicker(handler, 9),false));
-        uiManager.addUIObject(new MapEditorButton(handler.getWidth()-48, 16, 32, 32,Assets.tree_SDK,new EntityEditingClicker(handler, 2), false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,16,32,32,0, true));
+        uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,1,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,2,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,112,32,32,3,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,144,32,32,4,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,176,32,32,5,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,208,32,32,6,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,240,32,32,7,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,272,32,32,8,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,304,32,32,9,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,handler.getWidth()-48, 16, 32, 32,Assets.tree_SDK,new EntityEditingClicker(handler, 2), false));
         uiManager.addUIObject(entityOffsetXSlider);
         uiManager.addUIObject(entityOffsetYSlider);
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 32, 16, 16, 1, Assets.button_up, entityOffsetXSlider));
