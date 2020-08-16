@@ -7,27 +7,29 @@ import java.awt.image.BufferedImage;
 
 public class ComponentTile extends Tile{
 
-    private TileAddonComponent component;
+    private TileAddonComponent[] components;
 
-    public ComponentTile(BufferedImage texture, int id, boolean barrier, TileAddonComponent component) {
+    public ComponentTile(BufferedImage texture, int id, boolean barrier, TileAddonComponent... components) {
         super(texture, id, barrier);
-        this.component = component;
+        this.components = components;
     }
 
-    public ComponentTile(Animation dynamicTexture, int id, boolean barrier, TileAddonComponent component) {
+    public ComponentTile(Animation dynamicTexture, int id, boolean barrier, TileAddonComponent... components) {
         super(dynamicTexture, id, barrier);
-        this.component = component;
+        this.components = components;
     }
 
     @Override
     public void update() {
         super.update();
-        component.update();
+        for(TileAddonComponent c: components)
+            c.update();
     }
 
     @Override
     public void render(Graphics graphics, int x, int y) {
         super.render(graphics, x, y);
-        component.render(graphics, x, y);
+        for(TileAddonComponent c: components)
+            c.render(graphics, x, y);
     }
 }

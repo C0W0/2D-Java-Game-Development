@@ -135,6 +135,7 @@ public class Player extends Creature{
 
     @Override
     public void update() {
+        System.out.println((int)x/64+" "+(int)y/64);
 
         //animation
         downAnim.update();

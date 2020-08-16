@@ -15,8 +15,8 @@ public class Tile {
     public static Tile grassRockTile = new Tile(Assets.grassStone, 1, true);
     public static Tile dirtTile = new Tile(Assets.dirt, 2, false);
     public static Tile dirtRockTile = new Tile(Assets.dirtStone, 3, true);
-    public static Tile horizontalPath = new Tile(Assets.pathHorizontal, 4, false);
-    public static Tile verticalPath = new Tile(Assets.pathVertical, 5, false);
+    public static Tile horizontalPath = new Tile(Assets.pathHorizontalTop, 4, false);
+    public static Tile verticalPath = new Tile(Assets.pathVerticalLeft, 5, false);
     public static Tile pathUpRight = new Tile(Assets.pathCornerUpRight, 6, false);
     public static Tile pathUpLeft = new Tile(Assets.pathCornerUpLeft, 7, false);
     public static Tile pathDownRight = new Tile(Assets.pathCornerDownRight, 8, false);
@@ -28,6 +28,56 @@ public class Tile {
     //default values
     public static final int TILEHEIGHT = 64;
     public static final int TILEWIDTH = 64;
+
+    public static void init(){
+
+        new Tile(Assets.tt1_roofTop, 50, true);
+        new Tile(Assets.tt1_roofCommon, 51, true);
+        new ComponentTile(Assets.tt1_roofCommon, 52, true,
+                new TileAddonComponent(Assets.tt1_SmallARoof));
+        new ComponentTile(Assets.grass, 53, true,
+                new TileAddonComponent(Assets.tt1_roofLeftTop));
+        new ComponentTile(Assets.tt1_roofTop, 54, true,
+                new TileAddonComponent(Assets.tt1_roofLeftTop));
+        new ComponentTile(Assets.tt1_roofCommon, 55, true,
+                new TileAddonComponent(Assets.tt1_roofLeftTop));
+
+        new Tile(Assets.tt1_roofLeftMid, 56, true);
+        new ComponentTile(Assets.tt1_roofLeftMid, 57, true,
+                new TileAddonComponent(Assets.tt1_smokestack));
+        new ComponentTile(Assets.tt1_wallCommon1, 58, true,
+                new TileAddonComponent(Assets.tt1_roofLeftBottom));
+        new ComponentTile(Assets.grass, 59, true,
+                new TileAddonComponent(Assets.tt1_roofRightTop));
+        new ComponentTile(Assets.tt1_roofTop, 60, true,
+                new TileAddonComponent(Assets.tt1_roofRightTop));
+        new ComponentTile(Assets.tt1_roofCommon, 61, true,
+                new TileAddonComponent(Assets.tt1_roofRightTop));
+
+        new Tile(Assets.tt1_roofRightMid, 62, true);
+        new ComponentTile(Assets.tt1_roofRightMid, 63, true,
+                new TileAddonComponent(Assets.tt1_smokestack));
+        new ComponentTile(Assets.tt1_wallCommon1, 64, true,
+                new TileAddonComponent(Assets.tt1_roofRightBottom));
+        new Tile(Assets.tt1_wallLeftTop, 65, true);
+        new Tile(Assets.tt1_wallLeftMid, 66, true);
+        new Tile(Assets.tt1_wallLeftBottom, 67, true);
+        new Tile(Assets.tt1_wallMidTop, 68, true);
+        new ComponentTile(Assets.tt1_wallMidTop, 69, true,
+                new TileAddonComponent(Assets.tt1_halfRoofTop));
+        new Tile(Assets.tt1_wallCommon1, 70, true);
+        new Tile(Assets.tt1_wallMidBottom, 71, true);
+        new ComponentTile(Assets.tt1_wallMidBottom, 72, true,
+                new TileAddonComponent(Assets.tt1_balcony));
+        new Tile(Assets.tt1_wallRightTop, 73, true);
+        new Tile(Assets.tt1_wallRightMid, 74, true);
+        new Tile(Assets.tt1_wallRightBottom, 75, true);
+        new Tile(Assets.tt1_window, 76, true);
+        new Tile(Assets.tt1_doorTop, 77, true);
+        new Tile(Assets.tt1_doorBottom, 78, false);
+
+
+    }
 
 
     //tiles

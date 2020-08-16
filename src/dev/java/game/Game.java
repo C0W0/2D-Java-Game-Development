@@ -6,6 +6,7 @@ import dev.java.game.display.GameCamera;
 import dev.java.game.input.KeyManager;
 import dev.java.game.input.MouseManager;
 import dev.java.game.states.*;
+import dev.java.game.tiles.Tile;
 import dev.java.game.ui.UIManager;
 import dev.java.game.utils.FPSTimer;
 
@@ -83,6 +84,7 @@ public class Game implements Runnable{
         menuState = new MenuState(handler);
 
         State.setState(menuState);
+        Tile.init();
 
     }
 

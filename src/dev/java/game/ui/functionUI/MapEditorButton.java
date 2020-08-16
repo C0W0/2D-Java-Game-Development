@@ -35,6 +35,7 @@ public class MapEditorButton extends UIObject {
             graphics.drawImage(Assets.blueSqr, (int)x-2, (int)y-2, width+4, height+4, null);
             graphics.drawImage(image, (int)x, (int)y, width, height, null);
         } else{
+            graphics.drawImage(Assets.redSqr, (int)x-2, (int)y-2, width+4, height+4, null);
             graphics.drawImage(image, (int)x, (int)y, width, height, null);
         }
 

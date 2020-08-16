@@ -123,15 +123,19 @@ public class SDKState extends State {
         spawnYUp = new SliderAdjuster(368,96,16,16,1,Assets.button_up,spawnYSlider);
         spawnYDown = new SliderAdjuster(368,112,16,16,-1,Assets.button_down,spawnYSlider);
         uiManager.addUIObject(new MapEditorButton(handler,16,16,32,32,0, true));
-        uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,1,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,2,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,112,32,32,3,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,144,32,32,4,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,176,32,32,5,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,208,32,32,6,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,240,32,32,7,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,272,32,32,8,false));
-        uiManager.addUIObject(new MapEditorButton(handler,16,304,32,32,9,false));
+        uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,4,false));
+        for(int i = 0; i < 15; i++)
+            uiManager.addUIObject(new MapEditorButton(handler, 16, 80+32*i, 32, 32, 50+i, false));
+        for(int i = 0; i < 14; i++)
+            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 65+i, false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,50,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,112,32,32,51,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,144,32,32,52,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,176,32,32,53,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,208,32,32,54,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,240,32,32,55,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,272,32,32,56,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,304,32,32,57,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,handler.getWidth()-48, 16, 32, 32,Assets.tree_SDK,new EntityEditingClicker(handler, 2), false));
         uiManager.addUIObject(entityOffsetXSlider);
         uiManager.addUIObject(entityOffsetYSlider);
@@ -140,7 +144,7 @@ public class SDKState extends State {
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 96, 16, 16, 1, Assets.button_up, entityOffsetYSlider));
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 112, 16, 16, -1, Assets.button_down, entityOffsetYSlider));
 
-        uiManager.addUIObject(new UIImageButton(80,8,64,32,Assets.button_new,new MapSizingClicker(handler,
+        uiManager.addUIObject(new UIImageButton(160,8,64,32,Assets.button_new,new MapSizingClicker(handler,
                 () -> widthSlider.getValue(), () -> heightSlider.getValue(), () -> spawnXSlider.getValue(), () -> spawnYSlider.getValue())));
         uiManager.addUIObject(heightSlider);
         uiManager.addUIObject(widthSlider);
