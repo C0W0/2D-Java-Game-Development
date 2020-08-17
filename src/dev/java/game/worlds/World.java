@@ -304,6 +304,7 @@ public class World {
         try {
             androidMap.createNewFile();
             PrintWriter fileEditor = new PrintWriter(androidMap);
+            fileEditor.println(width+" "+height);
             for(int y = 0; y < height; y++){
                 for(int x = 0; x < width; x++){
                     fileEditor.print(worldTiles[x][y]+" ");
