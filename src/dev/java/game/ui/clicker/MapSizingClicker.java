@@ -39,6 +39,8 @@ public class MapSizingClicker implements ClickListener {
         handler.getMouseManager().getUiManager().getUiObjects().get(handler.getMouseManager().getUiManager().getUiObjects().size()-11).setActive();
         handler.getMouseManager().getUiManager().getUiObjects().get(handler.getMouseManager().getUiManager().getUiObjects().size()-12).setActive();
         handler.getMouseManager().getUiManager().getUiObjects().get(handler.getMouseManager().getUiManager().getUiObjects().size()-14).setActive();
+        handler.getWorld().getPlayer().setX(spawnXSupplier.getAsInt());
+        handler.getWorld().getPlayer().setY(spawnYSupplier.getAsInt());
     }
 
     private class MapSaveClicker implements ClickListener{

@@ -21,6 +21,7 @@ public class Assets {
     public static BufferedImage tt1_window, tt1_smokestack, tt1_balcony, tt1_doorTop, tt1_doorBottom,
             tt1_wallLeftTop, tt1_wallLeftMid, tt1_wallLeftBottom, tt1_wallMidTop, tt1_wallCommon1, tt1_wallMidBottom,
             tt1_wallRightTop, tt1_wallRightMid, tt1_wallRightBottom;
+    public static BufferedImage[][] a1_tiles;
 
     //entities
     public static BufferedImage invisible, tree;
@@ -67,6 +68,7 @@ public class Assets {
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
         SpriteSheet crabSheet = new SpriteSheet(ImageLoader.loadImage("/texture/crab.png"));
         SpriteSheet newTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/TownTilesO.png"));
+        SpriteSheet area1Tiles = new SpriteSheet(ImageLoader.loadImage("/texture/Area1Tiles.png"));
 
 
         //UI
@@ -205,7 +207,14 @@ public class Assets {
         tt1_wallMidBottom = newTownTiles.crop(width*3, height*2, width, height);
         tt1_wallRightTop = newTownTiles.crop(width*4, 0, width, height);
         tt1_wallRightMid = newTownTiles.crop(width*4, height, width, height);
-        tt1_wallRightBottom = newTownTiles.crop(width*4, height*2, width, height);;
+        tt1_wallRightBottom = newTownTiles.crop(width*4, height*2, width, height);
+
+        a1_tiles = new BufferedImage[3][4];
+        for(int y = 0; y < a1_tiles.length; y++){
+            for(int x = 0; x < a1_tiles[y].length; x++){
+                a1_tiles[y][x] = area1Tiles.crop(x*width, y*height, width, height);
+            }
+        }
 
         water = new BufferedImage[4];
         water[0] = townTiles.crop(0,height*4,width,height);

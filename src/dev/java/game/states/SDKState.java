@@ -128,12 +128,12 @@ public class SDKState extends State {
         spawnYDown = new SliderAdjuster(368,112,16,16,-1,Assets.button_down,spawnYSlider);
         uiManager.addUIObject(new MapEditorButton(handler,16,16,32,32,0, true));
         uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,4,false));
-        for(int i = 0; i < 15; i++)
+        for(int i = 0; i < 20; i++)
             uiManager.addUIObject(new MapEditorButton(handler, 16, 80+32*i, 32, 32, 50+i, false));
-        for(int i = 0; i < 14; i++)
-            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 65+i, false));
-        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*14, 32, 32, Tile.verticalPath.getId(), false));
-        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*15, 32, 32, Tile.pathCross.getId(), false));
+        for(int i = 0; i < 20; i++)
+            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 70+i, false));
+//        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*14, 32, 32, Tile.verticalPath.getId(), false));
+//        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*15, 32, 32, Tile.pathCross.getId(), false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,50,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,112,32,32,51,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,144,32,32,52,false));
@@ -156,7 +156,7 @@ public class SDKState extends State {
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 112, 16, 16, -1, Assets.button_down, entityOffsetYSlider));
 
         uiManager.addUIObject(new UIImageButton(160,8,64,32,Assets.button_new,new MapSizingClicker(handler,
-                () -> widthSlider.getValue(), () -> heightSlider.getValue(), () -> spawnXSlider.getValue(), () -> spawnYSlider.getValue())));
+                () -> widthSlider.getValue(), () -> heightSlider.getValue(), spawnXSlider::getValue, spawnYSlider::getValue)));
         uiManager.addUIObject(heightSlider);
         uiManager.addUIObject(widthSlider);
         uiManager.addUIObject(spawnXSlider);
