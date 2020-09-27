@@ -4,7 +4,10 @@ import dev.java.game.Handler;
 import dev.java.game.entities.creatures.active.Slime;
 import dev.java.game.entities.creatures.npc.NPC1;
 import dev.java.game.entities.statics.AirWall;
+import dev.java.game.entities.statics.GeneratorStatic;
+import dev.java.game.entities.statics.EStatic;
 import dev.java.game.entities.statics.Tree;
+import dev.java.game.gfx.Assets;
 import dev.java.game.utils.Utils;
 
 import java.awt.Graphics;
@@ -13,11 +16,42 @@ import java.awt.Rectangle;
 
 public abstract class Entity implements Cloneable{
 
-    public static Entity[] entityList = new Entity[5];
+    /*    (UPDATE HERE)
+    ------------------------
+    Hostile/neutral: 101 ~ 400
+    Slime: 201
+    IceSlime: 202
+    ------------------------
+    NPC: 401 ~ 700
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        traders: 401 ~ 500
+        WandererCrab (trade crab): 401
+        MushroomTrader: 402
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        mission: 501 ~ 600
+        NPC1 (mission crab): 501
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        other: 601 ~ 700
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ------------------------
+    Static: 701 ~ 1000
+    AirWall: 701
+    Tree: 702
+    ------------------------
+    Special: 1001+
+    WorldGate: 1001
+    SlimeSpawner: 1101
+     */
+    public static Entity[] entityList = new Entity[2048];
+    public static Slime slime = new Slime();
+    public static EStatic iceSlime = new EStatic(64, 64, Assets.iceSlimeMovementLeft[2], 202);
+    public static EStatic staticTraderCrab = new EStatic(64, 64, Assets.npcCrab[1], 401);
+
+    public static EStatic staticCrab = new EStatic(64, 64, Assets.npcCrab[0], 501);
+    public static NPC1 npc1 = new NPC1();
     public static AirWall airWall = new AirWall();
     public static Tree tree = new Tree();
-    public static NPC1 npc1 = new NPC1();
-    public static Slime slime = new Slime();
+    public static GeneratorStatic slimeSpawner = new GeneratorStatic(128, 1101);
 
     //Entities
     public static final int DEFAULT_HEALTH = 10;

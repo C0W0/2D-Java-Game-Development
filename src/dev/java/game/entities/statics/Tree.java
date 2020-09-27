@@ -10,7 +10,7 @@ import java.awt.Graphics;
 public class Tree extends StaticEntity {
 
     public Tree() {
-        super(Tile.TILEWIDTH, Tile.TILEHEIGHT*2, 2);
+        super(Tile.TILEWIDTH, Tile.TILEHEIGHT*4, 702);
 
         bounds.x = 25;
         bounds.y = 50;

@@ -21,7 +21,8 @@ public class Tile {
     public static Tile pathUpLeft = new Tile(Assets.pathCornerUpLeft, 7, false);
     public static Tile pathDownRight = new Tile(Assets.pathCornerDownRight, 8, false);
     public static Tile pathDownLeft = new Tile(Assets.pathCornerDownLeft, 9, false);
-    public static Tile waterTile = new Tile(new Animation(100, Assets.water, false), 10, true);
+    public static Tile pathCross = new Tile(Assets.pathCross, 10, false);
+//    public static Tile waterTile = new Tile(new Animation(100, Assets.water, false), 10, true);
 
 
 

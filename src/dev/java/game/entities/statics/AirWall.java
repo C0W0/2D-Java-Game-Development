@@ -7,7 +7,7 @@ import java.awt.Graphics;
 
 public class AirWall extends StaticEntity{
     public AirWall() {
-        super(Tile.TILEWIDTH, Tile.TILEHEIGHT, 1);
+        super(Tile.TILEWIDTH, Tile.TILEHEIGHT, 701);
 
         bounds.x = 0;
         bounds.y = 0;

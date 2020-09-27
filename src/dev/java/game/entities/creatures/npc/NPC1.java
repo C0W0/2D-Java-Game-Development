@@ -13,7 +13,7 @@ public class NPC1 extends NPC {
     private Animation dynamicTexture;
 
     public NPC1() {
-        super(Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, 3);
+        super(Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT, 501);
         interRange = 1;
         bounds.x = 0;
         bounds.y = 0;

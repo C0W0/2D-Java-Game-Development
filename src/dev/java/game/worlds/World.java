@@ -269,7 +269,7 @@ public class World {
             mapFile.createNewFile();
             PrintWriter mapEditor = new PrintWriter(mapFile);
             mapEditor.println(width+" "+height);
-            mapEditor.println((int)player.getX()/64+" "+(int)player.getX()/64);
+            mapEditor.println((int)player.getX()/64+" "+(int)player.getY()/64);
 
             for(int y = 0; y < height; y++){
                 for(int x = 0; x < width; x++){

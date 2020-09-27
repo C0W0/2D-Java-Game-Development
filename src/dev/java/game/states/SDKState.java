@@ -1,16 +1,14 @@
 package dev.java.game.states;
 
 import dev.java.game.Handler;
+import dev.java.game.entities.Entity;
 import dev.java.game.gfx.Assets;
 import dev.java.game.ui.*;
 import dev.java.game.tiles.Tile;
 import dev.java.game.ui.clicker.EntityEditingClicker;
 import dev.java.game.ui.clicker.MapSizingClicker;
 import dev.java.game.ui.clicker.TileEditingClicker;
-import dev.java.game.ui.functionUI.MapEditorButton;
-import dev.java.game.ui.functionUI.Slider;
-import dev.java.game.ui.functionUI.SliderAdjuster;
-import dev.java.game.ui.functionUI.UIImageButton;
+import dev.java.game.ui.functionUI.*;
 import dev.java.game.worlds.World;
 
 import java.awt.Graphics;
@@ -21,6 +19,7 @@ public class SDKState extends State {
     private World world;
     private UIManager uiManager;
     private boolean isHovering;
+    private Switch isBlockOriented;
     private Slider heightSlider, widthSlider, entityOffsetXSlider, entityOffsetYSlider;
 
     public SDKState(Handler handler){
@@ -32,6 +31,10 @@ public class SDKState extends State {
         x = (int)(x+handler.getGameCamera().getxOffset());
         y = (int)(y+handler.getGameCamera().getyOffset());
         if(handler.getWorld().isEntityEditing()){
+            if(isBlockOriented.isOn()){
+                x -= x%64;
+                y -= y%64;
+            }
             x = x + entityOffsetXSlider.getValue();
             y = y + entityOffsetYSlider.getValue();
             handler.getWorld().setLocationEntity(x, y, 0);
@@ -112,6 +115,7 @@ public class SDKState extends State {
         handler.setWorld(world);
         heightSlider = new Slider(true,80,32,256,32,100,0,10,"height:");
         widthSlider = new Slider(true,80,96,256,32,100,0,10,"width:");
+        isBlockOriented = new Switch(handler.getWidth()-256, 128, 128, 64);
         spawnXSlider = new Slider(true,384,32,64,16,100,0,20,"spawn x:");
         spawnYSlider = new Slider(true,384,96,64,16,100,0,20,"spawn y:");
         heightUp = new SliderAdjuster(64,32,16,16,1,Assets.button_up,heightSlider);
@@ -128,6 +132,8 @@ public class SDKState extends State {
             uiManager.addUIObject(new MapEditorButton(handler, 16, 80+32*i, 32, 32, 50+i, false));
         for(int i = 0; i < 14; i++)
             uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 65+i, false));
+        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*14, 32, 32, Tile.verticalPath.getId(), false));
+        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*15, 32, 32, Tile.pathCross.getId(), false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,50,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,112,32,32,51,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,144,32,32,52,false));
@@ -136,9 +142,14 @@ public class SDKState extends State {
 //        uiManager.addUIObject(new MapEditorButton(handler,16,240,32,32,55,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,272,32,32,56,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,304,32,32,57,false));
-//        uiManager.addUIObject(new MapEditorButton(handler,handler.getWidth()-48, 16, 32, 32,Assets.tree_SDK,new EntityEditingClicker(handler, 2), false));
+        uiManager.addUIObject(new EntityEditorButton(handler,handler.getWidth()-48, 16, 32, 32, Entity.tree.getId(), Assets.tree));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 48, 32, 32, Entity.staticCrab.getId(), Assets.npcCrab[0]));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 80, 32, 32, Entity.slimeSpawner.getId(), Assets.npcSlime[0]));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 112, 32, 32, Entity.slime.getId(), Assets.slimeMovementLeft[0]));
+
         uiManager.addUIObject(entityOffsetXSlider);
         uiManager.addUIObject(entityOffsetYSlider);
+        uiManager.addUIObject(isBlockOriented);
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 32, 16, 16, 1, Assets.button_up, entityOffsetXSlider));
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 48, 16, 16, -1, Assets.button_down, entityOffsetXSlider));
         uiManager.addUIObject(new SliderAdjuster(handler.getWidth()-256-16, 96, 16, 16, 1, Assets.button_up, entityOffsetYSlider));

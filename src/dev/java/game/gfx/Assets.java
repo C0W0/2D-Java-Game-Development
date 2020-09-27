@@ -14,7 +14,7 @@ public class Assets {
     //tiles
     public static BufferedImage grass,grassStone,dirt,dirtStone;
     public static BufferedImage pathVerticalLeft, pathVerticalRight, pathHorizontalTop, pathHorizontalBottom,
-            pathCornerUpRight, pathCornerUpLeft, pathCornerDownLeft, pathCornerDownRight;
+            pathCornerUpRight, pathCornerUpLeft, pathCornerDownLeft, pathCornerDownRight, pathCross;
     public static BufferedImage [] water;
     public static BufferedImage tt1_roofTop, tt1_roofCommon, tt1_roofLeftTop, tt1_roofLeftMid, tt1_roofLeftBottom,
             tt1_roofRightTop, tt1_roofRightMid, tt1_roofRightBottom, tt1_halfRoofTop, tt1_SmallARoof;
@@ -31,6 +31,7 @@ public class Assets {
     public static BufferedImage[] slimeMovementRight;
     public static BufferedImage[] slimeAttackLeft;
     public static BufferedImage[] slimeAttackRight;
+    public static BufferedImage[] iceSlimeMovementLeft;
 
     //player
     public static BufferedImage player_neutral;
@@ -59,6 +60,7 @@ public class Assets {
 
         SpriteSheet slimeMovement = new SpriteSheet(ImageLoader.loadImage("/texture/slimeMovement.png"));
         SpriteSheet slimeAttack = new SpriteSheet(ImageLoader.loadImage("/texture/slimeAttack.png"));
+        SpriteSheet iceSlimeMovement = new SpriteSheet(ImageLoader.loadImage("/texture/ice_slime_movement.png"));
         SpriteSheet idleSlime = new SpriteSheet(ImageLoader.loadImage("/texture/idleSlime.png"));
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet.png"));
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
@@ -147,6 +149,11 @@ public class Assets {
         slimeMovementRight[1] = slimeMovement.crop(width,height,width,height);
         slimeMovementRight[2] = slimeMovement.crop(width*2,height,width,height);
 
+        iceSlimeMovementLeft = new BufferedImage[3];
+        iceSlimeMovementLeft[0] = iceSlimeMovement.crop(0, 0, width, height);
+        iceSlimeMovementLeft[1] = iceSlimeMovement.crop(width, 0, width, height);
+        iceSlimeMovementLeft[2] = iceSlimeMovement.crop(width*2, 0, width, height);
+
 
         slimeAttackLeft = new BufferedImage[3];
         slimeAttackLeft[0] = slimeAttack.crop(0,0,width,height);
@@ -172,6 +179,7 @@ public class Assets {
         pathCornerUpLeft = newTownTiles.crop(width*8,0,width,height);
         pathCornerDownLeft = newTownTiles.crop(width*6,height*2,width,height);
         pathCornerDownRight = newTownTiles.crop(width*8,height*2,width,height);
+        pathCross = newTownTiles.crop(width*11,height,width,height);
 
 
         tt1_roofTop = newTownTiles.crop(0, 0, width, height);

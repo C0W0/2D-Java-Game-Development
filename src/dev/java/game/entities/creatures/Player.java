@@ -132,10 +132,20 @@ public class Player extends Creature{
         }
     }
 
+    @Override
+    public void move(){
+        if(!checkEntityCollision(xMove, 0f)){
+            moveX();
+        }
+        if(!checkEntityCollision(0f, yMove)){
+            moveY();
+        }
+    }
+
 
     @Override
     public void update() {
-        System.out.println((int)x/64+" "+(int)y/64);
+//        System.out.println((int)x/64+" "+(int)y/64);
 
         //animation
         downAnim.update();
