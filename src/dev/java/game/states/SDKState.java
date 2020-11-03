@@ -13,6 +13,7 @@ import dev.java.game.worlds.World;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public class SDKState extends State {
 
@@ -128,10 +129,18 @@ public class SDKState extends State {
         spawnYDown = new SliderAdjuster(368,112,16,16,-1,Assets.button_down,spawnYSlider);
         uiManager.addUIObject(new MapEditorButton(handler,16,16,32,32,0, true));
         uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,4,false));
+//        for(int i = 0; i < 20; i++)
+//            uiManager.addUIObject(new MapEditorButton(handler, 16, 80+32*i, 32, 32, 50+i, false));
+//        for(int i = 0; i < 20; i++)
+//            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 70+i, false));
         for(int i = 0; i < 20; i++)
-            uiManager.addUIObject(new MapEditorButton(handler, 16, 80+32*i, 32, 32, 50+i, false));
+            uiManager.addUIObject(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 91+i, false));
         for(int i = 0; i < 20; i++)
-            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 70+i, false));
+            uiManager.addUIObject(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 111+i, false));
+        for(int i = 0; i < 1; i++)
+            uiManager.addUIObject(new MapEditorButton(handler, 80, 16+32*i, 32, 32, 131+i, false));
+        uiManager.addUIObject(new UIImageButton(112, 16, 32, 32, Assets.button_SDK, world::toggleAbstract));
+        uiManager.addUIObject(new UIImageButton(112, 48, 32, 32, Assets.button_new, world::toggleIslandShape));
 //        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*14, 32, 32, Tile.verticalPath.getId(), false));
 //        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*15, 32, 32, Tile.pathCross.getId(), false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,50,false));

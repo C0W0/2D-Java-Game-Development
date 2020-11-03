@@ -60,6 +60,8 @@ public class Player extends Creature{
         fabricator = new Fabricator(handler, inventory, "res/worlds/worldSDK");
         missionManager = new MissionManager(handler);
 
+        speed = 7.0f;
+
         //only for temp. use
 
 //        missionManager.addMission(Mission.collect10Woods);

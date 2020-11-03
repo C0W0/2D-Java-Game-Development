@@ -4,11 +4,13 @@ import dev.java.game.Handler;
 import dev.java.game.entities.Entity;
 import dev.java.game.entities.EntityManager;
 import dev.java.game.entities.creatures.Player;
+import dev.java.game.gfx.Assets;
 import dev.java.game.items.ItemManager;
 import dev.java.game.tiles.Tile;
 import dev.java.game.utils.Utils;
 
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,7 +40,7 @@ public class World {
     private File mapFile, entityFile;
     private String mapPath, entityPath, folderPath;
     private int sdkTileID, sdkEntityID;
-    private boolean entityEditing;
+    private boolean entityEditing, abstractOn, islandShapeOverlap;
 
     public World(Handler handler, String path){
         player = new Player(handler,Tile.TILEWIDTH,Tile.TILEHEIGHT);
@@ -56,6 +58,8 @@ public class World {
         player.setX(spawnX*Tile.TILEWIDTH);
         player.setY(spawnY*Tile.TILEHEIGHT);
         entityEditing = false;
+        abstractOn = false;
+        islandShapeOverlap = false;
         //
 
         itemManager = new ItemManager(handler);
@@ -160,9 +164,24 @@ public class World {
             }
         }
 
+        int abx = (handler.getWidth()-600)/2;
+        int aby = (handler.getHeight()-600)/2;
+
         itemManager.render(graphics);
         entityManager.render(graphics);
 
+        if(abstractOn){
+            graphics.setColor(Color.WHITE);
+            graphics.fillRect(abx, aby, handler.getWidth()-abx*2, handler.getHeight()-aby*2);
+            for(int y = 0; y < worldTiles.length-1; y++){
+                for(int x = 0; x < worldTiles[y].length; x++){
+                    BufferedImage image = getTile(x, y).getTexture();
+                    graphics.drawImage(image, (int) (x*600.f/width+abx), (int) (y*600.f/height+aby), (int) (600.f/width), (int) (600.f/height), null);
+                }
+            }
+            if(islandShapeOverlap)
+                graphics.drawImage(Assets.islandShape, abx, aby, 600, 600, null);
+        }
     }
 
     //SDK stuff
@@ -428,5 +447,13 @@ public class World {
 
     public boolean isEntityEditing() {
         return entityEditing;
+    }
+
+    public void toggleAbstract(){
+        abstractOn = !abstractOn;
+    }
+
+    public void toggleIslandShape(){
+        islandShapeOverlap = !islandShapeOverlap;
     }
 }
