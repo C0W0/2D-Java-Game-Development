@@ -86,8 +86,10 @@ public class SDKState extends State {
         if(handler.getKeyManager().ctrl){
 
             if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)){
+                System.out.println("Map Saved");
                 world.saveMap();
             }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)){
+                System.out.println("Map Exported");
                 world.exportWorldToAndroid("res/worlds");
             }
 
