@@ -30,7 +30,8 @@ public class MapEditorButton extends UIObject {
 
     @Override
     public void render(Graphics graphics) {
-
+        if(!active)
+            return;
         if(selected){
             graphics.drawImage(Assets.blueSqr, (int)x-2, (int)y-2, width+4, height+4, null);
             graphics.drawImage(image, (int)x, (int)y, width, height, null);
@@ -43,6 +44,8 @@ public class MapEditorButton extends UIObject {
 
     @Override
     public void onClick() {
+        if(!active)
+            return;
         for(int i = 0; i < handler.getMouseManager().getUiManager().getUiObjects().size(); i++){
             handler.getMouseManager().getUiManager().getUiObjects().get(i).setSelected(false);
         }

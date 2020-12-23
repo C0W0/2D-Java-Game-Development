@@ -122,6 +122,7 @@ public class Tile {
 
         new Tile(Assets.beachVerticalWest, 130, false);
         new Tile(Assets.beachVerticalEast, 131, false);
+        new Tile(Assets.beachOceanTransition, 132, true);
 
     }
 

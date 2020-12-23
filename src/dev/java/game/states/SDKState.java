@@ -14,6 +14,7 @@ import dev.java.game.worlds.World;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class SDKState extends State {
 
@@ -22,6 +23,7 @@ public class SDKState extends State {
     private boolean isHovering;
     private Switch isBlockOriented;
     private Slider heightSlider, widthSlider, entityOffsetXSlider, entityOffsetYSlider;
+    private MapEditorButton[] buttonSet1, buttonSet2;
 
     public SDKState(Handler handler){
         super(handler);
@@ -129,20 +131,45 @@ public class SDKState extends State {
         spawnXDown = new SliderAdjuster(368,48,16,16,-1,Assets.button_down,spawnXSlider);
         spawnYUp = new SliderAdjuster(368,96,16,16,1,Assets.button_up,spawnYSlider);
         spawnYDown = new SliderAdjuster(368,112,16,16,-1,Assets.button_down,spawnYSlider);
-        uiManager.addUIObject(new MapEditorButton(handler,16,16,32,32,0, true));
-        uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,4,false));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,16,32,32,0, true));
+//        uiManager.addUIObject(new MapEditorButton(handler,16,48,32,32,4,false));
 //        for(int i = 0; i < 20; i++)
 //            uiManager.addUIObject(new MapEditorButton(handler, 16, 80+32*i, 32, 32, 50+i, false));
 //        for(int i = 0; i < 20; i++)
 //            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 70+i, false));
+        ArrayList<MapEditorButton> buttons = new ArrayList<>();
+        buttons.add(new MapEditorButton(handler,16,16,32,32,0, true));
+        for(int i = 1; i < 8; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, i+3, false));
+        for(int i = 8; i < 20; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 42+i, false));
+        for(int i = 0; i < 17; i++)
+            buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 62+i, false));
+        buttonSet1 = new MapEditorButton[buttons.size()];
+        for(int i = 0; i < buttons.size(); i++){
+            MapEditorButton b = buttons.get(i);
+            b.setActive();
+            buttonSet1[i] = b;
+        }
+        uiManager.addUIObject(buttonSet1);
+        buttons.clear();
+
         for(int i = 0; i < 20; i++)
-            uiManager.addUIObject(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 91+i, false));
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 91+i, false));
         for(int i = 0; i < 20; i++)
-            uiManager.addUIObject(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 111+i, false));
-        for(int i = 0; i < 1; i++)
-            uiManager.addUIObject(new MapEditorButton(handler, 80, 16+32*i, 32, 32, 131+i, false));
+            buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 91+20+i, false));
+        for(int i = 0; i < 2; i++)
+            buttons.add(new MapEditorButton(handler, 80, 16+32*i, 32, 32, 91+40+i, false));
+        buttonSet2 = new MapEditorButton[buttons.size()];
+        for(int i = 0; i < buttons.size(); i++){
+            MapEditorButton b = buttons.get(i);
+            buttonSet2[i] = b;
+        }
+        uiManager.addUIObject(buttonSet2);
+
         uiManager.addUIObject(new UIImageButton(112, 16, 32, 32, Assets.button_SDK, world::toggleAbstract));
         uiManager.addUIObject(new UIImageButton(112, 48, 32, 32, Assets.button_new, world::toggleIslandShape));
+        uiManager.addUIObject(new UIImageButton(112, 80, 32, 32, Assets.button_SDK, this::toggleTiles));
 //        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*14, 32, 32, Tile.verticalPath.getId(), false));
 //        uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*15, 32, 32, Tile.pathCross.getId(), false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,80,32,32,50,false));
@@ -192,6 +219,13 @@ public class SDKState extends State {
         spawnXDown.setActive();
         spawnYUp.setActive();
         spawnYDown.setActive();
+    }
+
+    private void toggleTiles(){
+        for(MapEditorButton button: buttonSet1)
+            button.setActive();
+        for(MapEditorButton button: buttonSet2)
+            button.setActive();
     }
 
     //getter and setters

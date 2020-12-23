@@ -5,6 +5,7 @@ import dev.java.game.Handler;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UIManager {
 
@@ -46,6 +47,10 @@ public class UIManager {
 
     public void addUIObject(UIObject o){
         uiObjects.add(o);
+    }
+
+    public void addUIObject(UIObject[] objects){
+        uiObjects.addAll(Arrays.asList(objects));
     }
 
     public void removeUIObject(UIObject o){

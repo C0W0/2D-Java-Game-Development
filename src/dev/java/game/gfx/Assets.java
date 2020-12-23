@@ -25,7 +25,8 @@ public class Assets {
     public static BufferedImage islandShape;
     public static BufferedImage beachDrySand, beachDryCrater, beachTransitionUp, beachTransitionDown,
             beachWetSand, beachWetCrater, beachShoreUp1, beachShoreUp2, beachOcean1, beachOcean2,
-            beachShoreDown1, beachShoreDown2, beachGrassFlower, beachGrass1, beachGrass2, beachVerticalEast, beachVerticalWest;
+            beachShoreDown1, beachShoreDown2, beachGrassFlower, beachGrass1, beachGrass2, beachVerticalEast, beachVerticalWest,
+        beachOceanTransition;
     public static BufferedImage[][] beach_diagonals, beach_Verticals;
 
     //entities
@@ -72,7 +73,7 @@ public class Assets {
         SpriteSheet sheet1 = new SpriteSheet(ImageLoader.loadImage("/texture/SpriteSheet1.png"));
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
         SpriteSheet crabSheet = new SpriteSheet(ImageLoader.loadImage("/texture/crab.png"));
-        SpriteSheet newTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/TownTilesO.png"));
+        SpriteSheet newTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/PortTilesSDK.png"));
         SpriteSheet area1Tiles = new SpriteSheet(ImageLoader.loadImage("/texture/Area1Tiles.png"));
         SpriteSheet beachIslandTile1 = new SpriteSheet(ImageLoader.loadImage("/texture/beach.png"));
 
@@ -232,11 +233,12 @@ public class Assets {
         beachShoreUp2 = beachIslandTile1.crop(width*3, height, width, height);
         beachOcean1 = beachIslandTile1.crop(0, height*2, width, height);
         beachOcean2 = beachIslandTile1.crop(width, height*2, width, height);
+        beachOceanTransition = beachIslandTile1.crop(0, height*3, width, height);
         beachShoreDown1 = beachIslandTile1.crop(width*2, height*2, width, height);
         beachShoreDown2 = beachIslandTile1.crop(width*3, height*2, width, height);
-        beachGrassFlower = beachIslandTile1.crop(0, height*3, width, height);
-        beachGrass1 = beachIslandTile1.crop(width, height*3, width, height);
-        beachGrass2 = beachIslandTile1.crop(width*2, height*3, width, height);
+        beachGrassFlower = beachIslandTile1.crop(0, height*4, width, height);
+        beachGrass1 = beachIslandTile1.crop(width, height*4, width, height);
+        beachGrass2 = beachIslandTile1.crop(width*2, height*4, width, height);
         beach_diagonals = new BufferedImage[4][4];
         for(int y = 0; y < 4; y++){
             for(int x = 0; x < 4; x++){
