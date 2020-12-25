@@ -12,7 +12,7 @@ public class Assets {
     public static Font font28, font20;
 
     //tiles
-    public static BufferedImage grass, grassStone, dirt, dirtStone, tt2_grass;
+    public static BufferedImage grass, grassStone, dirt, dirtStone, tt2_grass, tt3_grass;
     public static BufferedImage pathVerticalLeft, pathVerticalRight, pathHorizontalTop, pathHorizontalBottom,
             pathCornerUpRight, pathCornerUpLeft, pathCornerDownLeft, pathCornerDownRight, pathCross;
     public static BufferedImage tt2_pathVerticalLeft, tt2_pathVerticalRight, tt2_pathHorizontalTop, tt2_pathHorizontalBottom,
@@ -28,6 +28,13 @@ public class Assets {
     public static BufferedImage tt2_window, tt2_smokestack, tt2_balcony, tt2_doorTop, tt2_doorBottom,
             tt2_wallLeftTop, tt2_wallLeftMid, tt2_wallLeftBottom, tt2_wallMidTop, tt2_wallCommon1, tt2_wallMidBottom,
             tt2_wallRightTop, tt2_wallRightMid, tt2_wallRightBottom;
+    public static BufferedImage tt3_pathVerticalLeft, tt3_pathVerticalRight, tt3_pathHorizontalTop, tt3_pathHorizontalBottom,
+            tt3_pathCornerUpRight, tt3_pathCornerUpLeft, tt3_pathCornerDownLeft, tt3_pathCornerDownRight, tt3_pathCross;
+    public static BufferedImage tt3_roofTop, tt3_roofCommon, tt3_roofLeftTop, tt3_roofLeftMid, tt3_roofLeftBottom,
+            tt3_roofRightTop, tt3_roofRightMid, tt3_roofRightBottom, tt3_halfRoofTop, tt3_SmallARoof;
+    public static BufferedImage tt3_window, tt3_smokestack, tt3_balcony, tt3_doorTop, tt3_doorBottom,
+            tt3_wallLeftTop, tt3_wallLeftMid, tt3_wallLeftBottom, tt3_wallMidTop, tt3_wallCommon1, tt3_wallMidBottom,
+            tt3_wallRightTop, tt3_wallRightMid, tt3_wallRightBottom;
 
     public static BufferedImage[][] a1_tiles;
     public static BufferedImage islandShape;
@@ -83,6 +90,7 @@ public class Assets {
         SpriteSheet crabSheet = new SpriteSheet(ImageLoader.loadImage("/texture/crab.png"));
         SpriteSheet newTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/PortTilesSDK.png"));
         SpriteSheet oldTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/TownTilesO.png"));
+        SpriteSheet harbourTiles = new SpriteSheet(ImageLoader.loadImage("/texture/FarHarbour.png"));
         SpriteSheet area1Tiles = new SpriteSheet(ImageLoader.loadImage("/texture/Area1Tiles.png"));
         SpriteSheet beachIslandTile1 = new SpriteSheet(ImageLoader.loadImage("/texture/beach.png"));
 
@@ -260,6 +268,43 @@ public class Assets {
         tt2_wallRightMid = oldTownTiles.crop(width*4, height, width, height);
         tt2_wallRightBottom = oldTownTiles.crop(width*4, height*2, width, height);
 
+        tt3_grass = harbourTiles.crop(width*11,0,width,height);
+
+        tt3_pathVerticalLeft = harbourTiles.crop(width*6,height,width,height);
+        tt3_pathVerticalRight = harbourTiles.crop(width*8,height,width,height);
+        tt3_pathHorizontalTop = harbourTiles.crop(width*7,0,width,height);
+        tt3_pathHorizontalBottom = harbourTiles.crop(width*7,height*2,width,height);
+        tt3_pathCornerUpRight = harbourTiles.crop(width*6,0,width,height);
+        tt3_pathCornerUpLeft = harbourTiles.crop(width*8,0,width,height);
+        tt3_pathCornerDownLeft = harbourTiles.crop(width*6,height*2,width,height);
+        tt3_pathCornerDownRight = harbourTiles.crop(width*8,height*2,width,height);
+        tt3_pathCross = harbourTiles.crop(width*11,height,width,height);
+
+        tt3_roofTop = harbourTiles.crop(0, 0, width, height);
+        tt3_roofCommon = harbourTiles.crop(width, 0, width, height);
+        tt3_roofLeftTop = harbourTiles.crop(width*9, 0, width, height);
+        tt3_roofLeftMid = harbourTiles.crop(width*9, height, width, height);
+        tt3_roofLeftBottom = harbourTiles.crop(width*9, height*2, width, height);
+        tt3_roofRightTop = harbourTiles.crop(width*10, 0, width, height);
+        tt3_roofRightMid = harbourTiles.crop(width*10, height, width, height);
+        tt3_roofRightBottom = harbourTiles.crop(width*10, height*2, width, height);
+        tt3_halfRoofTop = harbourTiles.crop(width, height, width, height);
+        tt3_SmallARoof = harbourTiles.crop(0, height, width, height);
+        tt3_window = harbourTiles.crop(0, height*2, width, height);
+        tt3_smokestack = harbourTiles.crop(width*5, height*2, width, height);
+        tt3_balcony = harbourTiles.crop(width, height*2, width, height);
+        tt3_doorTop = harbourTiles.crop(width*5, 0, width, height);
+        tt3_doorBottom = harbourTiles.crop(width*5, height, width, height);
+        tt3_wallLeftTop = harbourTiles.crop(width*2, 0, width, height);
+        tt3_wallLeftMid = harbourTiles.crop(width*2, height, width, height);
+        tt3_wallLeftBottom = harbourTiles.crop(width*2, height*2, width, height);
+        tt3_wallMidTop = harbourTiles.crop(width*3, 0, width, height);
+        tt3_wallCommon1 = harbourTiles.crop(width*3, height, width, height);
+        tt3_wallMidBottom = harbourTiles.crop(width*3, height*2, width, height);
+        tt3_wallRightTop = harbourTiles.crop(width*4, 0, width, height);
+        tt3_wallRightMid = harbourTiles.crop(width*4, height, width, height);
+        tt3_wallRightBottom = harbourTiles.crop(width*4, height*2, width, height);
+
         a1_tiles = new BufferedImage[3][4];
         for(int y = 0; y < a1_tiles.length; y++){
             for(int x = 0; x < a1_tiles[y].length; x++){
@@ -280,9 +325,9 @@ public class Assets {
         beachOceanTransition = beachIslandTile1.crop(0, height*3, width, height);
         beachShoreDown1 = beachIslandTile1.crop(width*2, height*2, width, height);
         beachShoreDown2 = beachIslandTile1.crop(width*3, height*2, width, height);
-        beachGrassFlower = beachIslandTile1.crop(0, height*4, width, height);
-        beachGrass1 = beachIslandTile1.crop(width, height*4, width, height);
-        beachGrass2 = beachIslandTile1.crop(width*2, height*4, width, height);
+        beachGrassFlower = beachIslandTile1.crop(width, height*3, width, height);
+        beachGrass1 = beachIslandTile1.crop(width*2, height*3, width, height);
+        beachGrass2 = beachIslandTile1.crop(width*3, height*3, width, height);
         beach_diagonals = new BufferedImage[4][4];
         for(int y = 0; y < 4; y++){
             for(int x = 0; x < 4; x++){

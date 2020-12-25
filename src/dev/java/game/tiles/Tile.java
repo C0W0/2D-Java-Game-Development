@@ -131,6 +131,60 @@ public class Tile {
         new Tile(Assets.tt2_pathCross, 168, false);
         new Tile(Assets.tt2_grass, 169, false);
 
+        new Tile(Assets.tt3_roofTop, 170, true);
+        new Tile(Assets.tt3_roofCommon, 171, true);
+        new ComponentTile(Assets.tt3_roofCommon, 172, true,
+                new TileAddonComponent(Assets.tt3_SmallARoof));
+        new ComponentTile(Assets.tt3_grass, 173, true,
+                new TileAddonComponent(Assets.tt3_roofLeftTop));
+        new ComponentTile(Assets.tt3_roofTop, 174, true,
+                new TileAddonComponent(Assets.tt3_roofLeftTop));
+        new ComponentTile(Assets.tt3_roofCommon, 175, true,
+                new TileAddonComponent(Assets.tt3_roofLeftTop));
+
+        new Tile(Assets.tt3_roofLeftMid, 176, true);
+        new ComponentTile(Assets.tt3_roofLeftMid, 177, true,
+                new TileAddonComponent(Assets.tt3_smokestack));
+        new ComponentTile(Assets.tt3_wallCommon1, 178, true,
+                new TileAddonComponent(Assets.tt3_roofLeftBottom));
+        new ComponentTile(Assets.tt3_grass, 179, true,
+                new TileAddonComponent(Assets.tt3_roofRightTop));
+        new ComponentTile(Assets.tt3_roofTop, 180, true,
+                new TileAddonComponent(Assets.tt3_roofRightTop));
+        new ComponentTile(Assets.tt3_roofCommon, 181, true,
+                new TileAddonComponent(Assets.tt3_roofRightTop));
+
+        new Tile(Assets.tt3_roofRightMid, 182, true);
+        new ComponentTile(Assets.tt3_roofRightMid, 183, true,
+                new TileAddonComponent(Assets.tt3_smokestack));
+        new ComponentTile(Assets.tt3_wallCommon1, 184, true,
+                new TileAddonComponent(Assets.tt3_roofRightBottom));
+        new Tile(Assets.tt3_wallLeftTop, 185, true);
+        new Tile(Assets.tt3_wallLeftMid, 186, true);
+        new Tile(Assets.tt3_wallLeftBottom, 187, true);
+        new Tile(Assets.tt3_wallMidTop, 188, true);
+        new ComponentTile(Assets.tt3_wallMidTop, 189, true,
+                new TileAddonComponent(Assets.tt3_halfRoofTop));
+        new Tile(Assets.tt3_wallCommon1, 190, true);
+        new Tile(Assets.tt3_wallMidBottom, 191, true);
+        new ComponentTile(Assets.tt3_wallMidBottom, 192, true,
+                new TileAddonComponent(Assets.tt3_balcony));
+        new Tile(Assets.tt3_wallRightTop, 193, true);
+        new Tile(Assets.tt3_wallRightMid, 194, true);
+        new Tile(Assets.tt3_wallRightBottom, 195, true);
+        new Tile(Assets.tt3_window, 196, true);
+        new Tile(Assets.tt3_doorTop, 197, true);
+        new Tile(Assets.tt3_doorBottom, 198, false);
+
+        new Tile(Assets.tt3_pathHorizontalTop, 199, false);
+        new Tile(Assets.tt3_pathVerticalLeft, 200, false);
+        new Tile(Assets.tt3_pathCornerUpRight, 201, false);
+        new Tile(Assets.tt3_pathCornerUpLeft, 202, false);
+        new Tile(Assets.tt3_pathCornerDownRight, 203, false);
+        new Tile(Assets.tt3_pathCornerDownLeft, 204, false);
+        new Tile(Assets.tt3_pathCross, 205, false);
+        new Tile(Assets.tt3_grass, 206, false);
+
 
         new Tile(Assets.a1_tiles[0][0], 79, true);
         new Tile(Assets.a1_tiles[0][1], 80, true);

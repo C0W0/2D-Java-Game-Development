@@ -197,6 +197,23 @@ public class SDKState extends State {
         uiManager.addUIObject(buttonSets[3]);
         buttons.clear();
 
+        buttons.add(new MapEditorButton(handler,16,16,32,32,206, true));
+        for(int i = 1; i < 8; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, i+198, false));
+        for(int i = 8; i < 20; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 162+i, false));
+        for(int i = 0; i < 17; i++)
+            buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 182+i, false));
+
+        buttonSets[4] = new MapEditorButton[buttons.size()];
+        for(int i = 0; i < buttons.size(); i++){
+            MapEditorButton b = buttons.get(i);
+            b.setActive();
+            buttonSets[4][i] = b;
+        }
+        uiManager.addUIObject(buttonSets[4]);
+        buttons.clear();
+
 
         uiManager.addUIObject(new UIImageButton(112, 16, 32, 32, Assets.button_SDK, world::toggleAbstract));
         uiManager.addUIObject(new UIImageButton(112, 48, 32, 32, Assets.button_new, world::toggleIslandShape));
@@ -253,7 +270,7 @@ public class SDKState extends State {
     }
 
     private void toggleTiles(){
-        listIndex = listIndex < 3? listIndex+1: 0;
+        listIndex = listIndex < 4? listIndex+1: 0;
         System.out.println(listIndex);
         for(int y = 0; y < buttonSets.length; y++){
             if(buttonSets[y] == null)
