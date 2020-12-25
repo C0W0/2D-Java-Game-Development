@@ -12,15 +12,23 @@ public class Assets {
     public static Font font28, font20;
 
     //tiles
-    public static BufferedImage grass,grassStone,dirt,dirtStone;
+    public static BufferedImage grass, grassStone, dirt, dirtStone, tt2_grass;
     public static BufferedImage pathVerticalLeft, pathVerticalRight, pathHorizontalTop, pathHorizontalBottom,
             pathCornerUpRight, pathCornerUpLeft, pathCornerDownLeft, pathCornerDownRight, pathCross;
+    public static BufferedImage tt2_pathVerticalLeft, tt2_pathVerticalRight, tt2_pathHorizontalTop, tt2_pathHorizontalBottom,
+            tt2_pathCornerUpRight, tt2_pathCornerUpLeft, tt2_pathCornerDownLeft, tt2_pathCornerDownRight, tt2_pathCross;
     public static BufferedImage [] water;
     public static BufferedImage tt1_roofTop, tt1_roofCommon, tt1_roofLeftTop, tt1_roofLeftMid, tt1_roofLeftBottom,
             tt1_roofRightTop, tt1_roofRightMid, tt1_roofRightBottom, tt1_halfRoofTop, tt1_SmallARoof;
     public static BufferedImage tt1_window, tt1_smokestack, tt1_balcony, tt1_doorTop, tt1_doorBottom,
             tt1_wallLeftTop, tt1_wallLeftMid, tt1_wallLeftBottom, tt1_wallMidTop, tt1_wallCommon1, tt1_wallMidBottom,
             tt1_wallRightTop, tt1_wallRightMid, tt1_wallRightBottom;
+    public static BufferedImage tt2_roofTop, tt2_roofCommon, tt2_roofLeftTop, tt2_roofLeftMid, tt2_roofLeftBottom,
+            tt2_roofRightTop, tt2_roofRightMid, tt2_roofRightBottom, tt2_halfRoofTop, tt2_SmallARoof;
+    public static BufferedImage tt2_window, tt2_smokestack, tt2_balcony, tt2_doorTop, tt2_doorBottom,
+            tt2_wallLeftTop, tt2_wallLeftMid, tt2_wallLeftBottom, tt2_wallMidTop, tt2_wallCommon1, tt2_wallMidBottom,
+            tt2_wallRightTop, tt2_wallRightMid, tt2_wallRightBottom;
+
     public static BufferedImage[][] a1_tiles;
     public static BufferedImage islandShape;
     public static BufferedImage beachDrySand, beachDryCrater, beachTransitionUp, beachTransitionDown,
@@ -74,6 +82,7 @@ public class Assets {
         SpriteSheet townTiles = new SpriteSheet(ImageLoader.loadImage("/texture/RemixTownTiles.png"));
         SpriteSheet crabSheet = new SpriteSheet(ImageLoader.loadImage("/texture/crab.png"));
         SpriteSheet newTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/PortTilesSDK.png"));
+        SpriteSheet oldTownTiles = new SpriteSheet(ImageLoader.loadImage("/texture/TownTilesO.png"));
         SpriteSheet area1Tiles = new SpriteSheet(ImageLoader.loadImage("/texture/Area1Tiles.png"));
         SpriteSheet beachIslandTile1 = new SpriteSheet(ImageLoader.loadImage("/texture/beach.png"));
 
@@ -179,7 +188,6 @@ public class Assets {
         dirt = townTiles.crop(width,height,width,height);
         dirtStone = sheet1.crop(width*6,height,width,height);
 
-
         pathVerticalLeft = newTownTiles.crop(width*6,height,width,height);
         pathVerticalRight = newTownTiles.crop(width*8,height,width,height);
         pathHorizontalTop = newTownTiles.crop(width*7,0,width,height);
@@ -189,7 +197,6 @@ public class Assets {
         pathCornerDownLeft = newTownTiles.crop(width*6,height*2,width,height);
         pathCornerDownRight = newTownTiles.crop(width*8,height*2,width,height);
         pathCross = newTownTiles.crop(width*11,height,width,height);
-
 
         tt1_roofTop = newTownTiles.crop(0, 0, width, height);
         tt1_roofCommon = newTownTiles.crop(width, 0, width, height);
@@ -215,6 +222,43 @@ public class Assets {
         tt1_wallRightTop = newTownTiles.crop(width*4, 0, width, height);
         tt1_wallRightMid = newTownTiles.crop(width*4, height, width, height);
         tt1_wallRightBottom = newTownTiles.crop(width*4, height*2, width, height);
+
+        tt2_grass = oldTownTiles.crop(width*11,0,width,height);
+
+        tt2_pathVerticalLeft = oldTownTiles.crop(width*6,height,width,height);
+        tt2_pathVerticalRight = oldTownTiles.crop(width*8,height,width,height);
+        tt2_pathHorizontalTop = oldTownTiles.crop(width*7,0,width,height);
+        tt2_pathHorizontalBottom = oldTownTiles.crop(width*7,height*2,width,height);
+        tt2_pathCornerUpRight = oldTownTiles.crop(width*6,0,width,height);
+        tt2_pathCornerUpLeft = oldTownTiles.crop(width*8,0,width,height);
+        tt2_pathCornerDownLeft = oldTownTiles.crop(width*6,height*2,width,height);
+        tt2_pathCornerDownRight = oldTownTiles.crop(width*8,height*2,width,height);
+        tt2_pathCross = oldTownTiles.crop(width*11,height,width,height);
+
+        tt2_roofTop = oldTownTiles.crop(0, 0, width, height);
+        tt2_roofCommon = oldTownTiles.crop(width, 0, width, height);
+        tt2_roofLeftTop = oldTownTiles.crop(width*9, 0, width, height);
+        tt2_roofLeftMid = oldTownTiles.crop(width*9, height, width, height);
+        tt2_roofLeftBottom = oldTownTiles.crop(width*9, height*2, width, height);
+        tt2_roofRightTop = oldTownTiles.crop(width*10, 0, width, height);
+        tt2_roofRightMid = oldTownTiles.crop(width*10, height, width, height);
+        tt2_roofRightBottom = oldTownTiles.crop(width*10, height*2, width, height);
+        tt2_halfRoofTop = oldTownTiles.crop(width, height, width, height);
+        tt2_SmallARoof = oldTownTiles.crop(0, height, width, height);
+        tt2_window = oldTownTiles.crop(0, height*2, width, height);
+        tt2_smokestack = oldTownTiles.crop(width*5, height*2, width, height);
+        tt2_balcony = oldTownTiles.crop(width, height*2, width, height);
+        tt2_doorTop = oldTownTiles.crop(width*5, 0, width, height);
+        tt2_doorBottom = oldTownTiles.crop(width*5, height, width, height);
+        tt2_wallLeftTop = oldTownTiles.crop(width*2, 0, width, height);
+        tt2_wallLeftMid = oldTownTiles.crop(width*2, height, width, height);
+        tt2_wallLeftBottom = oldTownTiles.crop(width*2, height*2, width, height);
+        tt2_wallMidTop = oldTownTiles.crop(width*3, 0, width, height);
+        tt2_wallCommon1 = oldTownTiles.crop(width*3, height, width, height);
+        tt2_wallMidBottom = oldTownTiles.crop(width*3, height*2, width, height);
+        tt2_wallRightTop = oldTownTiles.crop(width*4, 0, width, height);
+        tt2_wallRightMid = oldTownTiles.crop(width*4, height, width, height);
+        tt2_wallRightBottom = oldTownTiles.crop(width*4, height*2, width, height);
 
         a1_tiles = new BufferedImage[3][4];
         for(int y = 0; y < a1_tiles.length; y++){

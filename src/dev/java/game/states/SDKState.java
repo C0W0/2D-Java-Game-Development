@@ -5,15 +5,12 @@ import dev.java.game.entities.Entity;
 import dev.java.game.gfx.Assets;
 import dev.java.game.ui.*;
 import dev.java.game.tiles.Tile;
-import dev.java.game.ui.clicker.EntityEditingClicker;
 import dev.java.game.ui.clicker.MapSizingClicker;
-import dev.java.game.ui.clicker.TileEditingClicker;
 import dev.java.game.ui.functionUI.*;
 import dev.java.game.worlds.World;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class SDKState extends State {
@@ -23,11 +20,13 @@ public class SDKState extends State {
     private boolean isHovering;
     private Switch isBlockOriented;
     private Slider heightSlider, widthSlider, entityOffsetXSlider, entityOffsetYSlider;
-    private MapEditorButton[] buttonSet1, buttonSet2;
+    private MapEditorButton[][] buttonSets;
+    private int listIndex;
 
     public SDKState(Handler handler){
         super(handler);
         uiManager = handler.getUIManager();
+        listIndex = 1;
     }
 
     private void leftClick(int x, int y){
@@ -138,6 +137,7 @@ public class SDKState extends State {
 //        for(int i = 0; i < 20; i++)
 //            uiManager.addUIObject(new MapEditorButton(handler, 48, 16+32*i, 32, 32, 70+i, false));
         ArrayList<MapEditorButton> buttons = new ArrayList<>();
+        buttonSets = new MapEditorButton[10][];
         buttons.add(new MapEditorButton(handler,16,16,32,32,0, true));
         for(int i = 1; i < 8; i++)
             buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, i+3, false));
@@ -145,13 +145,13 @@ public class SDKState extends State {
             buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 42+i, false));
         for(int i = 0; i < 17; i++)
             buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 62+i, false));
-        buttonSet1 = new MapEditorButton[buttons.size()];
+        buttonSets[0] = new MapEditorButton[buttons.size()];
         for(int i = 0; i < buttons.size(); i++){
             MapEditorButton b = buttons.get(i);
             b.setActive();
-            buttonSet1[i] = b;
+            buttonSets[0][i] = b;
         }
-        uiManager.addUIObject(buttonSet1);
+        uiManager.addUIObject(buttonSets[0]);
         buttons.clear();
 
         for(int i = 0; i < 20; i++)
@@ -160,12 +160,31 @@ public class SDKState extends State {
             buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 91+20+i, false));
         for(int i = 0; i < 2; i++)
             buttons.add(new MapEditorButton(handler, 80, 16+32*i, 32, 32, 91+40+i, false));
-        buttonSet2 = new MapEditorButton[buttons.size()];
+        buttonSets[1] = new MapEditorButton[buttons.size()];
         for(int i = 0; i < buttons.size(); i++){
             MapEditorButton b = buttons.get(i);
-            buttonSet2[i] = b;
+            buttonSets[1][i] = b;
         }
-        uiManager.addUIObject(buttonSet2);
+        buttons.clear();
+
+        buttons.add(new MapEditorButton(handler,16,16,32,32,169, true));
+        for(int i = 1; i < 8; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, i+161, false));
+        for(int i = 8; i < 20; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 125+i, false));
+        for(int i = 0; i < 17; i++)
+            buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 145+i, false));
+
+        buttonSets[2] = new MapEditorButton[buttons.size()];
+        for(int i = 0; i < buttons.size(); i++){
+            MapEditorButton b = buttons.get(i);
+            b.setActive();
+            buttonSets[2][i] = b;
+        }
+        uiManager.addUIObject(buttonSets[2]);
+        buttons.clear();
+
+        uiManager.addUIObject(buttonSets[1]);
 
         uiManager.addUIObject(new UIImageButton(112, 16, 32, 32, Assets.button_SDK, world::toggleAbstract));
         uiManager.addUIObject(new UIImageButton(112, 48, 32, 32, Assets.button_new, world::toggleIslandShape));
@@ -222,10 +241,18 @@ public class SDKState extends State {
     }
 
     private void toggleTiles(){
-        for(MapEditorButton button: buttonSet1)
-            button.setActive();
-        for(MapEditorButton button: buttonSet2)
-            button.setActive();
+        listIndex = listIndex < 2? listIndex+1: 0;
+        System.out.println(listIndex);
+        for(int y = 0; y < buttonSets.length; y++){
+            if(buttonSets[y] == null)
+                break;
+            for(int x = 0; x < buttonSets[y].length; x++){
+                buttonSets[y][x].setActive(false);
+            }
+        }
+        for(int x = 0; x < buttonSets[listIndex].length; x++){
+            buttonSets[listIndex][x].setActive(true);
+        }
     }
 
     //getter and setters
