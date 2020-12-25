@@ -195,7 +195,7 @@ public class Tile {
 
         new Tile(Assets.a1_tiles[1][2], 85, false);
         new Tile(Assets.a1_tiles[2][2], 86, false);
-        new Tile(Assets.a1_tiles[2][0], 87, true);
+        new Tile(Assets.a1_tiles[2][0], 87, false);
 
         new Tile(Assets.a1_tiles[1][0], 88, false);
         new Tile(Assets.a1_tiles[1][1], 89, false);
