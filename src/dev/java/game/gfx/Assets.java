@@ -12,17 +12,26 @@ public class Assets {
     public static Font font28, font20;
 
     //tiles
-    public static BufferedImage grass, grassStone, dirt, dirtStone, tt2_grass, tt3_grass;
+    public static BufferedImage grass, grassStone, dirt, dirtStone;
     public static BufferedImage pathVerticalLeft, pathVerticalRight, pathHorizontalTop, pathHorizontalBottom,
             pathCornerUpRight, pathCornerUpLeft, pathCornerDownLeft, pathCornerDownRight, pathCross;
-    public static BufferedImage tt2_pathVerticalLeft, tt2_pathVerticalRight, tt2_pathHorizontalTop, tt2_pathHorizontalBottom,
-            tt2_pathCornerUpRight, tt2_pathCornerUpLeft, tt2_pathCornerDownLeft, tt2_pathCornerDownRight, tt2_pathCross;
     public static BufferedImage [] water;
     public static BufferedImage tt1_roofTop, tt1_roofCommon, tt1_roofLeftTop, tt1_roofLeftMid, tt1_roofLeftBottom,
             tt1_roofRightTop, tt1_roofRightMid, tt1_roofRightBottom, tt1_halfRoofTop, tt1_SmallARoof;
     public static BufferedImage tt1_window, tt1_smokestack, tt1_balcony, tt1_doorTop, tt1_doorBottom,
             tt1_wallLeftTop, tt1_wallLeftMid, tt1_wallLeftBottom, tt1_wallMidTop, tt1_wallCommon1, tt1_wallMidBottom,
             tt1_wallRightTop, tt1_wallRightMid, tt1_wallRightBottom;
+    public static BufferedImage[][] a1_tiles;
+    public static BufferedImage islandShape;
+    public static BufferedImage beachDrySand, beachDryCrater, beachTransitionUp, beachTransitionDown,
+            beachWetSand, beachWetCrater, beachShoreUp1, beachShoreUp2, beachOcean1, beachOcean2,
+            beachShoreDown1, beachShoreDown2, beachGrassFlower, beachGrass1, beachGrass2, beachVerticalEast, beachVerticalWest,
+        beachOceanTransition;
+    public static BufferedImage[][] beach_diagonals, beach_Verticals;
+
+    public static BufferedImage tt2_grass, tt3_grass;
+    public static BufferedImage tt2_pathVerticalLeft, tt2_pathVerticalRight, tt2_pathHorizontalTop, tt2_pathHorizontalBottom,
+            tt2_pathCornerUpRight, tt2_pathCornerUpLeft, tt2_pathCornerDownLeft, tt2_pathCornerDownRight, tt2_pathCross;
     public static BufferedImage tt2_roofTop, tt2_roofCommon, tt2_roofLeftTop, tt2_roofLeftMid, tt2_roofLeftBottom,
             tt2_roofRightTop, tt2_roofRightMid, tt2_roofRightBottom, tt2_halfRoofTop, tt2_SmallARoof;
     public static BufferedImage tt2_window, tt2_smokestack, tt2_balcony, tt2_doorTop, tt2_doorBottom,
@@ -35,14 +44,9 @@ public class Assets {
     public static BufferedImage tt3_window, tt3_smokestack, tt3_balcony, tt3_doorTop, tt3_doorBottom,
             tt3_wallLeftTop, tt3_wallLeftMid, tt3_wallLeftBottom, tt3_wallMidTop, tt3_wallCommon1, tt3_wallMidBottom,
             tt3_wallRightTop, tt3_wallRightMid, tt3_wallRightBottom;
-
-    public static BufferedImage[][] a1_tiles;
-    public static BufferedImage islandShape;
-    public static BufferedImage beachDrySand, beachDryCrater, beachTransitionUp, beachTransitionDown,
-            beachWetSand, beachWetCrater, beachShoreUp1, beachShoreUp2, beachOcean1, beachOcean2,
-            beachShoreDown1, beachShoreDown2, beachGrassFlower, beachGrass1, beachGrass2, beachVerticalEast, beachVerticalWest,
-        beachOceanTransition;
-    public static BufferedImage[][] beach_diagonals, beach_Verticals;
+    public static BufferedImage[] drySand_diagonals, wetSand_diagonals, grassTransition;
+    public static BufferedImage sandTransitionLeft, sandTransitionRight, drySandVertical, wetSandVertical;
+    public static BufferedImage[] transition_diagonals;
 
     //entities
     public static BufferedImage invisible, tree;
@@ -54,6 +58,10 @@ public class Assets {
     public static BufferedImage[] slimeAttackLeft;
     public static BufferedImage[] slimeAttackRight;
     public static BufferedImage[] iceSlimeMovementLeft;
+
+    public static BufferedImage rock, tree1, tree2, tree3, pier, boat1, boat2;
+    public static BufferedImage[] crabSmith, foxKeeper, hermit, spiritLeak;
+    public static BufferedImage npcChicken, npcCactus;
 
     //player
     public static BufferedImage player_neutral;
@@ -93,6 +101,9 @@ public class Assets {
         SpriteSheet harbourTiles = new SpriteSheet(ImageLoader.loadImage("/texture/FarHarbour.png"));
         SpriteSheet area1Tiles = new SpriteSheet(ImageLoader.loadImage("/texture/Area1Tiles.png"));
         SpriteSheet beachIslandTile1 = new SpriteSheet(ImageLoader.loadImage("/texture/beach.png"));
+
+        SpriteSheet staticEntities = new SpriteSheet(ImageLoader.loadImage("/texture/StaticEntities.png"));
+        SpriteSheet islandNPC = new SpriteSheet(ImageLoader.loadImage("/texture/island_npc.png"));
 
 
         //UI
@@ -189,6 +200,36 @@ public class Assets {
         slimeAttackRight[0] = slimeAttack.crop(0,height,width,height);
         slimeAttackRight[1] = slimeAttack.crop(width,height,width,height);
         slimeAttackRight[2] = slimeAttack.crop(width*2,height,width,height);
+
+        //new:
+        foxKeeper = new BufferedImage[8];
+        foxKeeper[0] = islandNPC.crop(0, 0, width*2, height);
+        foxKeeper[1] = islandNPC.crop(width*2, 0, width*2, height);
+        foxKeeper[2] = islandNPC.crop(width*4, 0, width*2, height);
+        foxKeeper[3] = islandNPC.crop(width*6, 0, width*2, height);
+        foxKeeper[4] = islandNPC.crop(0, height, width*2, height);
+        foxKeeper[5] = islandNPC.crop(width*2, height, width*2, height);
+        foxKeeper[6] = islandNPC.crop(width*4, height, width*2, height);
+        foxKeeper[7] = islandNPC.crop(width*6, height, width*2, height);
+        crabSmith = new BufferedImage[8];
+        for(int i = 0; i < 8; i++)
+            crabSmith[i] = islandNPC.crop(width*i, height*2, width, height);
+        npcCactus = islandNPC.crop(0, height*3, width, height);
+        npcChicken = islandNPC.crop(width, height*3, width, height);
+        hermit = new BufferedImage[8];
+        for(int i = 0; i < 8; i++)
+            hermit[i] = islandNPC.crop(width*i, height*4, width, height);
+
+        rock = staticEntities.crop(0, 0, width, height);
+        tree1 = staticEntities.crop(width, 0, width*2, height*4);
+        tree2 = staticEntities.crop(width*3, 0, width*3, height*4);
+        pier = staticEntities.crop(width*6, 0, width*2, height*2);
+        tree3 = staticEntities.crop(0, height*4, width*3, height*3);
+        boat1 = staticEntities.crop(width*5, height*4, width*3, height*2);
+        boat2 = staticEntities.crop(width*5, height*6, width*3, height*2);
+        spiritLeak = new BufferedImage[2];
+        spiritLeak[0] = staticEntities.crop(width*6, height*2, width, height);
+        spiritLeak[1] = staticEntities.crop(width*7, height*2, width, height);
 
         //tiles
         grass = newTownTiles.crop(width*11,0,width,height);
@@ -305,6 +346,41 @@ public class Assets {
         tt3_wallRightMid = harbourTiles.crop(width*4, height, width, height);
         tt3_wallRightBottom = harbourTiles.crop(width*4, height*2, width, height);
 
+        //new:
+        drySand_diagonals = new BufferedImage[4];
+        drySand_diagonals[0] = beachIslandTile1.crop(0, height*4, width, height);
+        drySand_diagonals[1] = beachIslandTile1.crop(width, height*4, width, height);
+        drySand_diagonals[2] = beachIslandTile1.crop(0, height*5, width, height);
+        drySand_diagonals[3] = beachIslandTile1.crop(width, height*5, width, height);
+        wetSand_diagonals = new BufferedImage[4];
+        wetSand_diagonals[0] = beachIslandTile1.crop(0, height*6, width, height);
+        wetSand_diagonals[1] = beachIslandTile1.crop(width, height*6, width, height);
+        wetSand_diagonals[2] = beachIslandTile1.crop(0, height*7, width, height);
+        wetSand_diagonals[3] = beachIslandTile1.crop(width, height*7, width, height);
+        grassTransition = new BufferedImage[12];
+        for(int i = 0; i < 6; i++)
+            grassTransition[i] = beachIslandTile1.crop(width*i, height*8, width, height);
+        grassTransition[6] = beachIslandTile1.crop(width*6, height*5, width, height);
+        grassTransition[7] = beachIslandTile1.crop(width*7, height*5, width, height);
+        grassTransition[8] = beachIslandTile1.crop(width*6, height*6, width, height);
+        grassTransition[9] = beachIslandTile1.crop(width*7, height*6, width, height);
+        grassTransition[10] = beachIslandTile1.crop(width*6, height*7, width, height);
+        grassTransition[11] = beachIslandTile1.crop(width*7, height*7, width, height);
+        sandTransitionRight = beachIslandTile1.crop(width*2, height*4, width, height);
+        sandTransitionLeft = beachIslandTile1.crop(width*2, height*5, width, height);
+        wetSandVertical = beachIslandTile1.crop(width*3, height*4, width, height);
+        drySandVertical = beachIslandTile1.crop(width*3, height*5, width, height);
+
+        transition_diagonals = new BufferedImage[8];
+        transition_diagonals[0] = beachIslandTile1.crop(width*2, height*6, width, height);
+        transition_diagonals[1] = beachIslandTile1.crop(width*3, height*6, width, height);
+        transition_diagonals[2] = beachIslandTile1.crop(width*2, height*7, width, height);
+        transition_diagonals[3] = beachIslandTile1.crop(width*3, height*7, width, height);
+        transition_diagonals[4] = beachIslandTile1.crop(width*6, height*8, width, height);
+        transition_diagonals[5] = beachIslandTile1.crop(width*7, height*8, width, height);
+        transition_diagonals[6] = beachIslandTile1.crop(width*6, height*9, width, height);
+        transition_diagonals[7] = beachIslandTile1.crop(width*7, height*9, width, height);
+
         a1_tiles = new BufferedImage[3][4];
         for(int y = 0; y < a1_tiles.length; y++){
             for(int x = 0; x < a1_tiles[y].length; x++){
@@ -368,41 +444,6 @@ public class Assets {
         button_save = new BufferedImage[2];
         button_save[0] = sheet1.crop(width*3,height*3,width*2,height);
         button_save[1] = sheet1.crop(width*5,height*3,width*2,height);
-
-
-//        grass_SDK = new BufferedImage[2];
-//        grass_SDK[0] = grass;
-//        grass_SDK[1] = sheet1.crop(width*2,height*2,width,height);
-//        grassStone_SDK = new BufferedImage[2];
-//        grassStone_SDK[0] = grassStone;
-//        grassStone_SDK[1] = sheet1.crop(width*2,height,width,height);
-//        dirt_SDK = new BufferedImage[2];
-//        dirt_SDK[0] = dirt;
-//        dirt_SDK[1] = sheet1.crop(width*3,height*2,width,height);
-//        dirtStone_SDK = new BufferedImage[2];
-//        dirtStone_SDK[0] = dirtStone;
-//        dirtStone_SDK[1] = sheet1.crop(width*5,height,width,height);
-//        pathV_SDK = new BufferedImage[2];
-//        pathV_SDK[0] = pathVertical;
-//        pathV_SDK[1] = sheet1.crop(width*4,height*2,width,height);
-//        pathH_SDK = new BufferedImage[2];
-//        pathH_SDK[0] = pathHorizontal;
-//        pathH_SDK[1] = sheet1.crop(width*5,height*2,width,height);
-//        pathUpRight_SDK = new BufferedImage[2];
-//        pathUpRight_SDK[0] = pathCornerUpRight;
-//        pathUpRight_SDK[1] = sheet1.crop(width*6,height*2,width,height);
-//        pathUpLeft_SDK = new BufferedImage[2];
-//        pathUpLeft_SDK[0] = pathCornerUpLeft;
-//        pathUpLeft_SDK[1] = sheet1.crop(width*7,height*2,width,height);
-//        pathDownRight_SDK = new BufferedImage[2];
-//        pathDownRight_SDK[0] = pathCornerDownRight;
-//        pathDownRight_SDK[1] = sheet1.crop(0,height*3,width,height);
-//        pathDownLeft_SDK = new BufferedImage[2];
-//        pathDownLeft_SDK[0] = pathCornerDownLeft;
-//        pathDownLeft_SDK[1] = sheet1.crop(width,height*3,width,height);
-//        tree_SDK = new BufferedImage[2];
-//        tree_SDK[0] = tree;
-//        tree_SDK[1] = sheet.crop(width,height*3,width,height);
     }
     /** Loading an entire SpriteSheet as a BufferedImage array (for animations)
      * @param xBlocks number of sub images in the width of the SpriteSheet
