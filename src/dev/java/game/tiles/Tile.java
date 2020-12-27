@@ -233,6 +233,19 @@ public class Tile {
         new Tile(Assets.beachVerticalEast, 131, false);
         new Tile(Assets.beachOceanTransition, 132, true);
 
+        for(int i = 0; i < Assets.drySand_diagonals.length; i++)
+            new Tile(Assets.drySand_diagonals[i], 207+i, false);
+        for(int i = 0; i < Assets.wetSand_diagonals.length; i++)
+            new Tile(Assets.wetSand_diagonals[i], 211+i, false);
+        for(int i = 0; i < Assets.grassTransition.length; i++)
+            new Tile(Assets.grassTransition[i], 215+i, false);
+        new Tile(Assets.drySandVertical, 227, false);
+        new Tile(Assets.wetSandVertical, 228, false);
+        new Tile(Assets.sandTransitionLeft, 229, false);
+        new Tile(Assets.sandTransitionRight, 230, false);
+        for(int i = 0; i < Assets.transition_diagonals.length; i++)
+            new Tile(Assets.transition_diagonals[i], 231+i, false);
+        //239
     }
 
 

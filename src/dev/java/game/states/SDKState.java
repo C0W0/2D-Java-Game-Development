@@ -214,6 +214,20 @@ public class SDKState extends State {
         uiManager.addUIObject(buttonSets[4]);
         buttons.clear();
 
+        for(int i = 0; i < 20; i++)
+            buttons.add(new MapEditorButton(handler, 80-64, 16+32*i, 32, 32, 207+i, false));
+        for(int i = 0; i < 12; i++)
+            buttons.add(new MapEditorButton(handler, 112-64, 16+32*i, 32, 32, 227+i, false));
+
+        buttonSets[5] = new MapEditorButton[buttons.size()];
+        for(int i = 0; i < buttons.size(); i++){
+            MapEditorButton b = buttons.get(i);
+            b.setActive();
+            buttonSets[5][i] = b;
+        }
+        uiManager.addUIObject(buttonSets[5]);
+        buttons.clear();
+
 
         uiManager.addUIObject(new UIImageButton(112, 16, 32, 32, Assets.button_SDK, world::toggleAbstract));
         uiManager.addUIObject(new UIImageButton(112, 48, 32, 32, Assets.button_new, world::toggleIslandShape));
@@ -228,10 +242,25 @@ public class SDKState extends State {
 //        uiManager.addUIObject(new MapEditorButton(handler,16,240,32,32,55,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,272,32,32,56,false));
 //        uiManager.addUIObject(new MapEditorButton(handler,16,304,32,32,57,false));
-        uiManager.addUIObject(new EntityEditorButton(handler,handler.getWidth()-48, 16, 32, 32, Entity.tree.getId(), Assets.tree));
-        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 48, 32, 32, Entity.staticCrab.getId(), Assets.npcCrab[0]));
-        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 80, 32, 32, Entity.slimeSpawner.getId(), Assets.npcSlime[0]));
-        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 112, 32, 32, Entity.slime.getId(), Assets.slimeMovementLeft[0]));
+
+//        uiManager.addUIObject(new EntityEditorButton(handler,handler.getWidth()-48, 16, 32, 32, Entity.tree.getId(), Assets.tree));
+//        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 48, 32, 32, Entity.staticCrab.getId(), Assets.npcCrab[0]));
+//        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 80, 32, 32, Entity.slimeSpawner.getId(), Assets.npcSlime[0]));
+//        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 112, 32, 32, Entity.slime.getId(), Assets.slimeMovementLeft[0]));
+
+        uiManager.addUIObject(new EntityEditorButton(handler,handler.getWidth()-48, 16, 32, 32, 703, Assets.tree1));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 48, 32, 32, 704, Assets.tree1));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 80, 32, 32, 705, Assets.tree3));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 112, 32, 32, 706, Assets.tree2));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 144, 32, 32, 720, Assets.pier));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 176, 32, 32, 730, Assets.rock));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 208, 32, 32, 721, Assets.boat1));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 240, 32, 32, 722, Assets.boat2));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 272, 32, 32, Entity.slimeSpawner.getId(), Assets.npcSlime[0]));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 304, 32, 32, 1102, Assets.apple));
+        uiManager.addUIObject(new EntityEditorButton(handler, handler.getWidth()-48, 336, 32, 32, 1103, Assets.spiritLeak[1]));
+
+
 
         uiManager.addUIObject(entityOffsetXSlider);
         uiManager.addUIObject(entityOffsetYSlider);
@@ -270,7 +299,7 @@ public class SDKState extends State {
     }
 
     private void toggleTiles(){
-        listIndex = listIndex < 4? listIndex+1: 0;
+        listIndex = listIndex < 5? listIndex+1: 0;
         System.out.println(listIndex);
         for(int y = 0; y < buttonSets.length; y++){
             if(buttonSets[y] == null)

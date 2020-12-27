@@ -15,10 +15,13 @@ public class EntityManager {
     private Player player;
     private ArrayList<Entity> entities;
 
-    private Comparator<Entity> renderComparator = new Comparator<Entity>() {
+    //new: fix this
+    private Comparator<Entity> renderComparator = new Comparator<>() {
         @Override
         public int compare(Entity a, Entity b) {
-            if(a.getY() + a.getHeight() < b.getY() + b.getHeight()){
+            if(a.isBackground() && !b.isBackground())
+                return -1;
+            if (!b.isBackground() && a.getY() + a.getHeight() < b.getY() + b.getHeight()) {
                 return -1;
             }
             return 1;

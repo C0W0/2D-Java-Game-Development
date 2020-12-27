@@ -1,6 +1,7 @@
 package dev.java.game;
 
 import dev.java.game.display.Display;
+import dev.java.game.entities.Entity;
 import dev.java.game.gfx.Assets;
 import dev.java.game.display.GameCamera;
 import dev.java.game.input.KeyManager;
@@ -70,6 +71,7 @@ public class Game implements Runnable{
         display.getCanvas().addMouseMotionListener(mouseManager);
         timer = new FPSTimer(fps);
         Assets.init();
+        Entity.init();
 
         handler = new Handler(this);
         gameCamera = new GameCamera(handler,0,0);

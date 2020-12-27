@@ -3,10 +3,7 @@ package dev.java.game.entities;
 import dev.java.game.Handler;
 import dev.java.game.entities.creatures.active.Slime;
 import dev.java.game.entities.creatures.npc.NPC1;
-import dev.java.game.entities.statics.AirWall;
-import dev.java.game.entities.statics.GeneratorStatic;
-import dev.java.game.entities.statics.EStatic;
-import dev.java.game.entities.statics.Tree;
+import dev.java.game.entities.statics.*;
 import dev.java.game.gfx.Assets;
 import dev.java.game.utils.Utils;
 
@@ -27,20 +24,31 @@ public abstract class Entity implements Cloneable{
         traders: 401 ~ 500
         WandererCrab (trade crab): 401
         MushroomTrader: 402
+        FoxKeeper: 403
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         mission: 501 ~ 600
         NPC1 (mission crab): 501
+        CrabSmith: 502
+        FoxKeeper: 503
+        cactus: 504
+        chicken: 505
+        hermit: 506
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         other: 601 ~ 700
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ------------------------
     Static: 701 ~ 1000
     AirWall: 701
-    Tree: 702
+    Tree: 702 (not used)
+    Trees: 703 ~ 706
+    Pier: 720
+    Rock: 730
     ------------------------
     Special: 1001+
     WorldGate: 1001
     SlimeSpawner: 1101
+    SpiritSpawner: 1102
+    SpiritGap: 1103
      */
     public static Entity[] entityList = new Entity[2048];
     public static Slime slime = new Slime();
@@ -52,6 +60,24 @@ public abstract class Entity implements Cloneable{
     public static AirWall airWall = new AirWall();
     public static Tree tree = new Tree();
     public static GeneratorStatic slimeSpawner = new GeneratorStatic(128, 1101);
+
+    public static void init(){
+        new ForestTree();
+        new BarrierTree();
+        new BeachTree();
+        new MagicalTree();
+        new Pier();
+        new Rock1();
+        new Boat1();
+        new Boat2();
+        new GeneratorStatic(128, 1102);
+        new GeneratorStatic(128, 1103);
+        new EStatic(64, 64, Assets.crabSmith[0], 502);
+        new EStatic(128, 64, Assets.foxKeeper[0], 503);
+        new EStatic(64, 64, Assets.npcCactus, 504);
+        new EStatic(64, 64, Assets.npcChicken, 505);
+        new EStatic(64, 64, Assets.hermit[0], 506);
+    }
 
     //Entities
     public static final int DEFAULT_HEALTH = 10;
@@ -203,5 +229,10 @@ public abstract class Entity implements Cloneable{
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+    }
+
+    //new: add this
+    public boolean isBackground(){
+        return false;
     }
 }
